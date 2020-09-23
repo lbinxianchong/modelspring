@@ -22,6 +22,7 @@ public class ModelController<T> {
 
     protected String modelapi = "model";
 
+
     /**
      * 列表页面
      */
@@ -93,7 +94,7 @@ public class ModelController<T> {
         return modelApi(entity).status(param, ids);
     }
 
-    private ModelService modelApi(String model) {
+    protected ModelService modelApi(String model) {
         if (modelService != null) {
             return modelService;
         }
@@ -105,6 +106,7 @@ public class ModelController<T> {
             BaseService baseService = new BaseServiceImpl(bean);
             modelService = new ModelService(baseService);
         }
+//        this.modelService = modelService;
         return modelService;
     }
 

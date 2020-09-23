@@ -11,5 +11,12 @@
 
     <artifactId>servercore</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.lbin</groupId>
+            <artifactId>servermodel</artifactId>
+            <version>v1</version>
+        </dependency>
+    </dependencies>
 
 </project>

@@ -1,0 +1,105 @@
+### 服务器配置
+server:
+  port: 9002
+  servlet:
+    context-path: /
+
+### TIMO配置
+project:
+  captcha-open: false                         #是否开启登录验证码
+  xxs:
+    #默认忽略规则(该模块用于api)
+    defaultExcludes: /favicon.ico,/images/*,/js/*,/css/*,/lib/*
+    #额外忽略规则，可通过“,”隔开多个
+    excludes: /api/*,/asset/*
+  shiro:
+    remember-me-timeout: 24                    #cookie记住登录信息时间，默认7天（天）
+    global-session-timeout: 10800              #Session会话超时时间，默认30分钟（秒）
+    defaultExcludes: /login,/logout,/captcha,/noAuth,/css/**,/js/**,/images/**,/lib/**,/favicon.ico
+    excludes: /api/**,/asset/**
+  upload:
+    #file-path:                               #文件上传路径，默认在项目根目录upload下
+    static-path: /upload/**                   #上传文件静态访问路径
+#    upload-dir:
+
+### spring配置
+spring:
+  http:
+    encoding:
+      charset: utf-8
+      force: true
+      enabled: true
+  ## 数据库配置
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/privatespace_admin_pro?useSSL=false&characterEncoding=utf-8
+    username: root
+    password: root
+
+  ## jpa配置
+  jpa:
+    show-sql: false
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate.dialect: com.lbin.common.mysql.MySQLDialectUTF8
+      hibernate.format_sql: false
+    open-in-view: true
+
+  ## thymeleaf模板设置
+  thymeleaf:
+    prefix: classpath:/templates
+    suffix: .html
+    mode: HTML
+    encoding: utf-8
+    servlet.content-type: text/html
+    cache: false
+
+  ##静态资源设置
+  resources:
+    #    static-locations: classpath:/templates/,classpath:/static/,classpath:/format/,file:${fileserver.local.dir}
+    static-locations: classpath:/templates/,classpath:/static/
+
+  ## 文件上传配置
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 100MB
+      max-request-size: 100MB
+##web配置
+web:
+  ##是否读取数据库配置
+  config-open: true
+  config:
+    webname: 私人测试
+    aria2: http://127.0.0.1:6800
+    aria2path: F:/data/
+    asset: file:F:/data/
+
+##crawler插件
+crawler:
+  phantomjspath: D:/Development/plugins/phantomjs-2.1.1-windows/bin/phantomjs.exe
+  chromepath: C:/Program Files (x86)/Google/Chrome/Application/chromedriver.exe
+
+fileserver:
+  ##类型；local本地路径，classpath项目路径,ftp服务器
+  type: local
+  ##访问路径类型
+  asset: local
+  ##访问url
+  path: asset
+  #重试次数
+  count: 5
+  ftp:
+    host: 127.0.0.1
+    port: 6801
+    username: root
+    password: crawler
+    ##文件服务器地址http（需要nginx）
+    url: http://127.0.0.1:9001
+    count: 3
+  local:
+    dir: E:/format/
+
+
+

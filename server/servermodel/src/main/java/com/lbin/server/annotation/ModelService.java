@@ -1,6 +1,7 @@
 package com.lbin.server.annotation;
 
 
+import com.lbin.common.util.ReflectUtil;
 import com.lbin.common.util.ResultVoUtil;
 
 import com.lbin.common.vo.ResultVo;
@@ -8,19 +9,17 @@ import com.lbin.jpa.domain.BaseFieldModel;
 import com.lbin.jpa.enums.StatusEnum;
 import com.lbin.jpa.service.BaseService;
 import com.lbin.jpa.utils.EntityBeanUtil;
-import com.lbin.jpa.utils.ReflectUtil;
 import com.lbin.jpa.utils.StatusUtil;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
-import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Component
+//@Component
 @Setter
 @Getter
 public class ModelService<T> {

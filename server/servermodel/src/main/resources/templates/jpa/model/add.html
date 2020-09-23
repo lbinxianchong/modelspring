@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/common/template :: header(~{::title},~{::link},~{::style})">
+</head>
+<body>
+<div class="layui-form mo-compile">
+    <form th:action="@{'/'+${model}+'/'+${entity}+'/save'}">
+        <input type="hidden" name="id" th:if="${model}" th:value="${field.id}">
+        <div class="layui-form-item" th:each="item:${field.baseFieldList}">
+            <label class="layui-form-label">[[${item.title}]]</label>
+            <div class="layui-input-inline">
+                <input class="layui-input" type="text" th:name="${item.name}" th:placeholder="'请输入'+${item.title}"
+                       th:value="${item?.value}">
+            </div>
+        </div>
+        <div class="layui-form-item mo-finally">
+            <button class="layui-btn ajax-submit">保存</button>
+            <button class="layui-btn btn-secondary close-popup">关闭</button>
+        </div>
+    </form>
+</div>
+<script th:replace="/common/template :: script"></script>
+</body>
+</html>

@@ -18,6 +18,11 @@
             <artifactId>moutilall</artifactId>
             <version>v1</version>
         </dependency>
+        <dependency>
+            <groupId>com.lbin</groupId>
+            <artifactId>cache</artifactId>
+            <version>v1</version>
+        </dependency>
 
     </dependencies>
 

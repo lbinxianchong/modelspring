@@ -28,6 +28,12 @@
                 </exclusion>
             </exclusions>
         </dependency>
+
+        <dependency>
+            <groupId>com.lbin</groupId>
+            <artifactId>model</artifactId>
+            <version>v1</version>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>

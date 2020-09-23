@@ -1,4 +1,4 @@
-package com.lbin.jpa.utils;
+package com.lbin.common.util;
 
 
 import java.lang.reflect.Field;

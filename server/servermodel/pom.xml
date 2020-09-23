@@ -18,5 +18,15 @@
             <artifactId>jpa</artifactId>
             <version>v1</version>
         </dependency>
+        <dependency>
+            <groupId>com.lbin</groupId>
+            <artifactId>thymeleaf</artifactId>
+            <version>v1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.lbin</groupId>
+            <artifactId>common</artifactId>
+            <version>v1</version>
+        </dependency>
     </dependencies>
 </project>

@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
 public @interface BaseClassModel {
     // 字段标题名称或文件名称
     String value() default "";
-
+    //模板add detail
     boolean model() default false;
 
     boolean search() default false;

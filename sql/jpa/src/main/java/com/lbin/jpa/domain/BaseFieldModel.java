@@ -4,7 +4,7 @@ package com.lbin.jpa.domain;
 import com.lbin.jpa.annotation.BaseClassModel;
 import com.lbin.jpa.annotation.BaseModel;
 
-import com.lbin.jpa.utils.ReflectUtil;
+import com.lbin.common.util.ReflectUtil;
 import lombok.Getter;
 import lombok.Setter;
 

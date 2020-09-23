@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/common/template :: header(~{::title},~{::link},~{::style})">
+</head>
+<body>
+    <div class="mo-detail-page">
+        <div class="mo-detail-title">基本信息</div>
+        <table class="layui-table mo-detail-table">
+            <colgroup>
+                <col width="100px"><col>
+                <col width="100px"><col>
+            </colgroup>
+            <tbody>
+                <tr>
+                    <th>主键ID</th>
+                    <td th:text="${field.id}"></td>
+                </tr>
+                <tr th:each="item:${field.baseFieldList}">
+                    <th>[[${item.title}]]</th>
+                    <td>[[${item.value}]]</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+<script th:replace="/common/template :: script"></script>
+</body>
+</html>

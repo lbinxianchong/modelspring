@@ -1,0 +1,93 @@
+### 服务器配置
+server:
+  port: 9002
+  servlet:
+    context-path: /
+    encoding:
+      charset: utf-8
+      force: true
+      enabled: true
+
+### 配置
+project:
+  captcha-open: false                         #是否开启登录验证码
+  xxs:
+    #默认忽略规则(该模块用于api)
+    defaultExcludes: /favicon.ico,/images/*,/js/*,/css/*,/lib/*
+    #额外忽略规则，可通过“,”隔开多个
+    excludes: /api/*,/asset/*
+  shiro:
+    remember-me-timeout: 24                    #cookie记住登录信息时间，默认7天（天）
+    global-session-timeout: 10800              #Session会话超时时间，默认30分钟（秒）
+    defaultExcludes: /login,/logout,/captcha,/noAuth,/css/**,/js/**,/images/**,/lib/**,/favicon.ico
+    excludes: /api/**,/asset/**
+
+
+### spring配置
+spring:
+  ## cache缓存配置
+  cache:
+    type: ehcache
+#    ehcache:
+#      config: classpath:/ehcache.xml
+  ## 数据库配置
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/privatespace_admin?useSSL=false&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: frotech.com
+
+  ## jpa配置
+  jpa:
+    show-sql: false
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate.dialect: com.lbin.modelspring.config.MySQLDialectUTF8
+      hibernate.format_sql: false
+    open-in-view: true
+
+  ## thymeleaf模板设置
+  thymeleaf:
+    prefix: classpath:/templates
+    suffix: .html
+    mode: HTML
+    encoding: utf-8
+    servlet.content-type: text/html
+    cache: false
+
+  ##静态资源设置
+  resources:
+    static-locations: classpath:/templates/,classpath:/static/
+web:
+  ##是否读取数据库配置
+  config-open: true
+  config:
+    webname: 私人测试
+    aria2: http://127.0.0.1:6800
+    aria2path: F:/data/
+    asset: file:F:/data/
+
+fileserver:
+  ##类型；local本地路径，classpath项目路径,ftp服务器
+  type: local
+  ##访问路径类型
+  asset: local
+  ##访问url
+  path: asset
+  #重试次数
+  count: 5
+  ftp:
+    host: 127.0.0.1
+    port: 6801
+    username: root
+    password: crawler
+    ##文件服务器地址http（需要nginx）
+    url: http://127.0.0.1:9001
+    count: 3
+  local:
+    dir: F:/project/format
+
+
+
+

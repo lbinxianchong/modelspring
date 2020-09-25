@@ -1,12 +1,14 @@
-package com.lbin.jpa.domain;
+package com.lbin.common.domain;
 
 
-import com.lbin.jpa.annotation.BaseClassModel;
-import com.lbin.jpa.annotation.BaseModel;
+import com.lbin.common.annotation.BaseClassModel;
+import com.lbin.common.annotation.BaseModel;
 
+import com.lbin.common.util.CacheUtil;
 import com.lbin.common.util.ReflectUtil;
 import lombok.Getter;
 import lombok.Setter;
+import net.sf.ehcache.Cache;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -59,6 +61,14 @@ public class BaseFieldModel {
                     if (value.trim().length() != 0) {
                         baseField.setTitle(value);
                     }
+                    String label = annotation.label();
+                    if (label.trim().length() != 0) {
+                        baseField.setLabel(label);
+                    }
+                    String key = annotation.key();
+                    if (key.trim().length() != 0) {
+                        baseField.setKey(key);
+                    }
                     if (annotation.search()) {
                         searchList.add(baseField);
                     }
@@ -93,32 +103,55 @@ public class BaseFieldModel {
     }
 
     public List<BaseField> getIndexList(Object o) {
-        return getFieldValue(indexList, o);
+        return getIndexList(o, true);
     }
 
     public List<BaseField> getAddList(Object o) {
-        return getFieldValue(addList, o);
+        return getAddList(o, false);
     }
 
     public List<BaseField> getDetailList(Object o) {
-        return getFieldValue(detailList, o);
+        return getDetailList(o, true);
     }
 
     public BaseItem getIndexListID(Object o) {
-        return getBaseItem(indexList, o);
+        return getIndexListID(o, true);
     }
 
-
     public BaseItem getAddListID(Object o) {
-        return getBaseItem(addList, o);
+        return getAddListID(o, false);
     }
 
     public BaseItem getDetailListID(Object o) {
-        return getBaseItem(detailList, o);
+        return getDetailListID(o, true);
+    }
+
+    public List<BaseField> getIndexList(Object o, boolean isKey) {
+        return getFieldValue(indexList, o, isKey);
+    }
+
+    public List<BaseField> getAddList(Object o, boolean isKey) {
+        return getFieldValue(addList, o, isKey);
+    }
+
+    public List<BaseField> getDetailList(Object o, boolean isKey) {
+        return getFieldValue(detailList, o, isKey);
+    }
+
+    public BaseItem getIndexListID(Object o, boolean isKey) {
+        return getBaseItem(getIndexList(o, isKey), o);
+    }
+
+    public BaseItem getAddListID(Object o, boolean isKey) {
+        return getBaseItem(getAddList(o, isKey), o);
+    }
+
+    public BaseItem getDetailListID(Object o, boolean isKey) {
+        return getBaseItem(getDetailList(o, isKey), o);
     }
 
     public BaseItem getAddListID() {
-        return new BaseItem(null,addList);
+        return new BaseItem(null, addList);
     }
 
     public <T> List<List<BaseField>> getIndexList(List<T> list) {
@@ -139,22 +172,71 @@ public class BaseFieldModel {
         return listList;
     }
 
-    private List<BaseField> getFieldValue(List<BaseField> baseFields, Object o) {
+    public <T> List<List<BaseField>> getAddList(List<T> list) {
+        List<List<BaseField>> listList = new ArrayList<>();
+        for (T t : list) {
+            List<BaseField> fieldValue = getAddList(t);
+            listList.add(fieldValue);
+        }
+        return listList;
+    }
+
+    public <T> List<BaseItem> getAddListID(List<T> list) {
+        List<BaseItem> listList = new ArrayList<>();
+        for (T t : list) {
+            BaseItem baseItem = getAddListID(t);
+            listList.add(baseItem);
+        }
+        return listList;
+    }
+
+    public <T> List<List<BaseField>> getDetailList(List<T> list) {
+        List<List<BaseField>> listList = new ArrayList<>();
+        for (T t : list) {
+            List<BaseField> fieldValue = getDetailList(t);
+            listList.add(fieldValue);
+        }
+        return listList;
+    }
+
+    public <T> List<BaseItem> getDetailListID(List<T> list) {
+        List<BaseItem> listList = new ArrayList<>();
+        for (T t : list) {
+            BaseItem baseItem = getDetailListID(t);
+            listList.add(baseItem);
+        }
+        return listList;
+    }
+
+    private List<BaseField> getFieldValue(List<BaseField> baseFields, Object o, boolean isKey) {
         List<BaseField> list = new ArrayList<>();
         for (BaseField b : baseFields) {
             BaseField baseField = new BaseField(b);
             Field field = baseField.getField();
             Object result = ReflectUtil.getFieldValue(o, field);
-            baseField.setValue(result);
+            Object value = result;
+            if (isKey) {
+                String key = baseField.getKey();
+                if (key != null) {
+                    String label = baseField.getLabel();
+                    if (label != null) {
+                        Cache cache = CacheUtil.getCache(label);
+                        value = CacheUtil.keyValue(cache, key, result.toString());
+                    } else {
+                        value = ReflectUtil.getFieldValue(result, key);
+                    }
+                }
+            }
+            baseField.setValue(value);
             list.add(baseField);
         }
         return list;
     }
 
+
     private BaseItem getBaseItem(List<BaseField> baseFields, Object o) {
         Long id = (Long) ReflectUtil.getFieldValue(o, "id");
-        List<BaseField> fieldValue = getFieldValue(baseFields, o);
-        BaseItem baseItem = new BaseItem(id, fieldValue);
+        BaseItem baseItem = new BaseItem(id, baseFields);
         return baseItem;
     }
 }

@@ -2,8 +2,8 @@ package com.lbin.model.domain;
 
 
 
-import com.lbin.jpa.annotation.BaseClassModel;
-import com.lbin.jpa.annotation.BaseModel;
+import com.lbin.common.annotation.BaseClassModel;
+import com.lbin.common.annotation.BaseModel;
 import com.lbin.jpa.enums.StatusEnum;
 import com.lbin.jpa.utils.StatusUtil;
 import lombok.Data;

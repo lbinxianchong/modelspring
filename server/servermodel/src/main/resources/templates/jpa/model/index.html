@@ -31,6 +31,12 @@
                 </div>
             </div>
             <div class="pull-right screen-btn-group">
+                <div class="btn-group">
+                    <button class="layui-btn">Excel操作<span class="caret"></span></button>
+                    <dl class="layui-nav-child layui-anim layui-anim-upbit">
+                        <dd><a class="ajaxget" th:href="@{'/'+${model}+'/'+${entity}+'/downloadExcel'}">导出</a></dd>
+                    </dl>
+                </div>
                 <button class="layui-btn open-popup" data-title="添加"
                         th:attr="data-url=@{'/'+${model}+'/'+${entity}+'/add'}" data-size="auto">添加
                 </button>

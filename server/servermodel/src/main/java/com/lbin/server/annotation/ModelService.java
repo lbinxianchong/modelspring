@@ -1,11 +1,13 @@
 package com.lbin.server.annotation;
 
 
+import cn.hutool.core.date.DateUtil;
 import com.lbin.common.util.ReflectUtil;
 import com.lbin.common.util.ResultVoUtil;
 
 import com.lbin.common.vo.ResultVo;
-import com.lbin.jpa.domain.BaseFieldModel;
+import com.lbin.common.domain.BaseFieldModel;
+import com.lbin.component.excel.ExcelUtils;
 import com.lbin.jpa.enums.StatusEnum;
 import com.lbin.jpa.service.BaseService;
 import com.lbin.jpa.utils.EntityBeanUtil;
@@ -15,6 +17,10 @@ import lombok.Setter;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -92,6 +98,7 @@ public class ModelService<T> {
         // 封装数据
         model.put("list", list.getContent());
         model.put("page", list);
+        model.put("title", baseFieldModel.getName());
         model.put("searchList", baseFieldModel.getSearchList());
         model.put("titleList", baseFieldModel.getIndexList());
         model.put("fieldList", baseFieldModel.getIndexListID(list.getContent()));
@@ -108,10 +115,41 @@ public class ModelService<T> {
         // 封装数据
         model.put("list", list.getContent());
         model.put("page", list);
+        model.put("title", baseFieldModel.getName());
         model.put("searchList", baseFieldModel.getSearchList());
         model.put("titleList", baseFieldModel.getIndexList());
         model.put("fieldList", baseFieldModel.getIndexListID(list.getContent()));
         return model;
+    }
+
+    /**
+     * 列表页面
+     */
+    public void downloadExcel(HttpServletResponse response) {
+        List<T> list = getBaseService().findAll();
+        String name = baseFieldModel.getName();
+        Map<String, String> titleCommon = ExcelUtils.getTitleCommon(baseFieldModel.getDetailList());
+        //文件名字
+        String filename=name+ DateUtil.today()+".xlsx";
+
+        String mimeType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8";
+        response.setContentType(mimeType);
+        String headerKey = "Content-Disposition";
+        try {
+            filename = new String(filename.getBytes(), "iso-8859-1");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        String headerValue = String.format("attachment; filename=\"%s\"", filename);
+        response.setHeader(headerKey, headerValue);
+
+        try {
+            ServletOutputStream outputStream = response.getOutputStream();
+            ExcelUtils.exportExcel(name,titleCommon,list,outputStream);
+            response.flushBuffer();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -187,6 +225,7 @@ public class ModelService<T> {
     public Map<String, Object> toEdit(Long id) {
         return toEdit(findOne(id));
     }
+
     public Map<String, Object> toEdit(T t) {
         Map<String, Object> model = new HashMap<>();
         model.put("model", t);
@@ -200,6 +239,7 @@ public class ModelService<T> {
     public Map<String, Object> toDetail(Long id) {
         return toDetail(findOne(id));
     }
+
     public Map<String, Object> toDetail(T t) {
         Map<String, Object> model = new HashMap<>();
         model.put("model", t);
@@ -264,7 +304,6 @@ public class ModelService<T> {
             return ResultVoUtil.error(statusEnum.getMessage() + "失败，请重新操作");
         }
     }
-
 
 
 }

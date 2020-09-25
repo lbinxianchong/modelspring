@@ -1,4 +1,4 @@
-package com.lbin.jpa.annotation;
+package com.lbin.common.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

@@ -1,6 +1,6 @@
 package com.lbin.model.service;
 
-import com.lbin.jpa.domain.BaseFieldModel;
+import com.lbin.common.domain.BaseFieldModel;
 import com.lbin.jpa.service.BaseService;
 import com.lbin.jpa.service.impl.BaseServiceImpl;
 import com.lbin.model.domain.ExampleModel;

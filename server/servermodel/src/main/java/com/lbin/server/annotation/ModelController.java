@@ -2,6 +2,7 @@ package com.lbin.server.annotation;
 
 import com.lbin.common.util.SpringContextUtil;
 import com.lbin.common.vo.ResultVo;
+import com.lbin.component.excel.ExcelUtils;
 import com.lbin.jpa.repository.BaseRepository;
 import com.lbin.jpa.service.BaseService;
 import com.lbin.jpa.service.impl.BaseServiceImpl;
@@ -9,7 +10,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/model")
@@ -34,6 +38,15 @@ public class ModelController<T> {
         model.mergeAttributes(modelApi(entity).index(t));
         return getUrl(model, entity, "/index");
     }
+
+    /**
+     * 导出
+     */
+    @GetMapping("/{entity}/downloadExcel")
+    public void downloadExcel(@PathVariable("entity") String entity, HttpServletRequest request, HttpServletResponse response) {
+        modelApi(entity).downloadExcel(response);
+    }
+
 
     /**
      * 跳转到添加页面

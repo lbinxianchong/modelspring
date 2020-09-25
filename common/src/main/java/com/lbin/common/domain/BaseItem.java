@@ -1,4 +1,4 @@
-package com.lbin.jpa.domain;
+package com.lbin.common.domain;
 
 import lombok.Getter;
 import lombok.Setter;

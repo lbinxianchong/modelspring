@@ -27,6 +27,27 @@
            memoryStoreEvictionPolicy="LFU">
     </cache>
 
+    <!-- 配置元素缓存 -->
+    <cache name="configure"
+           maxElementsInMemory="10000"
+           eternal="true"
+           overflowToDisk="true"
+           maxElementsOnDisk="10000000"
+           diskExpiryThreadIntervalSeconds="120"
+           memoryStoreEvictionPolicy="LFU">
+    </cache>
+
+    <!-- 通用数据元素缓存 -->
+    <cache name="data"
+           maxElementsInMemory="10000"
+           eternal="false"
+           timeToIdleSeconds="3600"
+           timeToLiveSeconds="3600"
+           maxElementsOnDisk="10000000"
+           diskExpiryThreadIntervalSeconds="120"
+           memoryStoreEvictionPolicy="LFU">
+    </cache>
+
     <!--
         name:缓存名称。
         maxElementsInMemory：缓存最大个数。

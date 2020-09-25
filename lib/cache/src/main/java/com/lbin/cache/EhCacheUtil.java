@@ -5,7 +5,6 @@ import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.annotation.Resource;
 
 /**
  * EhCache缓存操作工具
@@ -15,7 +14,7 @@ import javax.annotation.Resource;
  */
 public class EhCacheUtil {
 
-    @Autowired
+//    @Autowired
     private static CacheManager cacheManager;
 
     /**
@@ -39,7 +38,23 @@ public class EhCacheUtil {
      * 获取字典缓存对象
      */
     public static Cache getDictCache() {
-        return getCacheManager().getCache("dictionary");
+        return getCache("dictionary");
     }
+
+    /**
+     * 获取配置缓存对象
+     */
+    public static Cache getConfigureCache() {
+        return getCache("configure");
+    }
+
+    /**
+     * 获取通用数据缓存对象
+     */
+    public static Cache getDataCache() {
+        return getCache("data");
+    }
+
+
 
 }

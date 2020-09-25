@@ -3,29 +3,23 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>modelspring</artifactId>
+        <artifactId>lib</artifactId>
         <groupId>com.lbin</groupId>
         <version>v1</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>common</artifactId>
+    <artifactId>cache</artifactId>
 
-    <packaging>jar</packaging>
-    <name>公共模块</name>
     <dependencies>
+        <!--ehcache缓存框架-->
         <dependency>
-            <groupId>com.lbin</groupId>
-            <artifactId>moutilall</artifactId>
-            <version>v1</version>
+            <groupId>net.sf.ehcache</groupId>
+            <artifactId>ehcache</artifactId>
+            <version>${ehcache.version}</version>
         </dependency>
-        <dependency>
-            <groupId>com.lbin</groupId>
-            <artifactId>cache</artifactId>
-            <version>v1</version>
-        </dependency>
+
 
     </dependencies>
-
 
 </project>

@@ -13,6 +13,7 @@
         <module>common</module>
         <module>modules</module>
         <module>component</module>
+        <module>lib</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -35,6 +36,9 @@
         <lombok.version>1.18.12</lombok.version>
 
         <google.findbugs.version>3.0.1</google.findbugs.version>
+        <!--excel工具框架版本：component.excel-->
+        <poi.version>4.1.2</poi.version>
+        <xerces.version>2.12.0</xerces.version>
     </properties>
 
     <dependencies>
@@ -42,10 +46,16 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+        <!--配置-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
             <optional>true</optional>
+        </dependency>
+        <!--缓存-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-cache</artifactId>
         </dependency>
         <!--解决编译时javax.annotation.meta.When不存在问题-->
         <dependency>

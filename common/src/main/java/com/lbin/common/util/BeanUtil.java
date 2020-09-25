@@ -14,6 +14,7 @@ public class BeanUtil {
      * @return 字段值
      */
     public static Object getFieldValue(Object bean, String fieldNameOrIndex) {
+
         if (null == bean || null == fieldNameOrIndex) {
             return null;
         }

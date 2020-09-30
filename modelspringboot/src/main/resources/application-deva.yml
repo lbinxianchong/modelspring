@@ -10,12 +10,25 @@ server:
 
 ### 配置
 project:
-  captcha-open: false                         #是否开启登录验证码
+  #是否开启登录验证码
+  captcha-open: false
+
+  file:
+    ##访问url
+    staticPath: /asset
+    ##文件路径
+    filePath: F:/project/format
+    ##第三方插件文件路径
+    sdkFilePath: F:/data/
+    ##访问url文件实际路径
+    assetPath: /asset
+
   xxs:
     #默认忽略规则(该模块用于api)
     defaultExcludes: /favicon.ico,/images/*,/js/*,/css/*,/lib/*
     #额外忽略规则，可通过“,”隔开多个
     excludes: /api/*,/asset/*
+
   shiro:
     remember-me-timeout: 24                    #cookie记住登录信息时间，默认7天（天）
     global-session-timeout: 10800              #Session会话超时时间，默认30分钟（秒）
@@ -68,25 +81,6 @@ web:
     aria2path: F:/data/
     asset: file:F:/data/
 
-fileserver:
-  ##类型；local本地路径，classpath项目路径,ftp服务器
-  type: local
-  ##访问路径类型
-  asset: local
-  ##访问url
-  path: asset
-  #重试次数
-  count: 5
-  ftp:
-    host: 127.0.0.1
-    port: 6801
-    username: root
-    password: crawler
-    ##文件服务器地址http（需要nginx）
-    url: http://127.0.0.1:9001
-    count: 3
-  local:
-    dir: F:/project/format
 
 
 

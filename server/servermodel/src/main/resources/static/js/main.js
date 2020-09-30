@@ -226,7 +226,7 @@ layui.use(['element', 'form', 'layer', 'upload'], function () {
         var size = $(this).attr("data-size"), layerArea;
         if (size === undefined || size === "auto" || size === "max") {
             layerArea = ['50%', '80%'];
-        }else if (size.indexOf(',') !== -1) {
+        } else if (size.indexOf(',') !== -1) {
             var split = size.split(",");
             layerArea = [split[0] + 'px', split[1] + 'px'];
         }
@@ -302,11 +302,11 @@ layui.use(['element', 'form', 'layer', 'upload'], function () {
 
         // 排序参数
         var asc = $(".sortable.asc").data("field");
-        if(asc !== undefined){
+        if (asc !== undefined) {
             getSearch += "orderByColumn=" + asc + "&isAsc=asc&";
         }
         var desc = $(".sortable.desc").data("field");
-        if(desc !== undefined){
+        if (desc !== undefined) {
             getSearch += "orderByColumn=" + desc + "&isAsc=desc&";
         }
 
@@ -327,16 +327,16 @@ layui.use(['element', 'form', 'layer', 'upload'], function () {
     /* 触发字段排序 */
     $(document).on("click", ".sortable", function () {
         $(".sortable").not(this).removeClass("asc").removeClass("desc");
-        if($(this).hasClass("asc")){
+        if ($(this).hasClass("asc")) {
             $(this).removeClass("asc").addClass("desc");
-        }else {
+        } else {
             $(this).removeClass("desc").addClass("asc");
         }
         paramSkip();
     });
 
     /* 参数化字段排序 */
-    var getSearch = function(name) {
+    var getSearch = function (name) {
         var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
         var r = window.location.search.substr(1).match(reg);
         if (r != null) return unescape(r[2]);
@@ -344,39 +344,53 @@ layui.use(['element', 'form', 'layer', 'upload'], function () {
     };
     var field = getSearch("orderByColumn");
     var isAsc = getSearch("isAsc");
-    if(field != null){
-        $("[data-field='"+ field +"']").addClass(isAsc);
+    if (field != null) {
+        $("[data-field='" + field + "']").addClass(isAsc);
     }
+    //选完文件后不自动上传
+    upload.render({
+        elem: '.layupload'
+        , url: $('.layupload').attr('up-url') //上传接口
+        , field: 'file' //文件域的字段名
+        , exts: 'xls|xlsx' //支持的格式
+        ,auto: false
+        ,multiple: true
+        ,bindAction: '.uploadsubmit'
+        ,done: function(result){
+            layer.msg(result.msg, {offset: '15px', time: 3000, icon: 1});
+            console.log(result)
+        }
+    });
 
     /** 上传图片操作 */
-    upload.render({
+    /*upload.render({
         elem: '.upload-image' //绑定元素
-        ,url: $('.upload-image').attr('up-url') //上传接口
-        ,field: 'image' //文件域的字段名
-        ,acceptMime: 'image/*' //选择文件类型
-        ,exts: 'jpg|jpeg|png|gif' //支持的图片格式
-        ,multiple: true //开启多文件选择
-        ,choose: function (obj) {
+        , url: $('.upload-image').attr('up-url') //上传接口
+        , field: 'image' //文件域的字段名
+        , acceptMime: 'image/!*' //选择文件类型
+        , exts: 'jpg|jpeg|png|gif' //支持的图片格式
+        , multiple: true //开启多文件选择
+        , choose: function (obj) {
             obj.preview(function (index, file, result) {
                 var upload = $('.upload-image');
                 var name = upload.attr('name');
                 var show = upload.parents('.layui-form-item').children('.upload-show');
-                show.append("<div class='upload-item'><img src='"+ result +"'/>" +
-                    "<input id='"+ index +"' type='hidden' name='"+name+"'/>" +
+                show.append("<div class='upload-item'><img src='" + result + "'/>" +
+                    "<input id='" + index + "' type='hidden' name='" + name + "'/>" +
                     "<i class='upload-item-close layui-icon layui-icon-close'></i></div>");
             });
         }
-        ,done: function(res, index, upload){
+        , done: function (res, index, upload) {
             var field = $('.upload-image').attr('up-field') || 'id';
             // 解决节点渲染和异步上传不同步问题
-            var interval = window.setInterval(function(){
-                var hide = $("#"+index);
-                if(hide.length > 0){
+            var interval = window.setInterval(function () {
+                var hide = $("#" + index);
+                if (hide.length > 0) {
                     var item = hide.parent('.upload-item');
                     if (res.code === 200) {
                         hide.val(res.data[field]);
                         item.addClass('succeed');
-                    }else {
+                    } else {
                         hide.remove();
                         item.addClass('error');
                     }
@@ -384,7 +398,9 @@ layui.use(['element', 'form', 'layer', 'upload'], function () {
                 }
             }, 100);
         }
-    });
+    });*/
+
+
 
     // 删除上传图片展示项
     $(document).on("click", ".upload-item-close", function () {

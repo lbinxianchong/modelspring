@@ -1,19 +1,20 @@
 package com.lbin.server.annotation;
 
+import com.lbin.common.util.ResultVoUtil;
 import com.lbin.common.util.SpringContextUtil;
 import com.lbin.common.vo.ResultVo;
-import com.lbin.component.excel.ExcelUtils;
 import com.lbin.jpa.repository.BaseRepository;
 import com.lbin.jpa.service.BaseService;
 import com.lbin.jpa.service.impl.BaseServiceImpl;
+import com.lbin.server.service.FileService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 @RequestMapping("/model")
@@ -21,6 +22,8 @@ public class ModelController<T> {
 
     //    @Autowired
     protected ModelService modelService;
+
+    protected FileService fileService;
 
     protected String url = "/jpa/model";
 
@@ -38,14 +41,53 @@ public class ModelController<T> {
         model.mergeAttributes(modelApi(entity).index(t));
         return getUrl(model, entity, "/index");
     }
+    /**
+     * 跳转到添加页面
+     */
+    @GetMapping("/{entity}/importExcel")
+    public String importExcel(
+            Model model,
+            @PathVariable("entity") String entity) {
+        model.mergeAttributes(modelApi(entity).importExcel());
+        return getUrl(model, entity, "/importExcel");
+    }
+
+
+    /**
+     * 导出模板
+     */
+    @PostMapping("/{entity}/importExcel")
+    @ResponseBody
+    public ResultVo importExcel(
+            @PathVariable("entity") String entity,
+            @RequestParam("file") MultipartFile multipartFile,
+            HttpServletRequest request, HttpServletResponse response) {
+        try {
+            modelApi(entity).importExcel(multipartFile);
+            return ResultVoUtil.success("导入成功");
+        } catch (Exception e) {
+            return ResultVoUtil.error("导入失败");
+        }
+    }
+
+    /**
+     * 导出模板
+     */
+    @GetMapping("/{entity}/exportExcelTitle")
+    public void exportExcelTitle(@PathVariable("entity") String entity, HttpServletRequest request, HttpServletResponse response) {
+        modelApi(entity).exportExcelTitle(response);
+    }
 
     /**
      * 导出
      */
-    @GetMapping("/{entity}/downloadExcel")
+    @GetMapping("/{entity}/exportExcel")
     public void downloadExcel(@PathVariable("entity") String entity, HttpServletRequest request, HttpServletResponse response) {
-        modelApi(entity).downloadExcel(response);
+        modelApi(entity).exportExcel(response);
     }
+
+
+
 
 
     /**

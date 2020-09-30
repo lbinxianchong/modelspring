@@ -18,6 +18,7 @@ import java.util.List;
 @Setter
 public class BaseFieldModel {
     private String name;
+    private Class entity;
     private List<BaseField> searchList;
     private List<BaseField> indexList;
     private List<BaseField> addList;
@@ -31,12 +32,12 @@ public class BaseFieldModel {
     }
 
     public BaseFieldModel(Class<?> entity) {
+        setEntity(entity);
+        setName(entity.getName());
         BaseClassModel entityBaseModel = entity.getAnnotation(BaseClassModel.class);
         if (entityBaseModel != null) {
             String entityValue = entityBaseModel.value();
-            if (entityValue.trim().length() == 0) {
-                setName(entity.getName());
-            } else {
+            if (entityValue.trim().length() > 0) {
                 setName(entityValue);
             }
             List<BaseField> searchList = new ArrayList<>();
@@ -97,8 +98,6 @@ public class BaseFieldModel {
             if (entityBaseModel.detail()) {
                 setDetailList(detailList);
             }
-        } else {
-            setName(entity.getName());
         }
     }
 

@@ -8,19 +8,24 @@ import com.lbin.common.util.ResultVoUtil;
 import com.lbin.common.vo.ResultVo;
 import com.lbin.common.domain.BaseFieldModel;
 import com.lbin.component.excel.ExcelUtils;
+import com.lbin.component.fileUpload.data.Upload;
 import com.lbin.jpa.enums.StatusEnum;
 import com.lbin.jpa.service.BaseService;
 import com.lbin.jpa.utils.EntityBeanUtil;
 import com.lbin.jpa.utils.StatusUtil;
+import com.lbin.server.service.ExcelService;
+import com.lbin.server.service.FileService;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
+import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.ServletOutputStream;
+
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,6 +36,12 @@ import java.util.Map;
 public class ModelService<T> {
 
     protected BaseService<T> baseService;
+
+    @Autowired
+    private ExcelService excelService;
+
+    @Autowired
+    protected FileService fileService;
 
     protected BaseFieldModel baseFieldModel;
     //备用Collection字段
@@ -123,33 +134,40 @@ public class ModelService<T> {
     }
 
     /**
-     * 列表页面
+     * 导入Excel数据
      */
-    public void downloadExcel(HttpServletResponse response) {
+    public Map<String, Object> importExcel() {
+        Map<String, Object> model = new HashMap<>();
+        return model;
+    }
+
+    /**
+     * 导入Excel数据
+     */
+    public Map<String, Object> importExcel(MultipartFile multipartFile) {
+        Map<String, Object> model = new HashMap<>();
+        Upload upload = fileService.uploadFile(multipartFile);
+        List<T> list = excelService.importExcel(baseFieldModel.getEntity(), upload);
+        model.put("list", list);
+        model.put("upload", upload);
+        return model;
+    }
+
+    /**
+     * 标题模板
+     */
+    public void exportExcelTitle(HttpServletResponse response) {
+        Upload upload = excelService.exportExcelTitle(baseFieldModel);
+        fileService.downloadFile(upload, response);
+    }
+
+    /**
+     * 导出Excel数据
+     */
+    public void exportExcel(HttpServletResponse response) {
         List<T> list = getBaseService().findAll();
-        String name = baseFieldModel.getName();
-        Map<String, String> titleCommon = ExcelUtils.getTitleCommon(baseFieldModel.getDetailList());
-        //文件名字
-        String filename=name+ DateUtil.today()+".xlsx";
-
-        String mimeType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8";
-        response.setContentType(mimeType);
-        String headerKey = "Content-Disposition";
-        try {
-            filename = new String(filename.getBytes(), "iso-8859-1");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        String headerValue = String.format("attachment; filename=\"%s\"", filename);
-        response.setHeader(headerKey, headerValue);
-
-        try {
-            ServletOutputStream outputStream = response.getOutputStream();
-            ExcelUtils.exportExcel(name,titleCommon,list,outputStream);
-            response.flushBuffer();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        Upload upload = excelService.exportExcel(baseFieldModel, list);
+        fileService.downloadFile(upload, response);
     }
 
     /**

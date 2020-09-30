@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/common/template :: header(~{::title},~{::link},~{::style})">
+</head>
+<body>
+<div class="layui-form mo-compile">
+    <form th:action="@{'/'+${model}+'/'+${entity}+'/importExcel'}">
+        <div class="layui-form-item">
+            <label class="layui-form-label">上传文件</label>
+            <div class="layui-input-inline">
+                <button type="button" class="layui-btn layupload" th:up-url="'/'+${model}+'/'+${entity}+'/importExcel'" name="file" >选择文件</button>
+                <button type="button" class="layui-btn uploadsubmit" >上传</button>
+            </div>
+        </div>
+        <div class="layui-form-item mo-finally">
+            <button class="layui-btn ajax-submit">保存</button>
+            <button class="layui-btn btn-secondary close-popup">关闭</button>
+        </div>
+    </form>
+</div>
+<script th:replace="/common/template :: script"></script>
+</body>
+</html>

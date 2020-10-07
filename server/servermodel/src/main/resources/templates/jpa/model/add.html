@@ -9,8 +9,18 @@
         <div class="layui-form-item" th:each="item:${field.baseFieldList}">
             <label class="layui-form-label">[[${item.title}]]</label>
             <div class="layui-input-inline">
-                <input class="layui-input" type="text" th:name="${item.name}" th:placeholder="'请输入'+${item.title}"
-                       th:value="${item?.value}">
+                <th:block th:if="${item.type=='String'}">
+                    <input class="layui-input" type="text" th:name="${item.name}"
+                           th:placeholder="'请输入'+${item.title}" th:value="${item?.value}">
+                </th:block>
+                <th:block th:if="${item.type=='Number'}">
+                    <input class="layui-input" type="number" th:name="${item.name}"
+                           th:placeholder="'请输入'+${item.title}" th:value="${item?.value}">
+                </th:block>
+                <th:block th:if="${item.type=='File'}">
+                    <button type="button" class="layui-btn upload" th:name="${item.name}" up-url="/system/fileUpload/uploadFile" >选择文件</button>
+                    [[${item?.value}]]
+                </th:block>
             </div>
         </div>
         <div class="layui-form-item mo-finally">

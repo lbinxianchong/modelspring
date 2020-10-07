@@ -17,6 +17,7 @@
         <module>servermodel</module>
         <module>web</module>
         <module>api</module>
+        <module>serversystem</module>
     </modules>
 
 

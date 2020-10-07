@@ -1,6 +1,6 @@
 ### 服务器配置
 server:
-  port: 9002
+  port: 9001
   servlet:
     context-path: /
     encoding:
@@ -18,10 +18,12 @@ project:
     staticPath: /asset
     ##文件路径
     filePath: F:/project/format
+    ##文件路径
+    uploadPath: /upload
     ##第三方插件文件路径
     sdkFilePath: F:/data/
     ##访问url文件实际路径
-    assetPath: /asset
+    assetPath: file:F:/data/,file:F:/project/format/,classpath:/format/,http://127.0.0.1:6800
 
   xxs:
     #默认忽略规则(该模块用于api)
@@ -38,6 +40,10 @@ project:
 
 ### spring配置
 spring:
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
   ## cache缓存配置
   cache:
     type: ehcache

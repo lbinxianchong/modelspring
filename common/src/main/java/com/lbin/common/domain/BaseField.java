@@ -8,6 +8,7 @@ import java.lang.reflect.Field;
 @Getter
 @Setter
 public class BaseField {
+    private String type;
     private String title;
     private String label;
     private String key;
@@ -20,6 +21,7 @@ public class BaseField {
     }
 
     public BaseField(BaseField baseField) {
+        this.type = baseField.type;
         this.title = baseField.title;
         this.label = baseField.label;
         this.key = baseField.key;

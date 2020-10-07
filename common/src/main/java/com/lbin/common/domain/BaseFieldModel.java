@@ -19,10 +19,12 @@ import java.util.List;
 public class BaseFieldModel {
     private String name;
     private Class entity;
+    private List<BaseField> ignoresList;
     private List<BaseField> searchList;
     private List<BaseField> indexList;
     private List<BaseField> addList;
     private List<BaseField> detailList;
+
 
     public BaseFieldModel() {
     }
@@ -40,6 +42,7 @@ public class BaseFieldModel {
             if (entityValue.trim().length() > 0) {
                 setName(entityValue);
             }
+            List<BaseField> ignoresList = new ArrayList<>();
             List<BaseField> searchList = new ArrayList<>();
             List<BaseField> indexList = new ArrayList<>();
             List<BaseField> addList = new ArrayList<>();
@@ -56,8 +59,13 @@ public class BaseFieldModel {
                 baseField.setField(field);
                 baseField.setName(field.getName());
                 baseField.setTitle(field.getName());
+                baseField.setType("String");
                 if (field.isAnnotationPresent(BaseModel.class)) {
                     BaseModel annotation = field.getAnnotation(BaseModel.class);
+                    String type = annotation.type();
+                    if (type.trim().length() != 0) {
+                        baseField.setType(type);
+                    }
                     String value = annotation.value();
                     if (value.trim().length() != 0) {
                         baseField.setTitle(value);
@@ -69,6 +77,9 @@ public class BaseFieldModel {
                     String key = annotation.key();
                     if (key.trim().length() != 0) {
                         baseField.setKey(key);
+                    }
+                    if (annotation.ignores()) {
+                        ignoresList.add(baseField);
                     }
                     if (annotation.search()) {
                         searchList.add(baseField);
@@ -86,6 +97,9 @@ public class BaseFieldModel {
                     detailList.add(baseField);
                 }
             }
+            if (entityBaseModel.ignores()) {
+                setIgnoresList(ignoresList);
+            }
             if (entityBaseModel.search()) {
                 setSearchList(searchList);
             }
@@ -99,6 +113,17 @@ public class BaseFieldModel {
                 setDetailList(detailList);
             }
         }
+    }
+
+    public List<String> getIgnoresList() {
+        List<String> list = new ArrayList<>();
+        if (ignoresList == null) {
+            ignoresList = new ArrayList<>();
+        }
+        for (BaseField baseField : ignoresList) {
+            list.add(baseField.getName());
+        }
+        return list;
     }
 
     public List<BaseField> getIndexList(Object o) {
@@ -214,7 +239,7 @@ public class BaseFieldModel {
             Field field = baseField.getField();
             Object result = ReflectUtil.getFieldValue(o, field);
             Object value = result;
-            if (isKey) {
+            if (isKey || b.getType().equals("File")) {
                 String key = baseField.getKey();
                 if (key != null) {
                     String label = baseField.getLabel();

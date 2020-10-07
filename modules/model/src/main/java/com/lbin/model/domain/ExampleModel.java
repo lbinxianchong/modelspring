@@ -6,6 +6,7 @@ import com.lbin.common.annotation.BaseClassModel;
 import com.lbin.common.annotation.BaseModel;
 import com.lbin.jpa.enums.StatusEnum;
 import com.lbin.jpa.utils.StatusUtil;
+import com.lbin.system.domain.FileUpload;
 import lombok.Data;
 import lombok.ToString;
 import org.hibernate.annotations.Where;
@@ -50,6 +51,11 @@ public class ExampleModel implements Serializable {
     private String name;
     // 文件名字
     private String filename;
+
+    @BaseModel(type = "File",key = "name")
+    @OneToOne
+    @JoinColumn(name = "fileUpload_id")
+    private FileUpload fileUpload;
     // 路径
     private String dir;
     // 进度

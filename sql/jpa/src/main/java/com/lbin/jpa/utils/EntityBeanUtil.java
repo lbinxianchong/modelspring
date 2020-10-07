@@ -14,6 +14,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -24,7 +25,9 @@ import java.util.List;
  */
 public class EntityBeanUtil {
 
-    /** 复制实体对象保留的默认字段 */
+    /**
+     * 复制实体对象保留的默认字段
+     */
     private static String[] defaultFields = new String[]{
             "createDate",
             "updateDate",
@@ -106,6 +109,11 @@ public class EntityBeanUtil {
      */
     public static void copyProperties(Object source, Object target) throws BeansException {
         EntityBeanUtil.copyProperties(source, target, null, defaultFields);
+    }
+
+    public static void copyProperties(Object source, Object target, List<String> list) throws BeansException {
+        String[] strings = list.toArray(new String[list.size()]);
+        copyProperties(source, target, strings);
     }
 
     /**

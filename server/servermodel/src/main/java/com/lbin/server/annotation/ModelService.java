@@ -1,26 +1,23 @@
 package com.lbin.server.annotation;
 
 
-import cn.hutool.core.date.DateUtil;
 import com.lbin.common.util.ReflectUtil;
 import com.lbin.common.util.ResultVoUtil;
 
 import com.lbin.common.vo.ResultVo;
 import com.lbin.common.domain.BaseFieldModel;
-import com.lbin.component.excel.ExcelUtils;
 import com.lbin.component.fileUpload.data.Upload;
 import com.lbin.jpa.enums.StatusEnum;
 import com.lbin.jpa.service.BaseService;
 import com.lbin.jpa.utils.EntityBeanUtil;
 import com.lbin.jpa.utils.StatusUtil;
-import com.lbin.server.service.ExcelService;
-import com.lbin.server.service.FileService;
+import com.lbin.system.server.ExcelService;
+import com.lbin.system.server.UploadService;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
-import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 
@@ -41,7 +38,7 @@ public class ModelService<T> {
     private ExcelService excelService;
 
     @Autowired
-    protected FileService fileService;
+    protected UploadService uploadService;
 
     protected BaseFieldModel baseFieldModel;
     //备用Collection字段
@@ -146,8 +143,11 @@ public class ModelService<T> {
      */
     public Map<String, Object> importExcel(MultipartFile multipartFile) {
         Map<String, Object> model = new HashMap<>();
-        Upload upload = fileService.uploadFile(multipartFile);
-        List<T> list = excelService.importExcel(baseFieldModel.getEntity(), upload);
+        Upload upload = uploadService.uploadFile(multipartFile);
+        List<T> list = excelService.importExcel(baseFieldModel, baseFieldModel.getDetailList(), upload);
+        for (T t : list) {
+            save(t);
+        }
         model.put("list", list);
         model.put("upload", upload);
         return model;
@@ -157,8 +157,8 @@ public class ModelService<T> {
      * 标题模板
      */
     public void exportExcelTitle(HttpServletResponse response) {
-        Upload upload = excelService.exportExcelTitle(baseFieldModel);
-        fileService.downloadFile(upload, response);
+        Upload upload = excelService.exportExcelTitle(baseFieldModel, baseFieldModel.getDetailList());
+        uploadService.downloadFile(upload, response);
     }
 
     /**
@@ -166,8 +166,8 @@ public class ModelService<T> {
      */
     public void exportExcel(HttpServletResponse response) {
         List<T> list = getBaseService().findAll();
-        Upload upload = excelService.exportExcel(baseFieldModel, list);
-        fileService.downloadFile(upload, response);
+        Upload upload = excelService.exportExcel(baseFieldModel, baseFieldModel.getDetailList(), list);
+        uploadService.downloadFile(upload, response);
     }
 
     /**
@@ -278,7 +278,7 @@ public class ModelService<T> {
         // 复制保留无需修改的数据
         if (id != null) {
             T be = getBaseService().findById(id);
-            EntityBeanUtil.copyProperties(be, t);
+            EntityBeanUtil.copyProperties(be, t, baseFieldModel.getIgnoresList());
         }
 
         // 保存数据

@@ -15,27 +15,7 @@
     <dependencies>
         <dependency>
             <groupId>com.lbin</groupId>
-            <artifactId>jpa</artifactId>
-            <version>v1</version>
-        </dependency>
-        <dependency>
-            <groupId>com.lbin</groupId>
-            <artifactId>thymeleaf</artifactId>
-            <version>v1</version>
-        </dependency>
-        <dependency>
-            <groupId>com.lbin</groupId>
-            <artifactId>common</artifactId>
-            <version>v1</version>
-        </dependency>
-        <dependency>
-            <groupId>com.lbin</groupId>
-            <artifactId>excel</artifactId>
-            <version>v1</version>
-        </dependency>
-        <dependency>
-            <groupId>com.lbin</groupId>
-            <artifactId>fileUpload</artifactId>
+            <artifactId>serversystem</artifactId>
             <version>v1</version>
         </dependency>
     </dependencies>

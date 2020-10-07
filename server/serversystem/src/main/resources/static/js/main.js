@@ -347,27 +347,66 @@ layui.use(['element', 'form', 'layer', 'upload'], function () {
     if (field != null) {
         $("[data-field='" + field + "']").addClass(isAsc);
     }
+
+
+    //选完文件后不自动上传
+    upload.render({
+        elem: '.upload'
+        , url: $('.upload').attr('up-url') //上传接口
+        , field: 'file' //文件域的字段名
+        , accept: 'file' //文件域的字段名
+        , multiple: true
+        , done: function (result) {
+            layer.msg(result.msg, {offset: '15px', time: 3000, icon: 1});
+            var upload = $('.upload');
+            var name = upload.attr('name');
+            console.log(result)
+            upload.append("<input type='hidden' name='" + name + "' value='" + result.data.id + "'/>");
+        }
+    });
+
+    //选完文件后不自动上传
+    upload.render({
+        elem: '.fileUpload'
+        , url: $('.fileUpload').attr('up-url') //上传接口
+        , field: 'file' //文件域的字段名
+        , accept: 'file' //文件域的字段名
+        , auto: false
+        , data: {
+            prefixPath: function () {
+                return $('.prefixPath').val();
+            }
+        } //文件域的字段名
+        , multiple: true
+        , bindAction: '.fileUploadsubmit'
+        , done: function (result) {
+            layer.msg(result.msg, {offset: '15px', time: 3000, icon: 1});
+        }
+    });
+
     //选完文件后不自动上传
     upload.render({
         elem: '.layupload'
         , url: $('.layupload').attr('up-url') //上传接口
         , field: 'file' //文件域的字段名
+        , accept: 'file' //文件域的字段名
         , exts: 'xls|xlsx' //支持的格式
-        ,auto: false
-        ,multiple: true
-        ,bindAction: '.uploadsubmit'
-        ,done: function(result){
+        , auto: false
+        , multiple: true
+        , bindAction: '.uploadsubmit'
+        , done: function (result) {
             layer.msg(result.msg, {offset: '15px', time: 3000, icon: 1});
-            console.log(result)
+            console.log(result);
+            parent.layer.close(window.parent.layerIndex);
         }
     });
 
     /** 上传图片操作 */
-    /*upload.render({
+    upload.render({
         elem: '.upload-image' //绑定元素
         , url: $('.upload-image').attr('up-url') //上传接口
         , field: 'image' //文件域的字段名
-        , acceptMime: 'image/!*' //选择文件类型
+        , acceptMime: 'image/*' //选择文件类型
         , exts: 'jpg|jpeg|png|gif' //支持的图片格式
         , multiple: true //开启多文件选择
         , choose: function (obj) {
@@ -398,8 +437,7 @@ layui.use(['element', 'form', 'layer', 'upload'], function () {
                 }
             }, 100);
         }
-    });*/
-
+    });
 
 
     // 删除上传图片展示项

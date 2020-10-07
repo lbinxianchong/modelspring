@@ -33,6 +33,9 @@ public class Upload implements Serializable {
     /** 文件sha1值 */
     private String sha1;
 
+    /** 随机UUID */
+    private String uuid;
+
     /** 时间 */
     private Date date;
 

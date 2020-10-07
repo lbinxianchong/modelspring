@@ -108,6 +108,11 @@ public class BaseServiceImpl<T> implements BaseService<T> {
     }
 
     @Override
+    public T getById(Long aLong) {
+        return findById(aLong);
+    }
+
+    @Override
     public T findById(Long aLong) {
         return baseRepository.findById(aLong).orElse(null);
     }

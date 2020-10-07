@@ -6,7 +6,6 @@ import com.lbin.common.vo.ResultVo;
 import com.lbin.jpa.repository.BaseRepository;
 import com.lbin.jpa.service.BaseService;
 import com.lbin.jpa.service.impl.BaseServiceImpl;
-import com.lbin.server.service.FileService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -22,8 +21,6 @@ public class ModelController<T> {
 
     //    @Autowired
     protected ModelService modelService;
-
-    protected FileService fileService;
 
     protected String url = "/jpa/model";
 

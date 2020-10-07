@@ -21,6 +21,11 @@ public class UploadProjectProperties {
     private String filePath = "/data";
 
     /**
+     * 上传文件临时路径
+     */
+    private String uploadPath = "/upload";
+
+    /**
      * 上传文件静态访问路径
      */
     private String staticPath = "/asset";

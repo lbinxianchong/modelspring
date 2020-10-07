@@ -9,6 +9,9 @@ import java.lang.annotation.Target;
 @Target({ElementType.TYPE, ElementType.FIELD})
 public @interface BaseModel {
 
+    // 字段类型
+    String type() default "String";//1.String 2.Number 3.File 4.Select
+
     // 字段标题名称或文件名称
     String value() default "";
 
@@ -18,6 +21,9 @@ public @interface BaseModel {
     // 字典
     String key() default "";
 
+    //忽略字段
+    boolean ignores() default false;
+
     boolean search() default false;
 
     boolean index() default false;
@@ -25,4 +31,5 @@ public @interface BaseModel {
     boolean add() default true;
 
     boolean detail() default true;
+
 }

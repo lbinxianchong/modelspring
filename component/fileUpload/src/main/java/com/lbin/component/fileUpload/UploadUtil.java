@@ -40,6 +40,48 @@ public class UploadUtil {
     }};
 
     /**
+     * 删除
+     *
+     * @param upload
+     * @return
+     */
+    public static boolean delete(Upload upload) {
+        File file = upload.getFile();
+        if (file == null) {
+            file = FileUtil.file(upload.getPath());
+        }
+        return FileUtil.del(file);
+    }
+
+    /**
+     * addPrefix
+     * 创建本地文件
+     *
+     * @param upload
+     * @return
+     */
+    public static Upload removePrefix(Upload upload, String prefix) {
+        String path = upload.getPath();
+        path = StrUtil.removePrefix(path, prefix);
+        upload.setPath(path);
+        return upload;
+    }
+
+    /**
+     * addPrefix
+     * 创建本地文件
+     *
+     * @param upload
+     * @return
+     */
+    public static Upload addPrefix(Upload upload, String prefix) {
+        String path = upload.getPath();
+        path = StrUtil.addPrefixIfNot(path, prefix);
+        upload.setPath(path);
+        return upload;
+    }
+
+    /**
      * 创建一个Upload实体对象
      * 创建本地文件
      *
@@ -47,11 +89,50 @@ public class UploadUtil {
      * @return
      */
     public static Upload createFile(String path) {
-        Upload upload = new Upload();
+        return createFile(path, "");
+    }
+
+    /**
+     * 创建一个Upload实体对象
+     * 创建本地文件
+     *
+     * @param path
+     * @return
+     */
+    public static Upload createFile(String path, String prefix) {
+        path = StrUtil.addPrefixIfNot(path, prefix);
+        Upload upload = getLocalFile(path);
         upload.setDate(new Date());
-        File file = FileUtil.file(path);
-        upload.setFile(file);
+        return upload;
+    }
+
+    /**
+     * 创建一个Upload实体对象
+     * 本地文件
+     *
+     * @param path
+     * @return
+     */
+    public static Upload getLocalFile(String path) {
+        Upload upload = new Upload();
         upload.setName(FileUtil.getName(path));
+        upload.setPath(path);
+        return getLocalFile(upload);
+    }
+
+    /**
+     * 创建一个Upload实体对象
+     * 本地文件
+     *
+     * @param upload
+     * @return
+     */
+    public static Upload getLocalFile(Upload upload) {
+        File file = FileUtil.file(upload.getPath());
+        if (!FileUtil.exist(file)) {
+            throw new ResultException(UploadResultEnum.NO_FILE_Local);
+        }
+        upload.setFile(file);
         return upload;
     }
 
@@ -70,9 +151,11 @@ public class UploadUtil {
         upload.setMime(multipartFile.getContentType());
         upload.setSize(multipartFile.getSize());
         upload.setDate(new Date());
-        upload.setName(genFileName(multipartFile.getOriginalFilename()));
-        upload.setPath(modulePath + "/" + upload.getName());
-        upload.setUrl(baseUrl + "/" + upload.getName());
+        upload.setUuid(IdUtil.simpleUUID());
+        upload.setName(multipartFile.getOriginalFilename());
+        String fileName = genFileName(upload.getName(), upload.getUuid());
+        upload.setPath(modulePath + "/" + fileName);
+        upload.setUrl(baseUrl + "/" + fileName);
         return upload;
     }
 
@@ -147,9 +230,8 @@ public class UploadUtil {
     /**
      * 生成随机且唯一的文件名
      */
-    public static String genFileName(String originalFilename) {
+    public static String genFileName(String originalFilename, String simpleUUID) {
         String mainName = FileUtil.mainName(originalFilename);
-        String simpleUUID = IdUtil.simpleUUID();
         String extName = FileUtil.extName(originalFilename);
         return mainName + "-" + simpleUUID + "." + extName;
     }
@@ -199,10 +281,10 @@ public class UploadUtil {
             return upload;
         }
         File file = FileUtil.touch(upload.getPath());
-        upload.setMd5(md5.digestHex(inputStream));
-        upload.setMd5(sha1.digestHex(inputStream));
-        upload.setFile(file);
         upload = saveFile(inputStream, FileUtil.getOutputStream(file), upload);
+        upload.setMd5(getFileMd5(file));
+        upload.setSha1(getFileSha1(file));
+        upload.setFile(file);
         return upload;
     }
 
@@ -230,11 +312,43 @@ public class UploadUtil {
         return upload;
     }
 
+
+    /**
+     * 获取文件的SHA1值
+     */
+    public static String getFileSha1NoClose(MultipartFile multipartFile) {
+        String s = null;
+        InputStream inputStream = null;
+        try {
+            inputStream = multipartFile.getInputStream();
+            s = getFileSha1NoClose(inputStream);
+            inputStream.close();
+        } catch (IOException e) {
+            throw new ResultException(UploadResultEnum.NO_FILE_Sha1);
+        }
+        return s;
+    }
+
     /**
      * 获取文件的SHA1值
      */
     public static String getFileSha1NoClose(InputStream inputStream) {
         return sha1.digestHex(inputStream);
+    }
+
+    /**
+     * 获取文件的SHA1值
+     */
+    public static String getFileSha1(File file) {
+        return sha1.digestHex(file);
+    }
+
+
+    /**
+     * 获取文件的SHA1值
+     */
+    public static String getFileMd5(File file) {
+        return md5.digestHex(file);
     }
 
     /**

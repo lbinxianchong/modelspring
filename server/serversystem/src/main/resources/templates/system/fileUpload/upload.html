@@ -4,12 +4,18 @@
 </head>
 <body>
 <div class="layui-form mo-compile">
-    <form th:action="@{'/'+${model}+'/'+${entity}+'/importExcel'}">
+    <form th:action="@{/system/fileUpload/uploadFile}">
+        <div class="layui-form-item">
+            <label class="layui-form-label">路径</label>
+            <div class="layui-input-inline">
+                <input class="layui-input prefixPath" type="text" name="prefixPath">
+            </div>
+        </div>
         <div class="layui-form-item">
             <label class="layui-form-label">上传文件</label>
             <div class="layui-input-inline">
-                <button type="button" class="layui-btn layupload" th:up-url="'/'+${model}+'/'+${entity}+'/importExcel'" name="file" >选择文件</button>
-                <button type="button" class="layui-btn uploadsubmit close-popup" >上传</button>
+                <button type="button" class="layui-btn fileUpload" up-url="/system/fileUpload/uploadFile" name="file" >选择文件</button>
+                <button type="button" class="layui-btn fileUploadsubmit " >上传</button>
             </div>
         </div>
         <!--<div class="layui-form-item mo-finally">

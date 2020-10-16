@@ -10,6 +10,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>jpa</artifactId>
+
+    <name>jpa持久层API</name>
     <dependencies>
         <!--spring data jpa持久层框架-->
         <dependency>

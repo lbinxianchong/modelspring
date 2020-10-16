@@ -1,10 +1,12 @@
 package com.lbin.component.excel;
 
+import cn.hutool.core.io.FileUtil;
 import cn.hutool.poi.excel.ExcelReader;
 import cn.hutool.poi.excel.ExcelUtil;
 import cn.hutool.poi.excel.ExcelWriter;
 
 import com.lbin.common.domain.BaseField;
+import com.lbin.common.domain.BaseFieldModel;
 import com.lbin.common.domain.BaseItem;
 
 import java.io.File;
@@ -89,6 +91,21 @@ public class ExcelUtils {
 
     /**
      * 导出Excel数据
+     *
+     * @param baseFieldModel
+     * @param list
+     * @return
+     */
+    public static File exportExcel(BaseFieldModel baseFieldModel, List<BaseField> baseFieldList, List<?> list, File file) {
+        String name = baseFieldModel.getName();
+        Map<String, String> titleCommon = ExcelUtils.getTitleList(baseFieldList);
+        //文件名字
+        ExcelUtils.exportExcel(name, titleCommon, list, file);
+        return file;
+    }
+
+    /**
+     * 导出Excel数据
      */
     public static File exportExcel(String excelName, Map<String, String> headerAlias, List<?> list, File file) {
         //通过工具类创建writer
@@ -123,7 +140,7 @@ public class ExcelUtils {
         if (list == null) {
             list = new ArrayList<>();
         }
-        if (list.size()==0) {
+        if (list.size() == 0) {
             writer.writeRow(headerAlias, false);
         }
         //一次性写出内容，强制输出标题
@@ -142,6 +159,20 @@ public class ExcelUtils {
         reader.setHeaderAlias(headerAlias);
         List<T> all = reader.read(1, 2, entity);
         return all;
+    }
+
+    /**
+     * 读取Excel文件数据
+     *
+     * @param baseFieldModel
+     * @param baseFieldList
+     * @param baseFieldList
+     * @return 返回数据集合
+     */
+    public static  <T> List<T> importExcel(BaseFieldModel baseFieldModel, List<BaseField> baseFieldList, File file) {
+        Map<String, String> titleCommon = getFieldList(baseFieldList);
+        List<T> list = ExcelUtils.importExcel(baseFieldModel.getEntity(), titleCommon, FileUtil.getInputStream(file));
+        return list;
     }
 
 }

@@ -10,6 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>servermodel</artifactId>
+    <name>通用模板服务</name>
 
 
     <dependencies>

@@ -13,8 +13,10 @@
 
     <packaging>pom</packaging>
     <name>额外库模块</name>
+    <description>额外库模块：系统额外库耦合度低，可以拆分</description>
 
     <modules>
-        <module>cache</module>
+
+        <module>swagger</module>
     </modules>
 </project>

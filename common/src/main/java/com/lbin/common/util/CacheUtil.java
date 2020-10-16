@@ -11,11 +11,11 @@ import java.util.Map;
 
 public class CacheUtil {
 
-    private static Cache dictCache = EhCacheUtil.getDictCache();
+    public static Cache dictCache = EhCacheUtil.getDictCache();
 
-    private static Cache configureCache = EhCacheUtil.getConfigureCache();
+    public static Cache configureCache = EhCacheUtil.getConfigureCache();
 
-    private static Cache dataCache = EhCacheUtil.getDataCache();
+    public static Cache dataCache = EhCacheUtil.getDataCache();
 
     public static Cache getCache(String key){
         return EhCacheUtil.getCache(key);
@@ -30,10 +30,18 @@ public class CacheUtil {
         }
         return value;
     }
-
-    public static Map<String, String> valueMap(Cache cache, String label) {
-        return (Map<String, String>) value(cache, label);
+    public static Map<String, String> valueDict(String label) {
+        return (Map<String, String>) value(dictCache, label);
     }
+
+    public static String valueConfig(String label) {
+        return (String) value(configureCache,label);
+    }
+
+    public static Object valueData(String label) {
+        return value(dataCache,label);
+    }
+
 
     /**
      * 根据选项编码获取选项值
@@ -42,7 +50,22 @@ public class CacheUtil {
      * @param code  选项编码
      */
     public static String keyValue(Cache cache, String label, String code) {
-        Map<String, String> list = valueMap(cache, label);
+        Map<String, String> list = (Map<String, String>) value(cache, label);
+        if (list != null) {
+            return list.get(code);
+        } else {
+            return "";
+        }
+    }
+
+    /**
+     * 根据选项编码获取选项值
+     *
+     * @param label 字典标识
+     * @param code  选项编码
+     */
+    public static String keyValueDict(String label, String code) {
+        Map<String, String> list = valueDict(label);
         if (list != null) {
             return list.get(code);
         } else {

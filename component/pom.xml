@@ -9,10 +9,14 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
+
     <artifactId>component</artifactId>
     <packaging>pom</packaging>
     <name>组件模块</name>
+    <description>组件模块：系统组件耦合度高，难以拆分</description>
+
     <modules>
+        <module>cache</module>
         <module>thymeleaf</module>
         <module>excel</module>
         <module>fileUpload</module>

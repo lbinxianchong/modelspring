@@ -10,45 +10,60 @@ server:
 
 ### 配置
 project:
-  #是否开启登录验证码
-  captcha-open: false
+
+  config:
+    ##是否读取config数据库配置
+    open: true
+    ##是否开启登录验证码
+    captcha-open: false
+    ##后台名字
+    managename: mo测试
+
 
   file:
-    ##访问url
+    ##上传文件静态访问Url
     staticPath: /asset
     ##文件路径
     filePath: F:/project/format
-    ##文件路径
+    ##上传路径
     uploadPath: /upload
+    ##Excel路径
+    excelPath: /excel
     ##第三方插件文件路径
-    sdkFilePath: F:/data/
+    sdkFilePath: F:/data
     ##访问url文件实际路径
     assetPath: file:F:/data/,file:F:/project/format/,classpath:/format/,http://127.0.0.1:6800
 
-  xxs:
-    #默认忽略规则(该模块用于api)
-    defaultExcludes: /favicon.ico,/images/*,/js/*,/css/*,/lib/*
-    #额外忽略规则，可通过“,”隔开多个
-    excludes: /api/*,/asset/*
 
-  shiro:
-    remember-me-timeout: 24                    #cookie记住登录信息时间，默认7天（天）
-    global-session-timeout: 10800              #Session会话超时时间，默认30分钟（秒）
+  network:
+    #cookie记住登录信息时间，默认7天（天）
+    remember-me-timeout: 24
+    #Session会话超时时间，默认30分钟（秒）
+    global-session-timeout: 10800
+    #Session会话检测间隔时间
+    session-validation-interval: 900
+    #默认忽略规则
     defaultExcludes: /login,/logout,/captcha,/noAuth,/css/**,/js/**,/images/**,/lib/**,/favicon.ico
+    #额外忽略规则，可通过“,”隔开多个
     excludes: /api/**,/asset/**
 
 
 ### spring配置
 spring:
   servlet:
+    #上传文件配置
     multipart:
+      #文件大小
       max-file-size: 100MB
+      #请求大小
       max-request-size: 100MB
   ## cache缓存配置
   cache:
+    #cache配置类型
     type: ehcache
-#    ehcache:
-#      config: classpath:/ehcache.xml
+    ehcache:
+      # 配置文件路径
+      config: classpath:/ehcache.xml
   ## 数据库配置
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -78,14 +93,7 @@ spring:
   ##静态资源设置
   resources:
     static-locations: classpath:/templates/,classpath:/static/
-web:
-  ##是否读取数据库配置
-  config-open: true
-  config:
-    webname: 私人测试
-    aria2: http://127.0.0.1:6800
-    aria2path: F:/data/
-    asset: file:F:/data/
+
 
 
 

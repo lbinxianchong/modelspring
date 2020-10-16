@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:mo="http://www.w3.org/1999/xhtml">
+<th:block th:fragment="index (api,header,search,button,table,thead,tbody,tajax)">
+    <body class="mo-layout-page">
+    <div class="layui-card">
+        <div class="layui-card-header mo-card-header">
+            <th:block th:if="${header == null}">
+                <span>列表管理</span>
+            </th:block>
+            <th:block th:if="${header != null}">
+                <th:block th:replace="${header}"></th:block>
+            </th:block>
+            <i class="layui-icon layui-icon-refresh refresh-btn"></i>
+        </div>
+        <div class="layui-card-body">
+            <div class="layui-row mo-card-screen">
+                <div class="pull-left layui-form-pane mo-search-box">
+                    <th:block th:if="${search == null}">
+                        <th:block th:with="status=${param.status}">
+                            <th:block
+                                    th:replace="/common/index :: paramstatus ('状态','status','SEARCH_STATUS',${status})"></th:block>
+                        </th:block>
+                    </th:block>
+                    <th:block th:if="${search != null}">
+                        <th:block th:replace="${search}"></th:block>
+                    </th:block>
+                    <div class="layui-inline">
+                        <button class="layui-btn layui-icon layui-icon-search mo-search-btn"></button>
+                    </div>
+                </div>
+                <div class="pull-right screen-btn-group">
+                    <th:block th:if="${button != null}">
+                        <th:block th:replace="${button}"></th:block>
+                    </th:block>
+                    <button class="layui-btn open-popup" data-title="添加上传文件"
+                            th:attr="data-url=@{${api}+'/add'}" data-size="auto">添加
+                    </button>
+                    <div class="btn-group">
+                        <button class="layui-btn">操作<span class="caret"></span></button>
+                        <dl class="layui-nav-child layui-anim layui-anim-upbit">
+                            <dd><a class="ajax-status" th:href="@{${api}+'/status/ok'}">启用</a></dd>
+                            <dd><a class="ajax-status" th:href="@{${api}+'/status/freezed'}">冻结</a></dd>
+                            <dd><a class="ajax-status" th:href="@{${api}+'/status/delete'}">删除</a></dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+            <div class="mo-table-wrap">
+                <table class="layui-table mo-table">
+                    <th:block th:if="${table == null}">
+                        <thead>
+                        <tr>
+                            <th class="mo-table-checkbox">
+                                <label class="mo-checkbox">
+                                    <input type="checkbox">
+                                    <i class="layui-icon layui-icon-ok"></i>
+                                </label>
+                            </th>
+                            <th:block th:if="${thead == null}">
+                                <th>主键ID</th>
+                            </th:block>
+                            <th:block th:if="${thead != null}">
+                                <th:block th:replace="${thead}"></th:block>
+                            </th:block>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="item:${list}">
+                            <td><label class="mo-checkbox">
+                                <input type="checkbox" th:value="${item.id}">
+                                <i class="layui-icon layui-icon-ok"></i></label>
+                            </td>
+                            <th:block th:if="${tbody == null}">
+                                <td>[[${item.id}]]</td>
+                            </th:block>
+                            <th:block th:if="${tbody != null}">
+                                <th:block th:replace="${tbody}"></th:block>
+                            </th:block>
+                            <td>
+                                <th:block th:if="${tajax == null}">
+                                    <a class="open-popup" data-title="编辑设置"
+                                       th:attr="data-url=@{${api}+'/edit/'+${item.id}}" data-size="auto"
+                                       href="#">编辑</a>
+                                    <a class="open-popup" data-title="详细信息"
+                                       th:attr="data-url=@{${api}+'/detail/'+${item.id}}" data-size="800,600"
+                                       href="#">详细</a>
+                                    <a class="ajax-get" data-msg="您是否确认删除"
+                                       th:href="@{${api}+'/status/delete'(ids=${item.id})}">删除</a>
+                                </th:block>
+                                <th:block th:if="${tajax != null}">
+                                    <th:block th:replace="${tajax}"></th:block>
+                                </th:block>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </th:block>
+                    <th:block th:if="${table != null}">
+                        <th:block th:replace="${table}"></th:block>
+                    </th:block>
+                </table>
+            </div>
+            <div th:replace="/common/fragment :: page"></div>
+        </div>
+    </div>
+    <script th:replace="/common/template :: script"></script>
+    </body>
+</th:block>
+
+<th:block th:fragment="paramtext (title,name,value)">
+    <div class="layui-inline">
+        <label class="layui-form-label">[[${title}]]</label>
+        <div class="layui-input-block">
+            <input type="text" th:name="${name}" th:value="${value}" th:placeholder="'请输入'+${title}"
+                   autocomplete="off" class="layui-input">
+        </div>
+    </div>
+</th:block>
+
+<th:block th:fragment="paramstatus (title,name,dict,value)">
+    <div class="layui-inline">
+        <label class="layui-form-label">[[${title}]]</label>
+        <div class="layui-input-block mo-search-status">
+            <select class="mo-search-select" th:name="${name}" th:mo:dict="${dict}" th:mo-selected="${value}"></select>
+        </div>
+    </div>
+</th:block>
+
+<th:block th:fragment="paramdict (title,name,dict,value)">
+    <div class="layui-inline">
+        <label class="layui-form-label">[[${title}]]</label>
+        <div class="layui-input-block">
+            <select class="layui-input" th:name="${name}" th:mo:dict="${dict}" th:mo-selected="${value}"></select>
+        </div>
+    </div>
+</th:block>
+
+<th:block th:fragment="paramlist (title,name,list,value)">
+    <div class="layui-inline">
+        <label class="layui-form-label">[[${title}]]</label>
+        <div class="layui-input-block">
+            <select class="layui-input " th:name="${name}" th:mo:list="${list}" th:mo-selected="${value}"></select>
+        </div>
+    </div>
+</th:block>
+
+</html>

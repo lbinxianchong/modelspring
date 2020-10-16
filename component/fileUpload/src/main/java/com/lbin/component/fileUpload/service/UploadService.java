@@ -1,8 +1,8 @@
-package com.lbin.system.server;
+package com.lbin.component.fileUpload.service;
 
 import cn.hutool.core.util.StrUtil;
+import com.lbin.common.config.FileProjectProperties;
 import com.lbin.component.fileUpload.UploadUtil;
-import com.lbin.component.fileUpload.config.UploadProjectProperties;
 import com.lbin.component.fileUpload.data.Upload;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 public class UploadService {
 
     @Autowired
-    private UploadProjectProperties uploadProjectProperties;
+    private FileProjectProperties uploadProjectProperties;
 
 
     public boolean delete(Upload upload) {
@@ -34,7 +34,7 @@ public class UploadService {
      */
     public Upload removePrefix(Upload upload) {
         String path = upload.getPath();
-        path=StrUtil.removePrefix(path,uploadProjectProperties.getFilePath());
+        path = StrUtil.removePrefix(path, uploadProjectProperties.getFilePath());
         upload.setPath(path);
         return upload;
     }
@@ -48,7 +48,7 @@ public class UploadService {
      */
     public Upload addPrefix(Upload upload) {
         String path = upload.getPath();
-        path=StrUtil.addPrefixIfNot(path,uploadProjectProperties.getFilePath());
+        path = StrUtil.addPrefixIfNot(path, uploadProjectProperties.getFilePath());
         upload.setPath(path);
         return upload;
     }

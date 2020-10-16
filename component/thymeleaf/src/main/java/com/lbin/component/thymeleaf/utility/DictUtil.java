@@ -1,7 +1,7 @@
 package com.lbin.component.thymeleaf.utility;
 
-import com.lbin.cache.EhCacheUtil;
 
+import com.lbin.common.util.CacheUtil;
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.Element;
 import java.util.Map;
@@ -13,7 +13,11 @@ import java.util.Map;
  */
 public class DictUtil {
 
-    private static Cache dictCache = EhCacheUtil.getDictCache();
+    private static Cache dictCache = CacheUtil.dictCache;
+
+    private static Cache configureCache = CacheUtil.configureCache;
+
+
 
     /**
      * 获取字典值集合
@@ -26,22 +30,6 @@ public class DictUtil {
         if(dictEle != null){
             value = (Map<String, String>) dictEle.getObjectValue();
         }
-        /*else {
-            DictService dictService = SpringContextUtil.getBean(DictService.class);
-            Dict dict = dictService.getByNameOk(label);
-            if(dict != null){
-                String dictValue = dict.getValue();
-                String[] outerSplit = dictValue.split(",");
-                value = new LinkedHashMap<>();
-                for (String osp : outerSplit) {
-                    String[] split = osp.split(":");
-                    if(split.length > 1){
-                        value.put(split[0], split[1]);
-                    }
-                }
-                dictCache.put(new Element(dict.getName(), value));
-            }
-        }*/
         return value;
     }
 
@@ -77,5 +65,20 @@ public class DictUtil {
         if (dictEle != null){
             dictCache.remove(label);
         }
+    }
+
+
+    /**
+     * 根据选项编码获取选项值
+     * @param label 字典标识
+     */
+    @SuppressWarnings("unchecked")
+    public static String keyValueConfig(String label){
+        String value = "";
+        Element dictEle = configureCache.get(label);
+        if(dictEle != null){
+            value = (String) dictEle.getObjectValue();
+        }
+        return value;
     }
 }

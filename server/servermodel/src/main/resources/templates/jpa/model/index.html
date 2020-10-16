@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:mo="http://www.w3.org/1999/xhtml">
 <head th:replace="/common/template :: header(~{::title},~{::link},~{::style})">
 </head>
 <body class="mo-layout-page">
@@ -14,15 +14,14 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">状态</label>
                     <div class="layui-input-block mo-search-status">
-                        <!--<select class="mo-search-select" name="status" mo:dict="SEARCH_STATUS"-->
-                                <!--mo-selected="${param.status}"></select>-->
+                        <select class="mo-search-select" name="status" mo:dict="SEARCH_STATUS" mo-selected="${param.status}"></select>
                     </div>
                 </div>
                 <th:block th:each="search:${searchList}">
                     <div class="layui-inline">
                         <label class="layui-form-label">[[${search.title}]]</label>
                         <div class="layui-input-block">
-                            <input type="text" th:name="${search.name}" th:value="${param.name}" th:placeholder="'请输入'+${search.title}" autocomplete="off" class="layui-input">
+                            <input type="text" th:name="${search.name}" th:value="${search.value}" th:placeholder="'请输入'+${search.title}" autocomplete="off" class="layui-input">
                         </div>
                     </div>
                 </th:block>

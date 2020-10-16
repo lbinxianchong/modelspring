@@ -1,9 +1,10 @@
 package com.lbin.modelspring.config;
 
 import cn.hutool.core.util.StrUtil;
+import com.lbin.common.config.FileProjectProperties;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistration;
@@ -18,38 +19,25 @@ import java.util.List;
 @Getter
 @Setter
 @Configuration
-public class FileProjectConfig implements WebMvcConfigurer {
+public class FileProjectWebConfig implements WebMvcConfigurer {
 
-    @Value("${project.file.staticPath}")
-    private String staticPath;
+    @Autowired
+    private FileProjectProperties fileProjectProperties;
 
-    @Value("${project.file.filePath}")
-    private String filePath;
-
-    @Value("${project.file.sdkFilePath}")
-    private String sdkFilePath;
-
-    @Value("${project.file.assetPath}")
-    private String assetPath;
-
-    //访问图片方法
+    //访问资源方法
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        String staticPath = getStaticPath();
+        String staticPath = fileProjectProperties.getStaticPath();
         List<String> staticPathlist = StrUtil.splitTrim(staticPath, ",");
         for (String s : staticPathlist) {
             s = StrUtil.addSuffixIfNot(s, "/**");
             ResourceHandlerRegistration resourceHandlerRegistration = registry.addResourceHandler(s);
-            String assetPath = getAssetPath();
+            String assetPath = fileProjectProperties.getAssetPath();
             List<String> assetPathlist = StrUtil.splitTrim(assetPath, ",");
             for (String asset : assetPathlist) {
                 resourceHandlerRegistration.addResourceLocations(asset);
             }
         }
-
-        // 本地文件夹要以"flie:" 开头，文件夹要以"/" 结束，example：
-        //registry.addResourceHandler("/abc/**").addResourceLocations("file:D:/pdf/");
-//        super.addResourceHandlers(registry);
     }
 
     @Override
@@ -65,8 +53,8 @@ public class FileProjectConfig implements WebMvcConfigurer {
                 .allowedMethods("GET", "POST", "PUT", "DELETE")
                 //放行哪些原始域(头部信息)
                 .allowedHeaders("*")
-        //暴露哪些头部信息（因为跨域访问默认不能获取全部头部信息）
-//                .exposedHeaders("Header1", "Header2")
+                //暴露哪些头部信息（因为跨域访问默认不能获取全部头部信息）
+                //.exposedHeaders("Header1", "Header2")
         ;
     }
 
@@ -78,9 +66,9 @@ public class FileProjectConfig implements WebMvcConfigurer {
      */
     public String toServerPath(String absolutePath) {
         absolutePath = absolutePath.replaceAll("\\\\", "/");
-        absolutePath = StrUtil.removePrefix(absolutePath, getFilePath());
-        absolutePath = StrUtil.removePrefix(absolutePath, getSdkFilePath());
-        String staticPath = getStaticPath();
+        absolutePath = StrUtil.removePrefix(absolutePath, fileProjectProperties.getFilePath());
+        absolutePath = StrUtil.removePrefix(absolutePath, fileProjectProperties.getSdkFilePath());
+        String staticPath = fileProjectProperties.getStaticPath();
         List<String> staticPathlist = StrUtil.splitTrim(staticPath, ",");
         String s = StrUtil.addPrefixIfNot(absolutePath, staticPathlist.get(0));
         return s;

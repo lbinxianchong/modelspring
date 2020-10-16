@@ -126,6 +126,10 @@ public class BaseFieldModel {
         return list;
     }
 
+    public List<BaseField> getSearchList(Object o) {
+        return getSearchList(o, false);
+    }
+
     public List<BaseField> getIndexList(Object o) {
         return getIndexList(o, true);
     }
@@ -148,6 +152,10 @@ public class BaseFieldModel {
 
     public BaseItem getDetailListID(Object o) {
         return getDetailListID(o, true);
+    }
+
+    public List<BaseField> getSearchList(Object o, boolean isKey) {
+        return getFieldValue(searchList, o, isKey);
     }
 
     public List<BaseField> getIndexList(Object o, boolean isKey) {

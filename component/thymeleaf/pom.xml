@@ -10,6 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>thymeleaf</artifactId>
+    <name>thymeleaf组件</name>
 
 
     <dependencies>

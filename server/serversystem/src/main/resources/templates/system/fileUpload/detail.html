@@ -2,62 +2,17 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="/common/template :: header(~{::title},~{::link},~{::style})">
 </head>
-<body>
-<div class="mo-detail-page">
-    <div class="mo-detail-title">基本信息</div>
-    <table class="layui-table mo-detail-table">
-        <colgroup>
-            <col width="100px">
-            <col>
-            <col width="100px">
-            <col>
-        </colgroup>
-        <tbody>
-        <tr>
-            <th>主键ID</th>
-            <td th:text="${fileUpload.id}"></td>
-            <th>name</th>
-            <td th:text="${fileUpload.name}"></td>
-        </tr>
-        <tr>
-            <th>文件路径</th>
-            <td th:text="${fileUpload.path}" colspan="3"></td>
-        </tr>
-        <tr>
-            <th>url路径</th>
-            <td th:text="${fileUpload.url}" colspan="3"></td>
-        </tr>
-        <tr>
-            <th>文件类型</th>
-            <td th:text="${fileUpload.mime}"></td>
-            <th>文件大小</th>
-            <td th:text="${fileUpload.size}"></td>
-        </tr>
-        <tr>
-            <th>文件md5值</th>
-            <td th:text="${fileUpload.md5}" colspan="3"></td>
-        </tr>
-        <tr>
-            <th>文件sha1值</th>
-            <td th:text="${fileUpload.sha1}" colspan="3"></td>
-        </tr>
-        <tr>
-            <th>文件UUID</th>
-            <td th:text="${fileUpload.uuid}" colspan="3"></td>
-        </tr>
-        <tr>
-            <th>创建时间</th>
-            <td th:text="${#dates.format(fileUpload.createDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
-            <th>更新时间</th>
-            <td th:text="${#dates.format(fileUpload.updateDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
-        </tr>
-        <tr>
-            <th>备注</th>
-            <td th:text="${fileUpload.remark}" colspan="3"></td>
-        </tr>
-        </tbody>
-    </table>
-</div>
-<script th:replace="/common/template :: script"></script>
-</body>
+<th:block th:replace="/common/detail :: detail(~{::tbody})">
+    <th:block th:fragment="tbody">
+        <th:block th:replace="/common/detail :: ttext2 ('主键ID',${model.id},'name',${model.name})"></th:block>
+        <th:block th:replace="/common/detail :: ttext ('文件路径',${model.path})"></th:block>
+        <th:block th:replace="/common/detail :: ttext ('url路径',${model.url})"></th:block>
+        <th:block th:replace="/common/detail :: ttext2 ('文件类型',${model.mime},'文件大小',${model.size})"></th:block>
+        <th:block th:replace="/common/detail :: ttext ('文件md5值',${model.md5})"></th:block>
+        <th:block th:replace="/common/detail :: ttext ('文件sha1值',${model.sha1})"></th:block>
+        <th:block th:replace="/common/detail :: ttext ('文件UUID',${model.uuid})"></th:block>
+        <th:block th:replace="/common/detail :: ttext2 ('创建时间',${#dates.format(model.createDate, 'yyyy-MM-dd HH:mm:ss')},'更新时间',${#dates.format(model.updateDate, 'yyyy-MM-dd HH:mm:ss')})"></th:block>
+        <th:block th:replace="/common/detail :: ttext ('备注',${model.remark})"></th:block>
+    </th:block>
+</th:block>
 </html>

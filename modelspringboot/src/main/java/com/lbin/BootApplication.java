@@ -3,6 +3,7 @@ package com.lbin;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
@@ -13,7 +14,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
  */
 //排除api
 @SpringBootApplication
-//@SpringBootApplication(excludeName = {"comicApi"})
+@ServletComponentScan
 @EnableJpaAuditing // 使用jpa自动赋值
 @EnableCaching // 开启缓存
 public class BootApplication extends SpringBootServletInitializer {

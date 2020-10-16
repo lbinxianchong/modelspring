@@ -9,17 +9,21 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>cache</artifactId>
+    <artifactId>swagger</artifactId>
+    <packaging>jar</packaging>
+    <name>swagger接口模块</name>
 
     <dependencies>
-        <!--ehcache缓存框架-->
+        <!--swagger2接口文档-->
         <dependency>
-            <groupId>net.sf.ehcache</groupId>
-            <artifactId>ehcache</artifactId>
-            <version>${ehcache.version}</version>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>2.9.2</version>
         </dependency>
-
-
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>2.9.2</version>
+        </dependency>
     </dependencies>
-
 </project>

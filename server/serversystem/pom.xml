@@ -10,6 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>serversystem</artifactId>
+    <name>系统服务</name>
 
 
     <dependencies>

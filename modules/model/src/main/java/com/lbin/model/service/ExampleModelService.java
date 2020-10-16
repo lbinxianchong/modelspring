@@ -10,22 +10,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
+
 @Service
 public class ExampleModelService extends ModelService<ExampleModel> {
 
     @Autowired
-    @Qualifier("exampleModelRepository")
     private ExampleModelRepository exampleModelRepository;
 
-    public ExampleModelService() {
+    @PostConstruct
+    public void init() {
         baseFieldModel = new BaseFieldModel(ExampleModel.class);
-    }
-
-    @Override
-    public BaseService<ExampleModel> getBaseService() {
-        if (baseService == null) {
-            baseService = new BaseServiceImpl<ExampleModel>(exampleModelRepository);
-        }
-        return baseService;
+        baseService = new BaseServiceImpl<ExampleModel>(exampleModelRepository);
     }
 }

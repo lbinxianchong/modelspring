@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:mo="http://www.w3.org/1999/xhtml">
+<th:block th:fragment="add (api,tform)">
+    <body>
+    <div class="layui-form mo-compile">
+        <form th:action="@{${api}+'/save'}">
+            <input type="hidden" name="id" th:if="${model}" th:value="${model.id}">
+            <th:block th:if="${tform == null}">
+
+            </th:block>
+            <th:block th:if="${tform != null}">
+                <th:block th:replace="${tform}"></th:block>
+            </th:block>
+            <div class="layui-form-item mo-finally">
+                <button class="layui-btn ajax-submit"><i class="fa fa-check-circle"></i> 保存</button>
+                <button class="layui-btn btn-secondary close-popup"><i class="fa fa-times-circle"></i> 关闭</button>
+            </div>
+        </form>
+    </div>
+    <script th:replace="/common/template :: script"></script>
+    </body>
+</th:block>
+
+<th:block th:fragment="inputtext (title,name,value)">
+    <div class="layui-form-item">
+        <label class="layui-form-label">[[${title}]]</label>
+        <div class="layui-input-inline">
+            <input class="layui-input" type="text" th:name="${name}" th:placeholder="'请输入'+${title}" th:value="${value}">
+        </div>
+    </div>
+</th:block>
+<th:block th:fragment="inputtextarea (title,name,value)">
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">[[${title}]]</label>
+        <div class="layui-input-block">
+            <textarea class="layui-textarea" th:name="${name}" placeholder="请输入内容" >[[${value}]]</textarea>
+        </div>
+    </div>
+</th:block>
+<th:block th:fragment="inputdict (title,name,dict,value)">
+    <div class="layui-form-item">
+        <label class="layui-form-label">[[${title}]]</label>
+        <div class="layui-input-inline">
+            <select class="timo-search-select" th:name="${name}" th:mo:dict="${dict}" th:mo-selected="${value}"></select>
+        </div>
+    </div>
+</th:block>
+<th:block th:fragment="inputnumber (title,name,value)">
+    <div class="layui-form-item">
+        <label class="layui-form-label">[[${title}]]</label>
+        <div class="layui-input-inline">
+            <input class="layui-input" type="number" th:name="${name}" th:placeholder="'请输入'+${title}" th:value="${value}">
+        </div>
+    </div>
+</th:block>
+<th:block th:fragment="inputfile (title,name,value)" >
+    <div class="layui-form-item">
+        <label class="layui-form-label">[[${title}]]</label>
+        <div class="layui-input-inline">
+            <button type="button" class="layui-btn upload" th:name="${name}" up-url="/system/fileUpload/uploadFile" >选择文件</button>
+            [[${value}]]
+        </div>
+    </div>
+</th:block>
+</html>

@@ -26,7 +26,7 @@ public class BaseServiceImpl<T> implements BaseService<T> {
 //    @Autowired
 //    @Qualifier
 //    @Resource
-    private BaseRepository<T, Long> baseRepository;
+    protected BaseRepository<T, Long> baseRepository;
 
     public BaseServiceImpl() {
     }

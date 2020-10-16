@@ -2,70 +2,20 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="/common/template :: header(~{::title},~{::link},~{::style})">
 </head>
-<body>
-    <div class="layui-form mo-compile">
-    <form th:action="@{/system/fileUpload/save}">
-        <input type="hidden" name="id" th:if="${fileUpload}" th:value="${fileUpload.id}">
-        <div class="layui-form-item">
-            <label class="layui-form-label">name</label>
-            <div class="layui-input-inline">
-                <input class="layui-input" type="text" name="name" placeholder="请输入name" th:value="${fileUpload?.name}">
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">文件路径</label>
-            <div class="layui-input-inline">
-                <input class="layui-input" type="text" name="path" placeholder="请输入文件路径" th:value="${fileUpload?.path}">
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">url路径</label>
-            <div class="layui-input-inline">
-                <input class="layui-input" type="text" name="url" placeholder="请输入url路径" th:value="${fileUpload?.url}">
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">文件类型</label>
-            <div class="layui-input-inline">
-                <input class="layui-input" type="text" name="mime" placeholder="请输入文件类型" th:value="${fileUpload?.mime}">
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">文件大小</label>
-            <div class="layui-input-inline">
-                <input class="layui-input" type="text" name="size" placeholder="请输入文件大小" th:value="${fileUpload?.size}">
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">文件md5值</label>
-            <div class="layui-input-inline">
-                <input class="layui-input" type="text" name="md5" placeholder="请输入文件md5值" th:value="${fileUpload?.md5}">
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">文件sha1值</label>
-            <div class="layui-input-inline">
-                <input class="layui-input" type="text" name="sha1" placeholder="请输入文件sha1值" th:value="${fileUpload?.sha1}">
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">文件UUID</label>
-            <div class="layui-input-inline">
-                <input class="layui-input" type="text" name="uuid" placeholder="请输入文件UUID" th:value="${fileUpload?.uuid}">
-            </div>
-        </div>
-        <div class="layui-form-item layui-form-text">
-            <label class="layui-form-label">备注</label>
-            <div class="layui-input-block">
-                <textarea placeholder="请输入内容" class="layui-textarea" name="remark">[[${fileUpload?.remark}]]</textarea>
-            </div>
-        </div>
-        <div class="layui-form-item mo-finally">
-            <button class="layui-btn ajax-submit"><i class="fa fa-check-circle"></i> 保存</button>
-            <button class="layui-btn btn-secondary close-popup"><i class="fa fa-times-circle"></i> 关闭</button>
-        </div>
-    </form>
-</div>
-<script th:replace="/common/template :: script"></script>
-</body>
+
+<th:block th:replace="/common/add :: add('/system/fileUpload',~{::tform})">
+    <th:block th:fragment="tform">
+        <th:block th:replace="/common/add :: inputtext ('name','name',${model?.name})"></th:block>
+        <th:block th:replace="/common/add :: inputtext ('文件路径','path',${model?.path})"></th:block>
+        <th:block th:replace="/common/add :: inputtext ('url路径','url',${model?.url})"></th:block>
+        <th:block th:replace="/common/add :: inputtext ('文件类型','mime',${model?.mime})"></th:block>
+        <th:block th:replace="/common/add :: inputtext ('文件大小','size',${model?.size})"></th:block>
+        <th:block th:replace="/common/add :: inputtext ('文件md5值','md5',${model?.md5})"></th:block>
+        <th:block th:replace="/common/add :: inputtext ('文件sha1值','sha1',${model?.sha1})"></th:block>
+        <th:block th:replace="/common/add :: inputtext ('文件UUID','uuid',${model?.uuid})"></th:block>
+
+        <th:block th:replace="/common/add :: inputtextarea ('备注','remark',${model?.remark})"></th:block>
+
+    </th:block>
+</th:block>
 </html>

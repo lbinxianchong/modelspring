@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
-@Controller
+//@Controller
 @RequestMapping("/model")
 public class ModelController<T> {
 
@@ -136,7 +136,7 @@ public class ModelController<T> {
     /**
      * 设置一条或者多条数据的状态
      */
-    @RequestMapping("/{entity}/status/{param}")
+    @PostMapping("/{entity}/status/{param}")
     @ResponseBody
     public ResultVo status(
             @PathVariable("entity") String entity,

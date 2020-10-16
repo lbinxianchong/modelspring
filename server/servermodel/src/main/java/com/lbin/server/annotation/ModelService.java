@@ -1,18 +1,22 @@
 package com.lbin.server.annotation;
 
 
+import cn.hutool.core.date.DatePattern;
+import cn.hutool.core.date.DateUtil;
+import com.lbin.common.domain.BaseField;
 import com.lbin.common.util.ReflectUtil;
 import com.lbin.common.util.ResultVoUtil;
 
 import com.lbin.common.vo.ResultVo;
 import com.lbin.common.domain.BaseFieldModel;
+import com.lbin.component.excel.ExcelUtils;
+import com.lbin.component.fileUpload.UploadUtil;
 import com.lbin.component.fileUpload.data.Upload;
 import com.lbin.jpa.enums.StatusEnum;
 import com.lbin.jpa.service.BaseService;
 import com.lbin.jpa.utils.EntityBeanUtil;
 import com.lbin.jpa.utils.StatusUtil;
-import com.lbin.system.server.ExcelService;
-import com.lbin.system.server.UploadService;
+import com.lbin.component.fileUpload.service.UploadService;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +27,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 
+import java.io.File;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,9 +39,6 @@ import java.util.Map;
 public class ModelService<T> {
 
     protected BaseService<T> baseService;
-
-    @Autowired
-    private ExcelService excelService;
 
     @Autowired
     protected UploadService uploadService;
@@ -107,7 +110,7 @@ public class ModelService<T> {
         model.put("list", list.getContent());
         model.put("page", list);
         model.put("title", baseFieldModel.getName());
-        model.put("searchList", baseFieldModel.getSearchList());
+        model.put("searchList", baseFieldModel.getSearchList(t));
         model.put("titleList", baseFieldModel.getIndexList());
         model.put("fieldList", baseFieldModel.getIndexListID(list.getContent()));
         return model;
@@ -144,7 +147,7 @@ public class ModelService<T> {
     public Map<String, Object> importExcel(MultipartFile multipartFile) {
         Map<String, Object> model = new HashMap<>();
         Upload upload = uploadService.uploadFile(multipartFile);
-        List<T> list = excelService.importExcel(baseFieldModel, baseFieldModel.getDetailList(), upload);
+        List<T> list = ExcelUtils.importExcel(baseFieldModel, baseFieldModel.getDetailList(), upload.getFile());
         for (T t : list) {
             save(t);
         }
@@ -157,7 +160,7 @@ public class ModelService<T> {
      * 标题模板
      */
     public void exportExcelTitle(HttpServletResponse response) {
-        Upload upload = excelService.exportExcelTitle(baseFieldModel, baseFieldModel.getDetailList());
+        Upload upload = exportExcel(baseFieldModel, baseFieldModel.getDetailList(), null);
         uploadService.downloadFile(upload, response);
     }
 
@@ -166,8 +169,23 @@ public class ModelService<T> {
      */
     public void exportExcel(HttpServletResponse response) {
         List<T> list = getBaseService().findAll();
-        Upload upload = excelService.exportExcel(baseFieldModel, baseFieldModel.getDetailList(), list);
+        Upload upload = exportExcel(baseFieldModel, baseFieldModel.getDetailList(), list);
         uploadService.downloadFile(upload, response);
+    }
+
+    /**
+     * 导出Excel数据
+     */
+    private Upload exportExcel(BaseFieldModel baseFieldModel, List<BaseField> baseFieldList, List<?> list) {
+        String name = baseFieldModel.getName();
+        Map<String, String> titleCommon = ExcelUtils.getTitleList(baseFieldList);
+        //文件名字
+        String filename = name + DateUtil.format(new Date(), DatePattern.PURE_DATETIME_PATTERN) + ".xlsx";
+        String path = uploadService.getUploadProjectProperties().getExcelPath() + "/" + filename;
+        Upload upload = UploadUtil.createFile(path, uploadService.getUploadProjectProperties().getFilePath());
+        File file = ExcelUtils.exportExcel(name, titleCommon, list, upload.getFile());
+        upload.setFile(file);
+        return upload;
     }
 
     /**

@@ -14,7 +14,7 @@ import com.lbin.component.fileUpload.UploadUtil;
 import com.lbin.component.fileUpload.data.Upload;
 import com.lbin.jpa.enums.StatusEnum;
 import com.lbin.jpa.service.BaseService;
-import com.lbin.jpa.utils.EntityBeanUtil;
+import com.lbin.common.util.EntityBeanUtil;
 import com.lbin.jpa.utils.StatusUtil;
 import com.lbin.component.fileUpload.service.UploadService;
 import lombok.Getter;
@@ -45,7 +45,7 @@ public class ModelService<T> {
 
     protected BaseFieldModel baseFieldModel;
     //备用Collection字段
-    protected String url = "/jpa/model";
+    protected String url = "/model/base";
     //备用Collection字段
     protected String modelapi = "model";
     //备用Collection字段
@@ -136,7 +136,7 @@ public class ModelService<T> {
     /**
      * 导入Excel数据
      */
-    public Map<String, Object> importExcel() {
+    public Map<String, Object> excel() {
         Map<String, Object> model = new HashMap<>();
         return model;
     }

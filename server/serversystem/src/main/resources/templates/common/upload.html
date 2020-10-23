@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:mo="http://www.w3.org/1999/xhtml">
+<th:block th:fragment="upload (name,value)">
+    <button type="button" class="layui-btn upload" th:name="${name}" up-url="/system/fileUpload/uploadFile" >选择文件</button>
+    <span class="uploadname">[[${value}]]</span>
+</th:block>
+<th:block th:fragment="detail (id,value)">
+    <a class="open-popup" data-title="文件信息"
+       th:attr="data-url=@{'/system/fileUpload/detail/'+${id}}" data-size="800,600" href="#">[[${value}]]</a>
+</th:block>
+<th:block th:fragment="download (id,value)">
+    <a class="" th:href="@{'/system/fileUpload/download/'+${id}}">[[${value}]]</a>
+</th:block>
+</html>

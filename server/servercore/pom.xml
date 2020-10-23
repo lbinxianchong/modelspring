@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>servercore</artifactId>
-    <name>定制服务</name>
+    <name>服务-自定义-核心</name>
 
     <dependencies>
         <dependency>

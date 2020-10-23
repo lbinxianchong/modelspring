@@ -20,6 +20,8 @@
         <module>thymeleaf</module>
         <module>excel</module>
         <module>fileUpload</module>
+        <module>actionLog</module>
+        <module>shiro</module>
     </modules>
 
 

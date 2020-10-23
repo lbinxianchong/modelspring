@@ -92,6 +92,7 @@ public class UploadService {
     }
 
     public Upload downloadFile(Upload upload, HttpServletResponse response) {
+        upload=UploadUtil.getLocalFile(upload);
         return UploadUtil.downloadFile(upload, response);
     }
 

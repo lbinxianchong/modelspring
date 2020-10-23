@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:mo="http://www.w3.org/1999/xhtml">
+<th:block th:fragment="excel (api,item)">
+    <body>
+    <div class="layui-form mo-compile">
+        <form th:action="@{${api}+'/importExcel'}">
+            <th:block th:if="${item == null}">
+                <th:block th:replace="/common/excel :: exportExcel (${api})"></th:block>
+                <th:block th:replace="/common/excel :: exportExcelTitle (${api})"></th:block>
+                <th:block th:replace="/common/excel :: import (${api})"></th:block>
+            </th:block>
+            <th:block th:if="${item != null}">
+                <th:block th:replace="${item}"></th:block>
+            </th:block>
+            <!--<div class="layui-form-item mo-finally">
+                <button class="layui-btn ajax-submit">保存</button>
+                <button class="layui-btn btn-secondary close-popup">关闭</button>
+            </div>-->
+        </form>
+    </div>
+    <script th:replace="/common/template :: script"></script>
+    </body>
+</th:block>
+<th:block th:fragment="import (api)">
+    <div class="layui-form-item">
+        <label class="layui-form-label">导入</label>
+        <div class="layui-input-inline">
+            <button type="button" class="layui-btn layupload"
+                    th:up-url="${api}+'/importExcel'" name="file">选择文件
+            </button>
+            <button type="button" class="layui-btn uploadsubmit ">上传</button>
+        </div>
+    </div>
+</th:block>
+<th:block th:fragment="exportExcel (api)">
+    <div class="layui-form-item">
+        <label class="layui-form-label">导出</label>
+        <div class="layui-input-inline">
+            <button type="button" class="layui-btn ajaxget" th:href="@{${api}+'/exportExcel'}">下载</button>
+        </div>
+    </div>
+</th:block>
+<th:block th:fragment="exportExcelTitle (api)">
+    <div class="layui-form-item">
+        <label class="layui-form-label">模板</label>
+        <div class="layui-input-inline">
+            <button type="button" class="layui-btn ajaxget" th:href="@{${api}+'/exportExcelTitle'}">下载</button>
+        </div>
+    </div>
+</th:block>
+<th:block th:fragment="button (api)">
+    <button class="layui-btn open-popup" data-title="Excel操作"
+            th:attr="data-url=@{${api}+'/excel'}" data-size="auto">Excel操作
+    </button>
+</th:block>
+<th:block th:fragment="nav (api)">
+    <div class="btn-group">
+        <button class="layui-btn">Excel操作<span class="caret"></span></button>
+        <dl class="layui-nav-child layui-anim layui-anim-upbit">
+            <dd><a class="ajaxget" th:href="@{${api}+'/exportExcelTitle'}">模板</a></dd>
+            <dd><a class="ajaxget" th:href="@{${api}+'/exportExcel'}">导出</a></dd>
+        </dl>
+    </div>
+</th:block>
+
+
+</html>

@@ -5,9 +5,10 @@ package com.lbin.jpa.controller;
 import com.lbin.common.util.ReflectUtil;
 import com.lbin.common.util.ResultVoUtil;
 import com.lbin.common.vo.ResultVo;
+import com.lbin.jpa.annotation.AutowiredBaseModel;
 import com.lbin.jpa.enums.StatusEnum;
 import com.lbin.jpa.service.BaseService;
-import com.lbin.jpa.utils.EntityBeanUtil;
+import com.lbin.common.util.EntityBeanUtil;
 import com.lbin.jpa.utils.StatusUtil;
 
 import org.springframework.data.domain.Example;
@@ -18,7 +19,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
+import java.lang.reflect.Field;
 import java.util.List;
 
 public class BaseController<T> {
@@ -26,6 +29,23 @@ public class BaseController<T> {
 
     protected BaseService<T> baseService;
 
+    @PostConstruct
+    public void init() {
+        try {
+            for (Field declaredField : this.getClass().getDeclaredFields()) {
+                declaredField.setAccessible(true);
+                Object o = declaredField.get(this);
+                if (o instanceof BaseService && !declaredField.getName().equals("baseService")) {
+                    baseService= (BaseService<T>) o;
+                    if (declaredField.isAnnotationPresent(AutowiredBaseModel.class)){
+                        break;
+                    }
+                }
+            }
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * 列表页面

@@ -1,8 +1,8 @@
 package com.lbin.component.thymeleaf.attribute;
 
 
-
 import cn.hutool.core.bean.BeanUtil;
+import com.lbin.common.util.CacheUtil;
 import org.thymeleaf.IEngineConfiguration;
 import org.thymeleaf.context.ITemplateContext;
 import org.thymeleaf.engine.AttributeName;
@@ -62,39 +62,7 @@ public class SelectListAttrProcessor extends SelectDictAttrProcessor {
         }
 
         // 转换列表对象
-        Map<String, String> valueList = new LinkedHashMap<>();
-        if (expressionResult.getClass().isArray()) {
-            // 转换数组
-            int length = Array.getLength(expressionResult);
-            for (int i = 0; i < length; i++) {
-                String value = String.valueOf(Array.get(expressionResult, i));
-                valueList.put(value, value);
-            }
-        } else if (expressionResult instanceof Collection) {
-            // 装换Collection集合
-            Collection list = (Collection) expressionResult;
-            if (list instanceof List && list.size() > 0 ) {
-                for (Object item : list) {
-                    Object key = BeanUtil.getFieldValue(item, "key");
-                    Object value = BeanUtil.getFieldValue(item, "value");
-                    if (key == null || value == null) {
-                        key = BeanUtil.getFieldValue(item, "id");
-                        value = BeanUtil.getFieldValue(item, "name");
-                    }
-                    valueList.put(String.valueOf(key), String.valueOf(value));
-                }
-            } else {
-                list.forEach(item -> {
-                    valueList.put(String.valueOf(item), String.valueOf(item));
-                });
-            }
-        } else if (expressionResult instanceof Map) {
-            // 装换Map集合
-            Map list = (Map) expressionResult;
-            list.forEach((key, item) -> {
-                valueList.put(String.valueOf(key), String.valueOf(item));
-            });
-        }
+        Map<String, String> valueList = getValueList(expressionResult);
 
         if (valueList.size() > 0) {
             doProcess(context, tag, attributeName, attributeValue, structureHandler, valueList);

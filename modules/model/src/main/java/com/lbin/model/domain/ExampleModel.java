@@ -1,9 +1,9 @@
 package com.lbin.model.domain;
 
 
-
 import com.lbin.common.annotation.BaseClassModel;
 import com.lbin.common.annotation.BaseModel;
+import com.lbin.common.enums.BaseTypeEnum;
 import com.lbin.jpa.enums.StatusEnum;
 import com.lbin.jpa.utils.StatusUtil;
 import com.lbin.system.domain.FileUpload;
@@ -30,12 +30,12 @@ import java.io.Serializable;
 //被@Postpersist注解的方法 ，完成save之后的操作。
 //被@Postupdate注解的方法 ，完成update之后的操作。
 @Where(clause = StatusUtil.NOT_DELETE)//查询条件设置
-@BaseClassModel(value = "例子", model = true,search = true,index = true)//模板自定义
+@BaseClassModel(value = "例子", search = true, index = true)//模板自定义
 public class ExampleModel implements Serializable {
     // 主键ID
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @BaseModel(index = true,add = false)
+    @BaseModel(index = true, add = false)
     private Long id;
     // 数据源
     @BaseModel(index = true)//模板自定义
@@ -47,12 +47,12 @@ public class ExampleModel implements Serializable {
     @BaseModel
     private Integer indexno;
     // 名字
-    @BaseModel(value = "名字",search = true,index = true)
+    @BaseModel(value = "名字", search = true, index = true)
     private String name;
     // 文件名字
     private String filename;
 
-    @BaseModel(type = "File",key = "name")
+    @BaseModel(type = BaseTypeEnum.File, key = "name")
     @OneToOne
     @JoinColumn(name = "fileUpload_id")
     private FileUpload fileUpload;
@@ -63,7 +63,6 @@ public class ExampleModel implements Serializable {
     // 数据状态
     @BaseModel(add = false)
     private Byte status = StatusEnum.OK.getCode();
-
 
 
 }

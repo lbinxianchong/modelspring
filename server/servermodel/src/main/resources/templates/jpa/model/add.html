@@ -19,7 +19,7 @@
                 </th:block>
                 <th:block th:if="${item.type=='File'}">
                     <button type="button" class="layui-btn upload" th:name="${item.name}" up-url="/system/fileUpload/uploadFile" >选择文件</button>
-                    [[${item?.value}]]
+                    [[${item?.value?.name}]]
                 </th:block>
             </div>
         </div>

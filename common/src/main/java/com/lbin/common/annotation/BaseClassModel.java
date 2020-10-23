@@ -12,8 +12,6 @@ public @interface BaseClassModel {
     String value() default "";
 
     boolean ignores() default true;
-    //模板add detail
-    boolean model() default false;
 
     boolean search() default false;
 

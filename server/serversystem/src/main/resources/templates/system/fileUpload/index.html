@@ -19,11 +19,11 @@
     </th:block>
     <!--<th:block th:fragment="table"></th:block>-->
     <th:block th:fragment="thead">
-        <th>主键ID</th>
-        <th>文件名</th>
-        <th>url路径</th>
-        <th>文件大小</th>
-        <th>文件UUID</th>
+        <th class="sortable" data-field="id">主键ID</th>
+        <th class="sortable" data-field="name">文件名</th>
+        <th class="sortable" data-field="url">url路径</th>
+        <th class="sortable" data-field="size">文件大小</th>
+        <th class="sortable" data-field="uuid">文件UUID</th>
     </th:block>
     <th:block th:fragment="tbody">
         <td>[[${item.id}]]</td>
@@ -33,10 +33,13 @@
         <td>[[${item.uuid}]]</td>
     </th:block>
     <th:block th:fragment="tajax">
-        <a class="open-popup" data-title="编辑系统设置"
+        <!--<a class="open-popup" data-title="编辑系统设置"
            th:attr="data-url=@{'/system/fileUpload/edit/'+${item.id}}" data-size="auto" href="#">编辑</a>
         <a class="open-popup" data-title="详细信息"
-           th:attr="data-url=@{'/system/fileUpload/detail/'+${item.id}}" data-size="800,600" href="#">详细</a>
+           th:attr="data-url=@{'/system/fileUpload/detail/'+${item.id}}" data-size="800,600" href="#">详细</a>-->
+        <th:block th:replace="/common/index :: ajaxedit"></th:block>
+        <th:block th:replace="/common/index :: ajaxdetail"></th:block>
+        <th:block th:replace="/common/upload :: download (${item.id},'下载')"></th:block>
         <a class="ajaxget" data-msg="您是否确认删除" th:href="@{'/system/fileUpload/delete/'+${item.id}}">删除</a>
     </th:block>
 </th:block>

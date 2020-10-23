@@ -79,14 +79,9 @@
                             </th:block>
                             <td>
                                 <th:block th:if="${tajax == null}">
-                                    <a class="open-popup" data-title="编辑设置"
-                                       th:attr="data-url=@{${api}+'/edit/'+${item.id}}" data-size="auto"
-                                       href="#">编辑</a>
-                                    <a class="open-popup" data-title="详细信息"
-                                       th:attr="data-url=@{${api}+'/detail/'+${item.id}}" data-size="800,600"
-                                       href="#">详细</a>
-                                    <a class="ajax-get" data-msg="您是否确认删除"
-                                       th:href="@{${api}+'/status/delete'(ids=${item.id})}">删除</a>
+                                    <th:block th:replace="/common/index :: ajaxedit"></th:block>
+                                    <th:block th:replace="/common/index :: ajaxdetail"></th:block>
+                                    <th:block th:replace="/common/index :: ajaxdelete"></th:block>
                                 </th:block>
                                 <th:block th:if="${tajax != null}">
                                     <th:block th:replace="${tajax}"></th:block>
@@ -142,6 +137,21 @@
             <select class="layui-input " th:name="${name}" th:mo:list="${list}" th:mo-selected="${value}"></select>
         </div>
     </div>
+</th:block>
+<th:block th:fragment="ajaxedit">
+    <a class="open-popup" data-title="编辑设置" data-size="auto"
+       href="#" th:attr="data-url=@{${api}+'/edit/'+${item.id}}"
+    >编辑</a>
+</th:block>
+<th:block th:fragment="ajaxdetail">
+    <a class="open-popup" data-title="详细信息" data-size="800,600"
+       href="#" th:attr="data-url=@{${api}+'/detail/'+${item.id}}"
+    >详细</a>
+</th:block>
+<th:block th:fragment="ajaxdelete">
+    <a class="ajax-get" data-msg="您是否确认删除"
+       th:href="@{${api}+'/status/delete'(ids=${item.id})}"
+    >删除</a>
 </th:block>
 
 </html>

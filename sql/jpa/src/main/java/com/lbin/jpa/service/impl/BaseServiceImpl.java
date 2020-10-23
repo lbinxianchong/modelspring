@@ -1,18 +1,17 @@
 package com.lbin.jpa.service.impl;
 
 
-
-
+import com.lbin.jpa.annotation.AutowiredBaseModel;
 import com.lbin.jpa.data.PageSort;
 import com.lbin.jpa.enums.StatusEnum;
 import com.lbin.jpa.repository.BaseRepository;
 import com.lbin.jpa.service.BaseService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.PostConstruct;
+import java.lang.reflect.Field;
 import java.util.List;
 
 /**
@@ -23,10 +22,28 @@ import java.util.List;
 @Transactional
 public class BaseServiceImpl<T> implements BaseService<T> {
 
-//    @Autowired
+    //    @Autowired
 //    @Qualifier
 //    @Resource
     protected BaseRepository<T, Long> baseRepository;
+
+    @PostConstruct
+    public void init() {
+        try {
+            for (Field declaredField : this.getClass().getDeclaredFields()) {
+                declaredField.setAccessible(true);
+                Object o = declaredField.get(this);
+                if (o instanceof BaseRepository && !declaredField.getName().equals("baseRepository")) {
+                    baseRepository= (BaseRepository<T, Long>) o;
+                    if (declaredField.isAnnotationPresent(AutowiredBaseModel.class)){
+                        break;
+                    }
+                }
+            }
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+    }
 
     public BaseServiceImpl() {
     }
@@ -156,6 +173,12 @@ public class BaseServiceImpl<T> implements BaseService<T> {
     @Transactional
     public void deleteAll() {
         baseRepository.deleteAll();
+    }
+
+    @Override
+    @Transactional
+    public void deleteByIdIn(List<Long> idList) {
+        baseRepository.deleteByIdIn(idList);
     }
 
     @Override

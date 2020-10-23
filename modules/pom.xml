@@ -14,6 +14,7 @@
     <name>业务模块</name>
     <modules>
         <module>model</module>
+        <module>custom</module>
     </modules>
 
 

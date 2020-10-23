@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>cache</artifactId>
-    <name>cache缓存组件</name>
+    <name>组件-cache缓存</name>
 
     <dependencies>
         <!--ehcache缓存框架-->

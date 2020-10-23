@@ -1,12 +1,14 @@
 package com.lbin.system.controller;
 
 
+import cn.hutool.core.bean.BeanUtil;
 import com.lbin.common.exception.ResultException;
 import com.lbin.common.util.ResultVoUtil;
 import com.lbin.common.vo.ResultVo;
 import com.lbin.component.fileUpload.data.Upload;
 import com.lbin.component.fileUpload.enums.UploadResultEnum;
 import com.lbin.jpa.controller.BaseController;
+import com.lbin.common.util.EntityBeanUtil;
 import com.lbin.system.domain.FileUpload;
 import com.lbin.component.fileUpload.service.UploadService;
 import com.lbin.system.service.FileUploadService;
@@ -29,10 +31,6 @@ public class FileUploadController extends BaseController<FileUpload> {
     @Autowired
     private UploadService uploadService;
 
-    @PostConstruct
-    public void init() {
-        baseService = fileUploadService;
-    }
     /**
      * 跳转到添加页面
      */
@@ -55,7 +53,7 @@ public class FileUploadController extends BaseController<FileUpload> {
             if (fileUpload==null){
                 Upload upload = uploadService.uploadFile(multipartFile, prefixPath);
                 upload = uploadService.removePrefix(upload);
-                fileUpload = new FileUpload(upload);
+                EntityBeanUtil.copyProperties(upload,fileUpload);
                 save(fileUpload);
             }
             return ResultVoUtil.success("上传成功",fileUpload);
@@ -71,7 +69,8 @@ public class FileUploadController extends BaseController<FileUpload> {
     @GetMapping("/download/{id}")
     public void download(@PathVariable("id") FileUpload fileUpload,
                                  HttpServletRequest request, HttpServletResponse response) {
-        Upload upload = fileUpload.getUpload();
+        Upload upload = new Upload();
+        BeanUtil.copyProperties(fileUpload,upload);
         upload = uploadService.addPrefix(upload);
         uploadService.downloadFile(upload,response);
     }
@@ -83,7 +82,8 @@ public class FileUploadController extends BaseController<FileUpload> {
     @ResponseBody
     public ResultVo delete(@PathVariable("id") FileUpload fileUpload) {
         try {
-            Upload upload = fileUpload.getUpload();
+            Upload upload = new Upload();
+            EntityBeanUtil.copyProperties(fileUpload,upload);
             upload = uploadService.addPrefix(upload);
             boolean delete = uploadService.delete(upload);
             if (!delete){

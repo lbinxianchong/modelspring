@@ -11,19 +11,14 @@
 
     <artifactId>jpa</artifactId>
 
-    <name>jpa持久层API</name>
+    <name>数据库-jpa持久层API</name>
     <dependencies>
-        <!--spring data jpa持久层框架-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
+
 
         <!--mysql连接驱动-->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <!--<version>${mysql.connector.version}</version>-->
             <scope>runtime</scope>
         </dependency>
 

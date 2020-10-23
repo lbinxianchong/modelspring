@@ -57,8 +57,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">[[${title}]]</label>
         <div class="layui-input-inline">
-            <button type="button" class="layui-btn upload" th:name="${name}" up-url="/system/fileUpload/uploadFile" >选择文件</button>
-            [[${value}]]
+            <th:block th:replace="/common/upload :: upload (${name},${value})"></th:block>
         </div>
     </div>
 </th:block>

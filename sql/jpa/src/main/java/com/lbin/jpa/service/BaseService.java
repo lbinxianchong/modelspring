@@ -189,6 +189,13 @@ public interface BaseService<T> {
     void deleteAll() ;
 
     /**
+     * 删除多条数据
+     *
+     */
+    @Transactional
+    void deleteByIdIn(List<Long> idList);
+
+    /**
      * 根据id与状态查询对象
      *
      * @param id

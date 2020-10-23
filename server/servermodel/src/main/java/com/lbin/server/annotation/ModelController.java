@@ -41,12 +41,12 @@ public class ModelController<T> {
     /**
      * 跳转到添加页面
      */
-    @GetMapping("/{entity}/importExcel")
-    public String importExcel(
+    @GetMapping("/{entity}/excel")
+    public String excel(
             Model model,
             @PathVariable("entity") String entity) {
-        model.mergeAttributes(modelApi(entity).importExcel());
-        return getUrl(model, entity, "/importExcel");
+        model.mergeAttributes(modelApi(entity).excel());
+        return getUrl(model, entity, "/excel");
     }
 
 

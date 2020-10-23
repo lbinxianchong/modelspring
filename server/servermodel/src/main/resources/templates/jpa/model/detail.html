@@ -17,7 +17,15 @@
                 </tr>
                 <tr th:each="item:${field.baseFieldList}">
                     <th>[[${item.title}]]</th>
-                    <td>[[${item.value}]]</td>
+                    <th:block th:if="${item.type!='File'}">
+                        <td>[[${item.value}]]</td>
+                    </th:block>
+                    <th:block th:if="${item.type=='File'}">
+                        <td><a class="open-popup"
+                               th:attr="data-url=@{'/system/fileUpload/detail/'+${item.value.id}}"
+                               data-size="800,600" href="#">[[${item.value.name}]]</a>
+                        </td>
+                    </th:block>
                 </tr>
             </tbody>
         </table>

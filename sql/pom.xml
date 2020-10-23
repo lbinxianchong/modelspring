@@ -11,7 +11,7 @@
 
     <packaging>pom</packaging>
 
-    <name>SQL模块</name>
+    <name>数据库模块</name>
     <modules>
         <module>jpa</module>
     </modules>

@@ -13,6 +13,7 @@ import com.lbin.component.fileUpload.data.Upload;
 import com.lbin.component.fileUpload.enums.UploadResultEnum;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
@@ -128,11 +129,13 @@ public class UploadUtil {
      * @return
      */
     public static Upload getLocalFile(Upload upload) {
-        File file = FileUtil.file(upload.getPath());
-        if (!FileUtil.exist(file)) {
-            throw new ResultException(UploadResultEnum.NO_FILE_Local);
+        if (upload.getFile() == null || !FileUtil.exist(upload.getFile())) {
+            File file = FileUtil.file(upload.getPath());
+            if (!FileUtil.exist(file)) {
+                throw new ResultException(UploadResultEnum.NO_FILE_Local);
+            }
+            upload.setFile(file);
         }
-        upload.setFile(file);
         return upload;
     }
 
@@ -407,11 +410,16 @@ public class UploadUtil {
         }
         String headerValue = String.format("attachment; filename=\"%s\"", filename);
         response.setHeader(headerKey, headerValue);
+        OutputStream outputStream = null;
         try {
-            IoUtil.copy(inputStream, response.getOutputStream());
+            outputStream = response.getOutputStream();
+            IoUtil.copy(inputStream, outputStream);
             response.flushBuffer();
         } catch (IOException e) {
             e.printStackTrace();
+        }finally {
+            IoUtil.close(inputStream);
+            IoUtil.close(outputStream);
         }
         return upload;
     }

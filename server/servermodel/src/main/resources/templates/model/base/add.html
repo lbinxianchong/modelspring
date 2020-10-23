@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/common/template :: header(~{::title},~{::link},~{::style})">
+</head>
+
+<th:block th:replace="/common/add :: add('/system/fileUpload',~{::tform})">
+    <th:block th:fragment="tform">
+        <th:block th:each="item:${field.baseFieldList}">
+            <th:block th:if="${item.type=='Text'}">
+                <th:block th:replace="/common/add :: inputtext (${item.title},${item.name},${item?.value})"></th:block>
+            </th:block>
+            <th:block th:if="${item.type=='Textarea'}">
+                <th:block th:replace="/common/add :: inputtextarea (${item.title},${item.name},${item?.value})"></th:block>
+            </th:block>
+            <th:block th:if="${item.type=='Number'}">
+                <th:block th:replace="/common/add :: inputnumber (${item.title},${item.name},${item?.value})"></th:block>
+            </th:block>
+            <th:block th:if="${item.type=='File'}">
+                <th:block th:replace="/common/add :: inputfile (${item.title},${item.name},${item?.value?.name})"></th:block>
+            </th:block>
+            <th:block th:if="${item.type=='Dict'}">
+                <th:block th:replace="/common/add :: inputdict (${item.title},${item.name},${item.label},${item?.value})"></th:block>
+            </th:block>
+            <th:block th:if="${item.type=='Data'}">
+                <th:block th:replace="/common/add :: inputdict (${item.title},${item.name},${item.label},${item?.value})"></th:block>
+            </th:block>
+        </th:block>
+    </th:block>
+</th:block>
+</html>

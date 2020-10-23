@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/common/template :: header(~{::title},~{::link},~{::style})">
+</head>
+<th:block th:replace="/common/detail :: detail(~{::tbody})">
+    <th:block th:fragment="tbody">
+        <th:block th:replace="/common/detail :: ttext ('主键ID',${field.id})"></th:block>
+        <th:block th:each="item:${field.baseFieldList}">
+            <th:block th:if="${item.type!='File'}">
+                <th:block th:replace="/common/detail :: ttext (${item.title},${item.value})"></th:block>
+            </th:block>
+            <th:block th:if="${item.type=='File'}">
+                <tr>
+                    <th>[[${item.title}]]</th>
+                    <td colspan="3">
+                        <th:block th:replace="/common/upload :: detail (${item.value.id},${item.value.name})"></th:block>
+                        <th:block th:replace="/common/upload :: download (${item.value.id},'下载')"></th:block>
+                    </td>
+                </tr>
+            </th:block>
+        </th:block>
+        <th:block th:replace="/common/detail :: ttext ('文件路径',${model.path})"></th:block>
+    </th:block>
+</th:block>
+</html>

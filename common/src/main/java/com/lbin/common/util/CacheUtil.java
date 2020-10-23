@@ -1,5 +1,6 @@
 package com.lbin.common.util;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.lbin.cache.EhCacheUtil;
 //import org.springframework.cache.Cache;
 import net.sf.ehcache.Cache;
@@ -17,7 +18,7 @@ public class CacheUtil {
 
     public static Cache dataCache = EhCacheUtil.getDataCache();
 
-    public static Cache getCache(String key){
+    public static Cache getCache(String key) {
         return EhCacheUtil.getCache(key);
     }
 
@@ -30,16 +31,17 @@ public class CacheUtil {
         }
         return value;
     }
+
     public static Map<String, String> valueDict(String label) {
         return (Map<String, String>) value(dictCache, label);
     }
 
     public static String valueConfig(String label) {
-        return (String) value(configureCache,label);
+        return (String) value(configureCache, label);
     }
 
     public static Object valueData(String label) {
-        return value(dataCache,label);
+        return value(dataCache, label);
     }
 
 
@@ -49,12 +51,12 @@ public class CacheUtil {
      * @param label 字典标识
      * @param code  选项编码
      */
-    public static String keyValue(Cache cache, String label, String code) {
-        Map<String, String> list = (Map<String, String>) value(cache, label);
-        if (list != null) {
-            return list.get(code);
+    public static Object keyValue(Cache cache, String label, String code) {
+        Object value = value(cache, label);
+        if (value != null) {
+            return BeanUtil.getFieldValue(value, code);
         } else {
-            return "";
+            return null;
         }
     }
 

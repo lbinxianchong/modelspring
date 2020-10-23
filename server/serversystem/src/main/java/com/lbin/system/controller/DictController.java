@@ -22,10 +22,6 @@ public class DictController extends BaseController<Dict> {
     @Autowired
     private DictService dictService;
 
-    @PostConstruct
-    public void init() {
-        baseService = dictService;
-    }
 
     @GetMapping("/reset")
     @ResponseBody

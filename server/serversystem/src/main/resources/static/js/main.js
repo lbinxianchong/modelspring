@@ -361,6 +361,8 @@ layui.use(['element', 'form', 'layer', 'upload'], function () {
             var upload = $('.upload');
             var name = upload.attr('name');
             console.log(result)
+            var uploadname = $('.uploadname');
+            uploadname.html(result.data.name)
             upload.append("<input type='hidden' name='" + name + "' value='" + result.data.id + "'/>");
         }
     });
@@ -397,7 +399,7 @@ layui.use(['element', 'form', 'layer', 'upload'], function () {
         , done: function (result) {
             layer.msg(result.msg, {offset: '15px', time: 3000, icon: 1});
             console.log(result);
-            parent.layer.close(window.parent.layerIndex);
+            // parent.layer.close(window.parent.layerIndex);
         }
     });
 

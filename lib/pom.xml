@@ -12,7 +12,7 @@
     <artifactId>lib</artifactId>
 
     <packaging>pom</packaging>
-    <name>额外库模块</name>
+    <name>扩展模块</name>
     <description>额外库模块：系统额外库耦合度低，可以拆分</description>
 
     <modules>

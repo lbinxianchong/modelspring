@@ -1,5 +1,7 @@
 package com.lbin.common.annotation;
 
+import com.lbin.common.enums.BaseTypeEnum;
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -10,7 +12,7 @@ import java.lang.annotation.Target;
 public @interface BaseModel {
 
     // 字段类型
-    String type() default "String";//1.String 2.Number 3.File 4.Select
+    BaseTypeEnum type() default BaseTypeEnum.Text;//BaseTypeEnum类型
 
     // 字段标题名称或文件名称
     String value() default "";

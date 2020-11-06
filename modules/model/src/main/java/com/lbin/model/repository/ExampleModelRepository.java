@@ -1,7 +1,7 @@
 package com.lbin.model.repository;
 
 
-import com.lbin.jpa.repository.BaseRepository;
+import com.lbin.sql.jpa.repository.BaseRepository;
 import com.lbin.model.domain.ExampleModel;
 
 /**

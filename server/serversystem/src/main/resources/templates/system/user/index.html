@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:mo="http://www.w3.org/1999/xhtml">
+<head th:replace="/common/template :: header(~{::title},~{::link},~{::style})">
+</head>
+<th:block th:replace="/common/index :: index('/system/user',~{::header},~{::search},~{::buttonleft},~{::buttonright},~{::table},~{::thead},~{::tbody},~{::tajax})">
+    <th:block th:fragment="header">
+        <span>用户管理</span>
+    </th:block>
+    <th:block th:fragment="search">
+        <th:block th:with="status=${param.status},username=${param.username},nickname=${param.nickname}">
+            <th:block th:replace="/common/index :: paramstatus ('状态','status','SEARCH_STATUS',${status})"></th:block>
+            <th:block th:replace="/common/index :: paramtext ('用户名','username',${username})"></th:block>
+            <th:block th:replace="/common/index :: paramtext ('用户昵称','nickname',${nickname})"></th:block>
+        </th:block>
+    </th:block>
+    <th:block th:fragment="buttonleft">
+        <button class="layui-btn open-popup-param" data-title="修改密码"
+                th:attr="data-url=@{/system/user/pwd}" data-size="456,242">
+            修改密码
+        </button>
+        <button class="layui-btn open-popup-param" data-type="radio" data-title="角色分配"
+                th:attr="data-url=@{/system/user/role}" data-size="480,400">
+            角色分配
+        </button>
+    </th:block>
+    <th:block th:fragment="buttonright">
+
+    </th:block>
+    <!--<th:block th:fragment="table"></th:block>-->
+    <th:block th:fragment="thead">
+        <th class="sortable" data-field="username">用户名</th>
+        <th class="sortable" data-field="nickname">用户昵称</th>
+        <th class="sortable" data-field="email">邮箱</th>
+        <th class="sortable" data-field="createDate">创建时间</th>
+        <th>状态</th>
+    </th:block>
+    <th:block th:fragment="tbody">
+        <td th:text="${item.username}">用户名</td>
+        <td th:text="${item.nickname}">用户昵称</td>
+        <td th:text="${item.email}">邮箱</td>
+        <td th:text="${#dates.format(item.createDate, 'yyyy-MM-dd HH:mm:ss')}">创建时间</td>
+        <td th:text="${#dicts.dataStatus(item.status)}">状态</td>
+    </th:block>
+    <!--<th:block th:fragment="tajax"></th:block>-->
+</th:block>
+</html>

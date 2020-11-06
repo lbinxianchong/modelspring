@@ -51,10 +51,15 @@ public enum ResultEnum {
      * 权限问题
      */
     NO_PERMISSIONS(401, "权限不足！"),
-    NO_ADMIN_AUTH(500, "不允许操作超级管理员"),
+    NO_ADMIN_AUTH(500, "不允许操作超级管理员数据"),
     NO_ADMIN_STATUS(501, "不能修改超级管理员状态"),
     NO_ADMINROLE_AUTH(500, "不允许操作管理员角色"),
     NO_ADMINROLE_STATUS(501, "不能修改管理员角色状态"),
+
+    /**
+     * API问题
+     */
+    NO_API(404, "Api请求不存在"),
 
     ;
 

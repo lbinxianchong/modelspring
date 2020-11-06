@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:mo="http://www.w3.org/1999/xhtml">
 <head th:replace="/common/template :: header(~{::title},~{::link},~{::style})">
 </head>
-<th:block th:replace="/common/index :: index('/system/fileUpload',~{::header},~{::search},~{::button},~{::table},~{::thead},~{::tbody},~{::tajax})">
+<th:block th:replace="/common/index :: index('/system/fileUpload',~{::header},~{::search},~{::buttonleft},~{::buttonright},~{::table},~{::thead},~{::tbody},~{::tajax})">
     <th:block th:fragment="header">
         <span>文件列表管理</span>
     </th:block>
@@ -12,7 +12,8 @@
             <th:block th:replace="/common/index :: paramtext ('name','name',${name})"></th:block>
         </th:block>
     </th:block>
-    <th:block th:fragment="button">
+    <!--<th:block th:fragment="buttonleft"></th:block>-->
+    <th:block th:fragment="buttonright">
         <button class="layui-btn open-popup" data-title="添加上传文件"
                 th:attr="data-url=@{/system/fileUpload/upload}" data-size="600,300">upload
         </button>

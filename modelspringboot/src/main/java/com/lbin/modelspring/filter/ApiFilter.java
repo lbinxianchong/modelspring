@@ -21,7 +21,7 @@ import java.io.IOException;
  * 属性urlPatterns指定要过滤 的URL模式,也可使用属性value来声明.(指定要过滤的URL模式是必选属性)
  */
 @Slf4j
-@WebFilter(filterName = "apiFilter", urlPatterns = "/api/*")
+//@WebFilter(filterName = "apiFilter", urlPatterns = "/api/*")
 public class ApiFilter implements Filter {
 
     @Override

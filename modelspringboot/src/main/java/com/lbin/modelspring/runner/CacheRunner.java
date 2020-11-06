@@ -1,6 +1,6 @@
 package com.lbin.modelspring.runner;
 
-import com.lbin.system.service.DictService;
+import com.lbin.server.system.service.DictService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;

@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 @Slf4j
-@WebFilter(filterName = "systemFilter", urlPatterns = "/system/*")
+//@WebFilter(filterName = "systemFilter", urlPatterns = "/system/*")
 public class SystemFilter implements Filter {
 
     @Override

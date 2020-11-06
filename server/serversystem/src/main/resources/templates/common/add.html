@@ -29,6 +29,15 @@
         </div>
     </div>
 </th:block>
+
+<th:block th:fragment="inputpassword (title,name,value)">
+    <div class="layui-form-item">
+        <label class="layui-form-label">[[${title}]]</label>
+        <div class="layui-input-inline">
+            <input class="layui-input" type="password" th:name="${name}" th:placeholder="'请输入'+${title}" th:value="${value}">
+        </div>
+    </div>
+</th:block>
 <th:block th:fragment="inputtextarea (title,name,value)">
     <div class="layui-form-item layui-form-text">
         <label class="layui-form-label">[[${title}]]</label>

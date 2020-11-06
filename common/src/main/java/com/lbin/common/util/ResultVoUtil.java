@@ -16,6 +16,7 @@ public class ResultVoUtil {
 
     public static ResultVo SAVE_SUCCESS = success("保存成功");
     public static ResultVo DELETE_SUCCESS = success("删除成功");
+    public static ResultVo API_ERROR = error("API请求不存在");
 
     /**
      * 操作成功

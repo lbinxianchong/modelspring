@@ -83,12 +83,22 @@ spring:
 
   ## thymeleaf模板设置
   thymeleaf:
+    #模版文件位置
     prefix: classpath:/templates
+    #模版文件后缀
     suffix: .html
     mode: HTML
+    #模版文件编码
     encoding: utf-8
+    #Content-Type配置
     servlet.content-type: text/html
+    #是否开启缓存，开发时可以设置为 false，默认为 true
     cache: false
+    #检查模版是否存在，默认为 true
+    check-template: true
+    #检查模版位置是否存在，默认为 true
+    check-template-location: true
+
 
   ##静态资源设置
   resources:

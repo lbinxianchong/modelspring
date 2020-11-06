@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:mo="http://www.w3.org/1999/xhtml">
-<th:block th:fragment="index (api,header,search,button,table,thead,tbody,tajax)">
+<th:block th:fragment="index (api,header,search,buttonleft,buttonright,table,thead,tbody,tajax)">
     <body class="mo-layout-page">
     <div class="layui-card">
         <div class="layui-card-header mo-card-header">
@@ -29,19 +29,26 @@
                     </div>
                 </div>
                 <div class="pull-right screen-btn-group">
-                    <th:block th:if="${button != null}">
-                        <th:block th:replace="${button}"></th:block>
-                    </th:block>
-                    <button class="layui-btn open-popup" data-title="添加上传文件"
-                            th:attr="data-url=@{${api}+'/add'}" data-size="auto">添加
-                    </button>
-                    <div class="btn-group">
-                        <button class="layui-btn">操作<span class="caret"></span></button>
-                        <dl class="layui-nav-child layui-anim layui-anim-upbit">
-                            <dd><a class="ajax-status" th:href="@{${api}+'/status/ok'}">启用</a></dd>
-                            <dd><a class="ajax-status" th:href="@{${api}+'/status/freezed'}">冻结</a></dd>
-                            <dd><a class="ajax-status" th:href="@{${api}+'/status/delete'}">删除</a></dd>
-                        </dl>
+                    <div class="btn-group-left">
+                        <th:block th:if="${buttonleft != null}">
+                            <th:block th:replace="${buttonleft}"></th:block>
+                        </th:block>
+                    </div>
+                    <div class="btn-group-right">
+                        <th:block th:if="${buttonright != null}">
+                            <th:block th:replace="${buttonright}"></th:block>
+                        </th:block>
+                        <button class="layui-btn open-popup" data-title="添加上传文件"
+                                th:attr="data-url=@{${api}+'/add'}" data-size="auto">添加
+                        </button>
+                        <div class="btn-group">
+                            <button class="layui-btn">操作<span class="caret"></span></button>
+                            <dl class="layui-nav-child layui-anim layui-anim-upbit">
+                                <dd><a class="ajax-status" th:href="@{${api}+'/status/ok'}">启用</a></dd>
+                                <dd><a class="ajax-status" th:href="@{${api}+'/status/freezed'}">冻结</a></dd>
+                                <dd><a class="ajax-status" th:href="@{${api}+'/status/delete'}">删除</a></dd>
+                            </dl>
+                        </div>
                     </div>
                 </div>
             </div>

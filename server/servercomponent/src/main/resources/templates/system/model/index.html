@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:mo="http://www.w3.org/1999/xhtml">
+<head th:replace="/common/template :: header(~{::title},~{::link},~{::style})">
+</head>
+<th:block
+        th:replace="/common/index :: index(${api},~{::header},~{::search},~{::buttonleft},~{::buttonright},~{::table},~{::thead},~{::tbody},~{::tajax})">
+    <th:block th:fragment="header">
+        <span>[[${baseFieldModel.getName()}]]列表管理</span>
+    </th:block>
+
+    <th:block th:fragment="search">
+        <th:block th:with="status=${param.status}">
+            <th:block th:replace="/common/index :: paramstatus ('状态','status','SEARCH_STATUS',${status})"></th:block>
+            <th:block th:each="search:${baseFieldModel.getSearchList(model)}">
+                <th:block
+                        th:replace="/common/index :: paramtext (${search.title},${search.name},${search.value})"></th:block>
+            </th:block>
+        </th:block>
+    </th:block>
+
+    <th:block th:fragment="buttonleft">
+
+    </th:block>
+
+    <th:block th:fragment="buttonright">
+
+    </th:block>
+
+    <!--<th:block th:fragment="table"></th:block>-->
+
+    <th:block th:fragment="thead">
+        <th:block th:each="title:${baseFieldModel.getIndexList()}">
+            <th class="sortable" th:data-field="${title.name}">[[${title.title}]]</th>
+        </th:block>
+    </th:block>
+
+    <th:block th:fragment="tbody">
+        <th:block th:each="baseField:${baseFieldModel.getIndexList(item)}">
+            <td>[[${baseField.value}]]</td>
+        </th:block>
+    </th:block>
+
+    <!--<th:block th:fragment="tajax"></th:block>-->
+</th:block>
+</html>

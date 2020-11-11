@@ -27,7 +27,7 @@ import java.util.Date;
 @Table(name = "sys_file_upload")//（表名）catalog 和 schema 用于设置表所属的数据库目录或模式，通常为数据库名
 @EntityListeners(AuditingEntityListener.class)//实体类监听器 例子用于时间
 @Where(clause = StatusUtil.NOT_DELETE)//查询条件设置
-@BaseClassModel(value = "上傳文件")
+@BaseClassModel(value = "上传文件")
 public class FileUpload implements Serializable {
     // 主键ID
     @Id
@@ -39,6 +39,11 @@ public class FileUpload implements Serializable {
      * 文件名
      */
     private String name;
+
+    /**
+     * 文件名
+     */
+    private String fileName;
 
     /**
      * 文件路径

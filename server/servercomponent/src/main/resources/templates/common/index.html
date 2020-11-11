@@ -38,6 +38,7 @@
                         <th:block th:if="${buttonright != null}">
                             <th:block th:replace="${buttonright}"></th:block>
                         </th:block>
+                        <th:block th:replace="/common/excel :: excelbutton(${api})"></th:block>
                         <button class="layui-btn open-popup" data-title="添加上传文件"
                                 th:attr="data-url=@{${api}+'/add'}" data-size="auto">添加
                         </button>

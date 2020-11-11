@@ -177,7 +177,7 @@ public class ModelService<T> {
         //文件名字
         String filename = name + DateUtil.format(new Date(), DatePattern.PURE_DATETIME_PATTERN) + ".xlsx";
         String path = uploadService.getUploadProjectProperties().getExcelPath() + "/" + filename;
-        Upload upload = UploadUtil.createFile(path, uploadService.getUploadProjectProperties().getFilePath());
+        Upload upload = UploadUtil.file(path, uploadService.getUploadProjectProperties().getFilePath());
         File file = ExcelUtils.exportExcel(name, titleCommon, list, upload.getFile());
         upload.setFile(file);
         return upload;

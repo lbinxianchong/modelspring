@@ -6,6 +6,7 @@
 <th:block th:replace="/common/add :: add('/system/fileUpload',~{::tform})">
     <th:block th:fragment="tform">
         <th:block th:replace="/common/add :: inputtext ('name','name',${model?.name})"></th:block>
+        <th:block th:replace="/common/add :: inputtext ('fileName','fileName',${model?.fileName})"></th:block>
         <th:block th:replace="/common/add :: inputtext ('文件路径','path',${model?.path})"></th:block>
         <th:block th:replace="/common/add :: inputtext ('url路径','url',${model?.url})"></th:block>
         <th:block th:replace="/common/add :: inputtext ('文件类型','mime',${model?.mime})"></th:block>

@@ -75,6 +75,7 @@ public class ComponentServer<T> {
      */
     public Map<String, Object> list(T t) {
         Map<String, Object> model = new HashMap<>();
+        model.put("model", t);
         List<T> list = getBaseService().findAll(t);
         model.put("list", list);
         return model;
@@ -104,17 +105,18 @@ public class ComponentServer<T> {
      * 列表页面
      */
     public Map<String, Object> index(T t) {
-
+        Map<String, Object> model = new HashMap<>();
+        model.put("model", t);
         // 创建匹配器，进行动态查询匹配
         ExampleMatcher matcher = ExampleMatcher.matching();
         List<BaseField> searchList = getBaseFieldModel().getSearchList();
         for (BaseField baseField : searchList) {
             matcher.withMatcher(baseField.getName(), match -> match.contains());
         }
-
         // 获取数据列表
         Example<T> example = Example.of(t, matcher);
-        return getPageList(example);
+        model.putAll(getPageList(example));
+        return model;
     }
 
     /**

@@ -11,6 +11,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,17 +19,18 @@ import java.util.List;
 import java.util.Map;
 
 /**
- *  请求
- * @param <T>   数据模型
- * @param <S>   数据模型Validated（BaseValid）
- *     @Autowired
- *     private ComponentServer componentServer;
+ * 请求
  *
+ * @param <T> 数据模型
+ * @param <S> 数据模型Validated（BaseValid）
+ * @Autowired private ComponentServer componentServer;
  */
 public class ComponentRequest<T, S> {
 
     //ControllerRequestMapping接口
-    protected String requestMapping = "/system/model";
+    protected String requestMapping;
+
+    protected String thymeleafPath;
 
     protected ComponentServer componentServer;
 
@@ -40,8 +42,8 @@ public class ComponentRequest<T, S> {
      * @param url
      * @return
      */
-    public String getRequestMapping(String url) {
-        return requestMapping + url;
+    public String getThymeleafPath(String url) {
+        return thymeleafPath + url;
     }
 
     /**
@@ -63,6 +65,11 @@ public class ComponentRequest<T, S> {
      * @return
      */
     public ModelAndView getModelAndView(String url, Map<String, Object> map) {
+        if (thymeleafPath.equals("/system/model")) {
+            map.put("baseFieldModel", componentServer.getBaseFieldModel());
+            map.put("api", requestMapping);
+        }
+
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addAllObjects(map);
         modelAndView.setViewName(url);
@@ -101,6 +108,8 @@ public class ComponentRequest<T, S> {
 
     @PostConstruct
     public void init() {
+        //ThymeleafPath初始化
+        thymeleafPath = InitUtil.getRequestMapping(thymeleafPath, getClass());
         //RequestMapping初始化
         requestMapping = InitUtil.getRequestMapping(requestMapping, getClass());
         //BaseService初始化
@@ -125,7 +134,7 @@ public class ComponentRequest<T, S> {
     @ResponseBody
     public Object index(T t) {
         Map<String, Object> map = componentServer.index(t);
-        return getRequest(getRequestMapping("/index"), map);
+        return getRequest(getThymeleafPath("/index"), map);
     }
 
     /**
@@ -135,7 +144,7 @@ public class ComponentRequest<T, S> {
     @ResponseBody
     public Object excel() {
         Map<String, Object> map = componentServer.excel();
-        map.put("api",requestMapping);
+        map.put("api", requestMapping);
         return getView("/system/component/excel", map);
     }
 
@@ -154,7 +163,7 @@ public class ComponentRequest<T, S> {
      */
     @GetMapping("/exportExcelTitle")
     public void exportExcelTitle(HttpServletRequest request, HttpServletResponse response) {
-        componentServer.exportExcelTitle(request, response);
+         componentServer.exportExcelTitle(request, response);
     }
 
     /**
@@ -162,7 +171,7 @@ public class ComponentRequest<T, S> {
      */
     @GetMapping("/exportExcel")
     public void exportExcel(HttpServletRequest request, HttpServletResponse response) {
-        componentServer.exportExcel(request, response);
+         componentServer.exportExcel(request, response);
     }
 
     /**
@@ -172,7 +181,7 @@ public class ComponentRequest<T, S> {
     @ResponseBody
     public Object toAdd() {
         Map<String, Object> map = componentServer.toAdd();
-        return getView(getRequestMapping("/add"), map);
+        return getView(getThymeleafPath("/add"), map);
     }
 
     /**
@@ -182,7 +191,7 @@ public class ComponentRequest<T, S> {
     @ResponseBody
     public Object toEdit(@PathVariable("id") T t) {
         Map<String, Object> map = componentServer.toEdit(t);
-        return getView(getRequestMapping("/edit"), map);
+        return getView(getThymeleafPath("/add"), map);
     }
 
     /**
@@ -201,7 +210,7 @@ public class ComponentRequest<T, S> {
     @ResponseBody
     public Object toDetail(@PathVariable("id") T t, Model model) {
         Map<String, Object> map = componentServer.toDetail(t);
-        return getRequest(getRequestMapping("/detail"), map);
+        return getRequest(getThymeleafPath("/detail"), map);
     }
 
     /**

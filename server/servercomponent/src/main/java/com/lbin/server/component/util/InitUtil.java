@@ -52,9 +52,13 @@ public class InitUtil {
     }
 
     public static String getRequestMapping(String requestMapping, Class<?> c) {
-        RequestMapping annotation = c.getAnnotation(RequestMapping.class);
-        if (annotation != null) {
-            requestMapping = annotation.value()[0];
+        if (requestMapping == null || requestMapping.trim().length() == 0) {
+            RequestMapping annotation = c.getAnnotation(RequestMapping.class);
+            if (annotation != null) {
+                requestMapping = annotation.value()[0];
+            }else {
+                requestMapping="/system/model";
+            }
         }
         return requestMapping;
     }

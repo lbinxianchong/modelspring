@@ -3,9 +3,9 @@
 <head th:replace="/common/template :: header(~{::title},~{::link},~{::style})">
 </head>
 
-<th:block th:replace="/common/add :: add(${api},~{::tform})">
+<th:block th:replace="/common/add :: add('/system/model',~{::tform})">
     <th:block th:fragment="tform">
-        <th:block th:each="item:${field.baseFieldList}">
+        <th:block th:each="item:${baseFieldModel.getAddList(model)}">
             <th:block th:if="${item.type=='Text'}">
                 <th:block th:replace="/common/add :: inputtext (${item.title},${item.name},${item?.value})"></th:block>
             </th:block>

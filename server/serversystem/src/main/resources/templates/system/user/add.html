@@ -6,8 +6,8 @@
     <th:block th:fragment="tform">
         <th:block th:replace="/common/add :: inputtext ('用户名','username',${model?.username})"></th:block>
         <th:block th:replace="/common/add :: inputtext ('用户昵称','nickname',${model?.nickname})"></th:block>
-        <th:block th:replace="/common/add :: inputpassword ('用户密码','password',${model?.password})"></th:block>
-        <th:block th:replace="/common/add :: inputpassword ('确认密码','confirm',${model?.confirm})"></th:block>
+        <th:block th:replace="/common/add :: inputpassword ('用户密码','password','')"></th:block>
+        <th:block th:replace="/common/add :: inputpassword ('确认密码','confirm','')"></th:block>
         <th:block th:replace="/common/add :: inputtext ('电话号码','phone',${model?.phone})"></th:block>
         <th:block th:replace="/common/add :: inputtext ('邮箱','email',${model?.email})"></th:block>
         <th:block th:replace="/common/add :: inputdict ('性别','sex','USER_SEX',${model?.sex})"></th:block>

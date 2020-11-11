@@ -104,6 +104,22 @@ spring:
   resources:
     static-locations: classpath:/templates/,classpath:/static/
 
+logging:
+  level:
+    # 级别
+    root: INFO
+  file:
+#    path: ./project/format/log
+    name: "./project/format/log/model.log"
+    # 日志文件大小
+    max-size: 1GB
+    # 保留的日志时间
+    max-history: 100
+#  config: classpath:logback-springs.xml
+
+
+
+
 
 
 

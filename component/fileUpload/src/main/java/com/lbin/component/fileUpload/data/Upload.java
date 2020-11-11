@@ -15,6 +15,9 @@ public class Upload implements Serializable {
     /** 文件名 */
     private String name;
 
+    /** 文件实际名 */
+    private String fileName;
+
     /** 文件路径 */
     private String path;
 

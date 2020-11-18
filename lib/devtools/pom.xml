@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>lib</artifactId>
+        <groupId>com.lbin</groupId>
+        <version>v1</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>devtools</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.lbin</groupId>
+            <artifactId>common</artifactId>
+            <version>v1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.lbin</groupId>
+            <artifactId>serversystem</artifactId>
+            <version>v1</version>
+        </dependency>
+        <!--html解析工具，处理xss工具-->
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.11.3</version>
+        </dependency>
+    </dependencies>
+
+    <!-- 修复部分idea版本无法发布tpl文件到target目录下的问题 -->
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.tpl</include>
+                </includes>
+            </resource>
+        </resources>
+    </build>
+
+</project>

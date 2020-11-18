@@ -36,11 +36,11 @@ public class SelectDictAttrProcessor extends AbstractAttributeTagProcessor {
         super(templateMode, dialectPrefix, null, false, attrName, true, precedence, true);
     }
 
-    protected Map<String, String> getValueList(Object expressionResult){
+    protected Map<String, Object> getValueList(Object expressionResult){
         if (expressionResult==null){
             return null;
         }
-        Map<String, String> valueList = new LinkedHashMap<>();
+        Map<String, Object> valueList = new LinkedHashMap<>();
         if (expressionResult.getClass().isArray()) {
             // 转换数组
             int length = Array.getLength(expressionResult);
@@ -92,7 +92,7 @@ public class SelectDictAttrProcessor extends AbstractAttributeTagProcessor {
         }
 
         // 获取列表对象，空则不处理
-        Map<String, String> valueList = DictUtil.value(attributeValue);
+        Map<String, Object> valueList = DictUtil.value(attributeValue);
         if(valueList == null) {
             Object valueData = CacheUtil.valueData(attributeValue);
             valueList = getValueList(valueData);
@@ -109,7 +109,7 @@ public class SelectDictAttrProcessor extends AbstractAttributeTagProcessor {
             final AttributeName attributeName,
             final String attributeValue,
             final IElementTagStructureHandler structureHandler,
-            Map<String, String> valueList) {
+            Map<String, Object> valueList) {
 
         // 获取默认选中值
         String attributeSelectedValue = tag.getAttributeValue(SELECTED_ATTR_NAME);

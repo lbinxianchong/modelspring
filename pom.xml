@@ -41,6 +41,8 @@
         <xerces.version>2.12.0</xerces.version>
         <!--shiro权限管理框架版本：component.shiro-->
         <shiro.version>1.5.3</shiro.version>
+        
+        <jsoup.version>1.11.3</jsoup.version>
     </properties>
 
     <dependencies>

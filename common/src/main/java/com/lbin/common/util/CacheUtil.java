@@ -84,6 +84,33 @@ public class CacheUtil {
     public static void saveCache(Cache cache, String label, Object value) {
         cache.put(new Element(label, value));
     }
+    /**
+     * 保存缓存
+     *
+     * @param label
+     * @param value
+     */
+    public static void saveCacheDict(String label, Object value) {
+        dictCache.put(new Element(label, value));
+    }
+    /**
+     * 保存缓存
+     *
+     * @param label
+     * @param value
+     */
+    public static void saveCacheConfig(String label, Object value) {
+        configureCache.put(new Element(label, value));
+    }
+    /**
+     * 保存缓存
+     *
+     * @param label
+     * @param value
+     */
+    public static void saveCacheData(String label, Object value) {
+        dataCache.put(new Element(label, value));
+    }
 
     /**
      * 保存缓存

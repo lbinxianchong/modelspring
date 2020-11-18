@@ -6,6 +6,7 @@ import com.lbin.common.util.ResultVoUtil;
 import com.lbin.common.vo.ResultVo;
 import com.lbin.server.component.server.ComponentServer;
 import com.lbin.server.component.util.InitUtil;
+import lombok.Getter;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +26,7 @@ import java.util.Map;
  * @param <S> 数据模型Validated（BaseValid）
  * @Autowired private ComponentServer componentServer;
  */
+@Getter
 public class ComponentRequest<T, S> {
 
     //ControllerRequestMapping接口
@@ -43,7 +45,7 @@ public class ComponentRequest<T, S> {
      * @return
      */
     public String getThymeleafPath(String url) {
-        return thymeleafPath + url;
+        return getThymeleafPath() + url;
     }
 
     /**
@@ -65,9 +67,9 @@ public class ComponentRequest<T, S> {
      * @return
      */
     public ModelAndView getModelAndView(String url, Map<String, Object> map) {
-        if (thymeleafPath.equals("/system/model")) {
-            map.put("baseFieldModel", componentServer.getBaseFieldModel());
-            map.put("api", requestMapping);
+        if (getThymeleafPath().equals("/system/model")) {
+            map.put("baseFieldModel", getComponentServer().getBaseFieldModel());
+            map.put("api", getRequestMapping());
         }
 
         ModelAndView modelAndView = new ModelAndView();
@@ -120,20 +122,20 @@ public class ComponentRequest<T, S> {
     /**
      * 列表
      */
-    @RequestMapping("/list")
+    @GetMapping("/list")
     @ResponseBody
     public Object list(T t) {
-        Map<String, Object> map = componentServer.list(t);
+        Map<String, Object> map = getComponentServer().list(t);
         return ResultVoUtil.success(map);
     }
 
     /**
      * 列表页面
      */
-    @RequestMapping("/index")
+    @GetMapping("/index")
     @ResponseBody
     public Object index(T t) {
-        Map<String, Object> map = componentServer.index(t);
+        Map<String, Object> map = getComponentServer().index(t);
         return getRequest(getThymeleafPath("/index"), map);
     }
 
@@ -143,8 +145,8 @@ public class ComponentRequest<T, S> {
     @GetMapping("/excel")
     @ResponseBody
     public Object excel() {
-        Map<String, Object> map = componentServer.excel();
-        map.put("api", requestMapping);
+        Map<String, Object> map = getComponentServer().excel();
+        map.put("api", getRequestMapping());
         return getView("/system/component/excel", map);
     }
 
@@ -155,7 +157,7 @@ public class ComponentRequest<T, S> {
     @PostMapping("/importExcel")
     @ResponseBody
     public ResultVo importExcel(@RequestParam("file") MultipartFile multipartFile) {
-        return componentServer.importExcel(multipartFile);
+        return getComponentServer().importExcel(multipartFile);
     }
 
     /**
@@ -163,7 +165,7 @@ public class ComponentRequest<T, S> {
      */
     @GetMapping("/exportExcelTitle")
     public void exportExcelTitle(HttpServletRequest request, HttpServletResponse response) {
-         componentServer.exportExcelTitle(request, response);
+        getComponentServer().exportExcelTitle(request, response);
     }
 
     /**
@@ -171,7 +173,7 @@ public class ComponentRequest<T, S> {
      */
     @GetMapping("/exportExcel")
     public void exportExcel(HttpServletRequest request, HttpServletResponse response) {
-         componentServer.exportExcel(request, response);
+        getComponentServer().exportExcel(request, response);
     }
 
     /**
@@ -180,7 +182,7 @@ public class ComponentRequest<T, S> {
     @GetMapping("/add")
     @ResponseBody
     public Object toAdd() {
-        Map<String, Object> map = componentServer.toAdd();
+        Map<String, Object> map = getComponentServer().toAdd();
         return getView(getThymeleafPath("/add"), map);
     }
 
@@ -190,7 +192,7 @@ public class ComponentRequest<T, S> {
     @GetMapping("/edit/{id}")
     @ResponseBody
     public Object toEdit(@PathVariable("id") T t) {
-        Map<String, Object> map = componentServer.toEdit(t);
+        Map<String, Object> map = getComponentServer().toEdit(t);
         return getView(getThymeleafPath("/add"), map);
     }
 
@@ -200,7 +202,7 @@ public class ComponentRequest<T, S> {
     @PostMapping("/save")
     @ResponseBody
     public ResultVo save(@Validated S s, @Validated T t) {
-        return componentServer.save(t);
+        return getComponentServer().save(t);
     }
 
     /**
@@ -209,7 +211,7 @@ public class ComponentRequest<T, S> {
     @GetMapping("/detail/{id}")
     @ResponseBody
     public Object toDetail(@PathVariable("id") T t, Model model) {
-        Map<String, Object> map = componentServer.toDetail(t);
+        Map<String, Object> map = getComponentServer().toDetail(t);
         return getRequest(getThymeleafPath("/detail"), map);
     }
 
@@ -221,7 +223,7 @@ public class ComponentRequest<T, S> {
     public ResultVo status(
             @PathVariable("param") String param,
             @RequestParam(value = "ids", required = false) List<Long> ids) {
-        return componentServer.status(param, ids);
+        return getComponentServer().status(param, ids);
     }
 
 }

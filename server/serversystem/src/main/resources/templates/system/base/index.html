@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:mo="http://www.w3.org/1999/xhtml">
+<head th:replace="/common/template :: header(~{::title},~{::link},~{::style})">
+</head>
+<th:block th:replace="/common/index :: index('/system/model',~{::header},~{::search},~{::buttonleft},~{::buttonright},~{::table},~{::thead},~{::tbody},~{::tajax})">
+    <th:block th:fragment="header">
+        <span>列表管理</span>
+    </th:block>
+    <th:block th:fragment="search">
+        <th:block th:with="status=${param.status},name=${param.name}">
+            <th:block th:replace="/common/index :: paramstatus ('状态','status','SEARCH_STATUS',${status})"></th:block>
+            <th:block th:replace="/common/index :: paramtext ('name','name',${name})"></th:block>
+        </th:block>
+    </th:block>
+    <th:block th:fragment="buttonleft">
+
+    </th:block>
+    <th:block th:fragment="buttonright">
+
+    </th:block>
+    <!--<th:block th:fragment="table"></th:block>-->
+    <th:block th:fragment="thead">
+        <th class="sortable" data-field="id">主键ID</th>
+    </th:block>
+    <th:block th:fragment="tbody">
+        <td>[[${item.id}]]</td>
+    </th:block>
+    <!--<th:block th:fragment="tajax">
+        <th:block th:replace="/common/index :: ajaxedit"></th:block>
+        <th:block th:replace="/common/index :: ajaxdetail"></th:block>
+        <th:block th:replace="/common/index :: ajaxdelete "></th:block>
+    </th:block>-->
+</th:block>
+</html>

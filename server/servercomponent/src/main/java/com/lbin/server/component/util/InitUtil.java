@@ -5,6 +5,7 @@ import com.lbin.common.domain.BaseFieldModel;
 import com.lbin.common.util.ReflectUtil;
 import com.lbin.server.component.server.ComponentServer;
 import com.lbin.sql.jpa.annotation.AutowiredBaseModel;
+import com.lbin.sql.jpa.repository.BaseRepository;
 import com.lbin.sql.jpa.service.BaseService;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -15,6 +16,10 @@ import java.lang.reflect.ParameterizedType;
  * 初始化工具
  */
 public class InitUtil {
+
+    public static <T,ID> BaseRepository<T,ID> getBaseRepository(Object object) {
+        return getFieldValue(object, BaseRepository.class, "baseRepository");
+    }
 
     public static <T> BaseService<T> getBaseService(Object object) {
         return getFieldValue(object, BaseService.class, "baseService");

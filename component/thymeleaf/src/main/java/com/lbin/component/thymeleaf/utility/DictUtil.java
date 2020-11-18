@@ -24,11 +24,11 @@ public class DictUtil {
      * @param label 字典标识
      */
     @SuppressWarnings("unchecked")
-    public static Map<String, String> value(String label){
-        Map<String, String> value = null;
+    public static Map<String, Object> value(String label){
+        Map<String, Object> value = null;
         Element dictEle = dictCache.get(label);
         if(dictEle != null){
-            value = (Map<String, String>) dictEle.getObjectValue();
+            value = (Map<String, Object>) dictEle.getObjectValue();
         }
         return value;
     }
@@ -38,8 +38,8 @@ public class DictUtil {
      * @param label 字典标识
      * @param code 选项编码
      */
-    public static String keyValue(String label, String code){
-        Map<String, String> list = DictUtil.value(label);
+    public static Object keyValue(String label, String code){
+        Map<String, Object> list = DictUtil.value(label);
         if(list != null){
             return list.get(code);
         }else{
@@ -51,7 +51,7 @@ public class DictUtil {
      * 封装数据状态字典
      * @param status 状态
      */
-    public static String dataStatus(Byte status){
+    public static Object dataStatus(Byte status){
         String label = "DATA_STATUS";
         return DictUtil.keyValue(label, String.valueOf(status));
     }

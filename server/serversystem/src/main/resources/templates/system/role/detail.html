@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/common/template :: header(~{::title},~{::link},~{::style})">
+</head>
+<th:block th:replace="/common/detail :: detail(~{::tbody})">
+    <th:block th:fragment="tbody">
+        <th:block th:replace="/common/detail :: ttext ('主键ID',${model.id})"></th:block>
+        <th:block th:replace="/common/detail :: ttext2 ('编号',${model.name},'名称',${model.title})"></th:block>
+        <th:block th:replace="/common/detail :: ttext2 ('创建用户',${model.createBy?.nickname},'更新用户',${model.updateBy?.nickname})"></th:block>
+        <th:block th:replace="/common/detail :: ttext2 ('创建时间',${#dates.format(model.createDate, 'yyyy-MM-dd HH:mm:ss')},'更新时间',${#dates.format(model.updateDate, 'yyyy-MM-dd HH:mm:ss')})"></th:block>
+        <th:block th:replace="/common/detail :: ttext ('备注',${model.remark})"></th:block>
+    </th:block>
+</th:block>
+</html>

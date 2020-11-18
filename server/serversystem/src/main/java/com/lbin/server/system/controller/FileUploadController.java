@@ -1,7 +1,6 @@
 package com.lbin.server.system.controller;
 
 import com.lbin.common.vo.ResultVo;
-import com.lbin.server.component.controller.ComponentController;
 import com.lbin.server.component.request.ComponentRequest;
 import com.lbin.server.system.server.FileUploadServer;
 import com.lbin.sql.jpa.validator.BaseValid;

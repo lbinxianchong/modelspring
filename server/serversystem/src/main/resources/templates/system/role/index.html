@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:mo="http://www.w3.org/1999/xhtml">
+<head th:replace="/common/template :: header(~{::title},~{::link},~{::style})">
+</head>
+<th:block
+        th:replace="/common/index :: index('/system/model',~{::header},~{::search},~{::buttonleft},~{::buttonright},~{::table},~{::thead},~{::tbody},~{::tajax})">
+    <th:block th:fragment="header">
+        <span>角色管理</span>
+    </th:block>
+    <th:block th:fragment="search">
+        <th:block th:with="status=${param.status}">
+            <th:block th:replace="/common/index :: paramstatus ('状态','status','SEARCH_STATUS',${status})"></th:block>
+            <th:block th:replace="/common/index :: paramtext ('编号','name',${name})"></th:block>
+            <th:block th:replace="/common/index :: paramtext ('名称','title',${title})"></th:block>
+        </th:block>
+    </th:block>
+    <th:block th:fragment="buttonleft">
+
+    </th:block>
+    <th:block th:fragment="buttonright">
+        <button class="layui-btn open-popup-param" data-title="授权管理"
+                th:attr="data-url=@{/system/role/auth}"
+                data-size="600,500">授权
+        </button>
+    </th:block>
+    <!--<th:block th:fragment="table"></th:block>-->
+    <th:block th:fragment="thead">
+        <th class="sortable" data-field="id">主键ID</th>
+        <th class="sortable" data-field="name">角色编号</th>
+        <th class="sortable" data-field="title">角色名称</th>
+        <th class="sortable" data-field="createDate">创建时间</th>
+        <th class="sortable" data-field="updateDate">更新时间</th>
+        <th>查看</th>
+    </th:block>
+    <th:block th:fragment="tbody">
+        <td>[[${item.id}]]</td>
+        <td>[[${item.name}]]</td>
+        <td>[[${item.title}]]</td>
+        <td>[[${#dates.format(item.createDate, 'yyyy-MM-dd HH:mm:ss')}]]</td>
+        <td>[[${#dates.format(item.updateDate, 'yyyy-MM-dd HH:mm:ss')}]]</td>
+        <td>
+            <a class="open-popup" data-title="用户列表"
+               th:attr="data-url=@{'/system/role/userList/'+${item.id}}"
+               data-size="800,600" href="#">用户列表
+            </a>
+        </td>
+    </th:block>
+    <!--<th:block th:fragment="tajax"></th:block>-->
+</th:block>
+</html>

@@ -16,7 +16,7 @@
     <dependencies>
         <dependency>
             <groupId>com.lbin</groupId>
-            <artifactId>servercore</artifactId>
+            <artifactId>servercustom</artifactId>
             <version>v1</version>
         </dependency>
     </dependencies>

@@ -14,7 +14,7 @@
 
     <packaging>pom</packaging>
     <modules>
-        <module>servercore</module>
+        <module>servercustom</module>
         <module>servermodel</module>
         <module>web</module>
         <module>api</module>

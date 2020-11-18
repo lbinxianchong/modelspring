@@ -25,6 +25,11 @@ import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+/**
+ * 已有ComponentController，保留
+ * @param <T>
+ * @param <S>
+ */
 @Getter
 @Setter
 public class BaseController<T, S> {

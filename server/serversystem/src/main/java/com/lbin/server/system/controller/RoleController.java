@@ -1,30 +1,19 @@
 package com.lbin.server.system.controller;
 
 
-import com.lbin.common.constant.AdminConst;
-import com.lbin.common.enums.ResultEnum;
-import com.lbin.common.exception.ResultException;
-import com.lbin.common.util.ResultVoUtil;
 import com.lbin.common.vo.ResultVo;
-import com.lbin.server.component.controller.BaseController;
-import com.lbin.server.component.controller.ComponentController;
 import com.lbin.server.component.request.ComponentRequest;
 import com.lbin.server.system.domain.Permission;
 import com.lbin.server.system.domain.Role;
 import com.lbin.server.system.server.RoleServer;
-import com.lbin.server.system.service.PermissionService;
-import com.lbin.server.system.service.RoleService;
 import com.lbin.server.system.validator.RoleValid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 
 /**

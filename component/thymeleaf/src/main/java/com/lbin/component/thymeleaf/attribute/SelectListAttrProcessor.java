@@ -62,7 +62,7 @@ public class SelectListAttrProcessor extends SelectDictAttrProcessor {
         }
 
         // 转换列表对象
-        Map<String, String> valueList = getValueList(expressionResult);
+        Map<String, Object> valueList = getValueList(expressionResult);
 
         if (valueList.size() > 0) {
             doProcess(context, tag, attributeName, attributeValue, structureHandler, valueList);

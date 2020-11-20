@@ -40,7 +40,6 @@ public class Role implements Serializable {
     private Long id;
     private String name;
     private String title;
-    private Integer level;
     private String remark;
     @CreatedDate
     private Date createDate;

@@ -38,6 +38,7 @@
         </div>
     </div>
 </th:block>
+
 <th:block th:fragment="inputtextarea (title,name,value)">
     <div class="layui-form-item layui-form-text">
         <label class="layui-form-label">[[${title}]]</label>
@@ -46,6 +47,7 @@
         </div>
     </div>
 </th:block>
+
 <th:block th:fragment="inputdict (title,name,dict,value)">
     <div class="layui-form-item">
         <label class="layui-form-label">[[${title}]]</label>
@@ -54,6 +56,16 @@
         </div>
     </div>
 </th:block>
+
+<th:block th:fragment="inputlist (title,name,list,value)">
+    <div class="layui-form-item">
+        <label class="layui-form-label">[[${title}]]</label>
+        <div class="layui-input-inline">
+            <select class="timo-search-select" th:name="${name}" th:mo:list="${list}" th:mo-selected="${value}"></select>
+        </div>
+    </div>
+</th:block>
+
 <th:block th:fragment="inputnumber (title,name,value)">
     <div class="layui-form-item">
         <label class="layui-form-label">[[${title}]]</label>
@@ -62,6 +74,7 @@
         </div>
     </div>
 </th:block>
+
 <th:block th:fragment="inputfile (title,name,value)" >
     <div class="layui-form-item">
         <label class="layui-form-label">[[${title}]]</label>

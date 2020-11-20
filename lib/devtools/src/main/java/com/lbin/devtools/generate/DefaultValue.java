@@ -24,9 +24,9 @@ public class DefaultValue {
         Basic basic = new Basic();
         basic.setProjectPath(ConfigUtil.getProjectPath() + "/");
         basic.setPackagePath("com.lbin");
-        basic.setAuthor("");
-        basic.setGenModule("order");
-        basic.setTablePrefix("or_");
+        basic.setAuthor("mo");
+        basic.setGenModule("system");
+        basic.setTablePrefix("sys_");
         return basic;
     }
 

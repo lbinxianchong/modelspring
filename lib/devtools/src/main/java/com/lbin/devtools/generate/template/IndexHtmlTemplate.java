@@ -66,8 +66,8 @@ public class IndexHtmlTemplate {
                 }
                 value = "[[" + value + "]]";
 
-                tableThBuilder.append("<th class=\"sortable\" data-field=\"" + thname + "\">" + thtitle + "</th>\n");
-                tableListBuilder.append("<td>" + value + "</td>\n");
+                tableThBuilder.append("<th class=\"sortable\" data-field=\"" + thname + "\">" + thtitle + "</th>\n        ");
+                tableListBuilder.append("<td>" + value + "</td>\n        ");
 
             }
         });

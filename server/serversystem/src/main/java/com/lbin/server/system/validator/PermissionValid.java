@@ -14,12 +14,9 @@ import java.io.Serializable;
 public class PermissionValid implements Serializable {
     @NotEmpty(message = "标题不能为空")
     private String title;
-    @NotNull(message = "父级菜单不能为空")
-    private Long pid;
     @NotEmpty(message = "url地址不能直接为空，可以输入#代替！")
     private String url;
-    @NotEmpty(message = "权限标识不能直接为空，可以输入#代替！")
-    private String perms;
-    @NotNull(message = "菜单类型不能为空")
-    private Byte type;
+    @NotEmpty(message = "名称不能为空")
+    private String name;
+
 }

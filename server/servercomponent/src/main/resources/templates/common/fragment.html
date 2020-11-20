@@ -1,7 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<!-- 分页模块 -->
+<!-- 新版分页模块 -->
 <th:block th:fragment="page">
+    <input hidden class="curr" th:value="${page.number+1}">
+    <input hidden class="count" th:value="${page.totalElements}">
+    <input hidden class="limit" th:value="${page.size}">
+    <div style="text-align: right;" id="pagelay"></div>
+</th:block>
+
+<!-- 分页模块（保留） -->
+<th:block th:fragment="pages">
     <div class="layui-row" th:if="${#pageUtil.pageInit(page,#request)}">
         <div class="layui-col-sm6">
             <div class="page-info">

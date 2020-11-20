@@ -65,17 +65,15 @@ public class ComponentServer<T> {
     /**
      * 列表
      */
-    public Map<String, Object> list() {
-        Map<String, Object> model = new HashMap<>();
+    public ResultVo list() {
         List<T> list = getBaseService().findAll();
-        model.put("list", list);
-        return model;
+        return ResultVoUtil.success(list);
     }
 
     /**
      * 列表
      */
-    public Map<String, Object> list(T t) {
+    public Map<String, Object> findAll(T t) {
         Map<String, Object> model = new HashMap<>();
         model.put("model", t);
         List<T> list = getBaseService().findAll(t);
@@ -86,7 +84,7 @@ public class ComponentServer<T> {
     /**
      * 列表
      */
-    public Map<String, Object> list(Example<T> example) {
+    public Map<String, Object> findAll(Example<T> example) {
         Map<String, Object> model = new HashMap<>();
         List<T> list = getBaseService().findAll(example);
         model.put("list", list);
@@ -96,7 +94,7 @@ public class ComponentServer<T> {
     /**
      * 列表
      */
-    public Map<String, Object> list(List<Long> longs) {
+    public Map<String, Object> findAll(List<Long> longs) {
         Map<String, Object> model = new HashMap<>();
         List<T> list = getBaseService().findAllById(longs);
         model.put("list", list);

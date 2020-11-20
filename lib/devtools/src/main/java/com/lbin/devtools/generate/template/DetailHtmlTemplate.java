@@ -24,8 +24,9 @@ import java.util.Map;
  */
 public class DetailHtmlTemplate {
 
-    private static String[] fixedSort = {"user", "date", "remark"};
+    private static String[] fixedSort = {"remark"};
     private static String[] ignore = {"status"};
+    private static String[] fixed = {"createDate", "updateDate", "createBy", "updateBy"};
 
     /**
      * 创建节点-格式化字表符
@@ -69,65 +70,89 @@ public class DetailHtmlTemplate {
 
         // 遍历字段
         Element searchNode = HtmlParseUtil.getJsoup(document, "detail");
+        Element ttextNode = HtmlParseUtil.getJsoup(document, "ttext");
         StringBuilder searchBuilder = new StringBuilder();
+        StringBuilder ttextBuilder = new StringBuilder();
+
+        List<Field> tempList = new ArrayList<>();
+        List<Field> fixedList = new ArrayList<>();
+        List<String> fixeds = Arrays.asList(fixed);
+        boolean remark = false;
 
         List<Field> fields = generate.getFields();
-        for (int i = 0; i < fields.size() - 2; i++) {
-            Field field1 = fields.get(i);
-            Field field2 = fields.get(i);
-            String temp = searchNode.toString();
-
-            String trNode1 = field1.getTitle();
-            String thText1 = getName(field1.getName());
-            String trNode2 = field2.getTitle();
-            String thText2 = getName(field2.getName());
-
-            temp = temp.replace("#{text1.title}", trNode1);
-            temp = temp.replace("#{text1.name}", thText1);
-            temp = temp.replace("#{text2.title}", trNode2);
-            temp = temp.replace("#{text2.name}", thText2);
-
-            searchBuilder.append(HtmlParseUtil.tabBreak(searchNode)).append(temp);
-            i++;
+        for (Field field : fields) {
+            if ("remark".contains(field.getName())) {
+                remark = true;
+                continue;
+            }
+            if ("status".contains(field.getName())) {
+                continue;
+            }
+            if (fixeds.contains(field.getName())) {
+                fixedList.add(field);
+                if (fixedList.size() > 1) {
+                    String temp = searchNode.toString();
+                    temp = append(temp, fixedList);
+                    ttextBuilder.append(HtmlParseUtil.tabBreak(searchNode)).append(temp);
+                    fixedList = new ArrayList<>();
+                }
+                continue;
+            }
+            tempList.add(field);
+            if (tempList.size() > 1) {
+                String temp = searchNode.toString();
+                temp = append(temp, tempList);
+                searchBuilder.append(HtmlParseUtil.tabBreak(searchNode)).append(temp);
+                tempList = new ArrayList<>();
+            }
         }
+
+        if (tempList.size() == 1) {
+            Field field = tempList.get(0);
+            String temp = ttextNode.toString();
+            temp = append(temp, field);
+            searchBuilder.append(HtmlParseUtil.tabBreak(ttextNode)).append(temp);
+        }
+
+        if (fixedList.size() == 1) {
+            Field field = fixedList.get(0);
+            String temp = ttextNode.toString();
+            temp = append(temp, field);
+            ttextBuilder.append(HtmlParseUtil.tabBreak(ttextNode)).append(temp);
+        }
+
         searchNode.after(searchBuilder.toString());
-        searchNode.remove();
-
-
-        Element ttextNode = HtmlParseUtil.getJsoup(document, "ttext");
-        StringBuilder ttextBuilder = new StringBuilder();
-        if (fields.size()%2==1){
-            Field field = fields.get(fields.size() - 1);
-            String temp = ttextNode.toString();
-            temp = temp.replace("#{text1.title}", field.getTitle());
-            temp = temp.replace("#{text1.name}", getName(field.getName()));
-            ttextBuilder.append(HtmlParseUtil.tabBreak(ttextNode)).append(temp);
-        }else {
-            Field field1 = fields.get(fields.size() - 2);
-            Field field2 = fields.get(fields.size() - 1);
-            String temp = ttextNode.toString();
-
-            String trNode1 = field1.getTitle();
-            String thText1 = getName(field1.getName());
-            String trNode2 = field2.getTitle();
-            String thText2 = getName(field2.getName());
-
-            temp = temp.replace("#{text1.title}", trNode1);
-            temp = temp.replace("#{text1.name}", thText1);
-
-            ttextBuilder.append(HtmlParseUtil.tabBreak(ttextNode)).append(temp);
-
-            temp = temp.replace("#{text1.title}", trNode2);
-            temp = temp.replace("#{text1.name}", thText2);
-
-            ttextBuilder.append(HtmlParseUtil.tabBreak(ttextNode)).append(temp);
-        }
         ttextNode.after(ttextBuilder.toString());
+
+        searchNode.remove();
         ttextNode.remove();
+
+        // 判断是否需要remark字段
+        Element remarkNode = HtmlParseUtil.getJsoup(document, "remark");
+        if (!remark) {
+            remarkNode.remove();
+        }
+
         String html = HtmlParseUtil.html(document);
 
         // 替换基本数据
         return html;
+    }
+
+    private static String append(String temp, Field field) {
+        temp = temp.replace("#{text1.title}", field.getTitle());
+        temp = temp.replace("#{text1.name}", getName(field.getName()));
+        return temp;
+    }
+
+    private static String append(String temp, List<Field> tempList) {
+        Field field1 = tempList.get(0);
+        Field field2 = tempList.get(1);
+        temp = temp.replace("#{text1.title}", field1.getTitle());
+        temp = temp.replace("#{text1.name}", getName(field1.getName()));
+        temp = temp.replace("#{text2.title}", field2.getTitle());
+        temp = temp.replace("#{text2.name}", getName(field2.getName()));
+        return temp;
     }
 
     private static String getName(String name) {

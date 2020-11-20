@@ -124,8 +124,17 @@ public class ComponentRequest<T, S> {
      */
     @GetMapping("/list")
     @ResponseBody
-    public Object list(T t) {
-        Map<String, Object> map = getComponentServer().list(t);
+    public ResultVo list() {
+        return getComponentServer().list();
+    }
+
+    /**
+     * 列表
+     */
+    @GetMapping("/findAll")
+    @ResponseBody
+    public ResultVo findAll(T t) {
+        Map<String, Object> map = getComponentServer().findAll(t);
         return ResultVoUtil.success(map);
     }
 

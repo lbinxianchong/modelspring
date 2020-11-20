@@ -17,6 +17,8 @@ import com.lbin.server.system.domain.User;
 import com.lbin.sql.jpa.enums.StatusEnum;
 import com.lbin.sql.jpa.utils.StatusUtil;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 import org.hibernate.annotations.Where;
@@ -57,11 +59,15 @@ public class EntityTemplate {
         clazz.addAnnotation(Data.class);
         clazz.addAnnotation(Entity.class);
         clazz.addAnnotation(Table.class, Format.of("name=$S", prefix + tableName));
+        Format of = Format.of("exclude = {\"createBy\", \"updateBy\"}");
+        clazz.addAnnotation(ToString.class, of);
+        clazz.addAnnotation(EqualsAndHashCode.class, of);
         clazz.addAnnotation(EntityListeners.class, Format.of("$T.class", AuditingEntityListener.class));
         clazz.addAnnotation(Where.class, Format.of("clause = $T.NOT_DELETE", StatusUtil.class));
 
         clazz.addAnnotation(BaseClassModel.class, Format.of("value = $S", generate.getBasic().getGenTitle()));
         clazz.addAnnotation(BaseIgnoresModel.class);
+
 
         // 生成类字段
         generate.getFields().forEach(field -> {
@@ -72,8 +78,15 @@ public class EntityTemplate {
 
             String title = field.getTitle();
             boolean query = field.getQuery() != null && field.getQuery() > 0;
-            Format format = Format.of("value=$S,search=$O,index=$O", title,query,field.isShow());
-            node.addAnnotation(BaseModel.class,format);
+            Format format = Format.of("value=$S", title);
+            if (query && !field.isShow()) {
+                format = Format.of("value=$S,search=$O", title, query);
+            } else if (!query && field.isShow()) {
+                format = Format.of("value=$S,index=$O", title, field.isShow());
+            } else if (query && field.isShow()) {
+                format = Format.of("value=$S,search=$O,index=$O", title, query, field.isShow());
+            }
+            node.addAnnotation(BaseModel.class, format);
 
             // 特殊字段处理
             switch (name) {

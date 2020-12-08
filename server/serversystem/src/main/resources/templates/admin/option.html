@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/common/template :: header(~{::title},~{::link},~{::style})">
+</head>
+<body>
+<div class="layui-tab">
+    <ul class="layui-tab-title">
+        <li class="layui-this">我的资料</li>
+        <li>修改密码</li>
+        <li>修改图像</li>
+        <li>安全设置</li>
+    </ul>
+    <div class="layui-tab-content">
+        <div class="layui-tab-item layui-show">
+
+        </div>
+        <div class="layui-tab-item">
+
+        </div>
+        <div class="layui-tab-item">
+
+        </div>
+        <div class="layui-tab-item">
+
+        </div>
+
+    </div>
+</div>
+</body>
+<script th:replace="/common/template :: script"></script>
+</html>

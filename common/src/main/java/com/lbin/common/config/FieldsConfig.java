@@ -1,23 +1,23 @@
 package com.lbin.common.config;
 
-public class FieldsConfigProperties {
+public class FieldsConfig {
 
     /**
      * 忽略的默认字段
      */
-    public  static String[] ignoresFields = new String[]{};
+    public static String[] ignoresFields = new String[]{};
     /**
      * 忽略的默认字段
      */
-    public  static String[] searchFields = new String[]{};
+    public static String[] searchFields = new String[]{};
     /**
      * 忽略的默认字段
      */
-    public  static String[] indexFields = new String[]{};
+    public static String[] indexFields = new String[]{};
     /**
      * 忽略的默认字段
      */
-    public static  String[] addFields = new String[]{
+    public static String[] addFields = new String[]{
             "id",
             "createDate",
             "updateDate",

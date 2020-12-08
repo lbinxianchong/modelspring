@@ -40,10 +40,10 @@ public class User implements Serializable {
     @BaseModel("用户名")
     private String username;
     @JsonIgnore
-    @BaseModel(ignores = true,detail = false)
+    @BaseModel(ignores = true, detail = false)
     private String password;
     @JsonIgnore
-    @BaseModel(ignores = true,detail = false)
+    @BaseModel(ignores = true, detail = false)
     private String salt;
     @BaseModel("昵称")
     private String nickname;

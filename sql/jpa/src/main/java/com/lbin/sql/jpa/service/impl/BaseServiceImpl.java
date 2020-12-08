@@ -128,21 +128,25 @@ public class BaseServiceImpl<T> implements BaseService<T> {
     }
 
     @Override
+    @Transactional
     public T getById(Long aLong) {
         return findById(aLong);
     }
 
     @Override
+    @Transactional
     public T findById(Long aLong) {
         return baseRepository.findById(aLong).orElse(null);
     }
 
     @Override
+    @Transactional
     public T getOne(Long aLong) {
         return baseRepository.getOne(aLong);
     }
 
     @Override
+    @Transactional
     public T findOne(T t) {
         Example<T> example = Example.of(t);
         return baseRepository.findOne(example).orElse(null);

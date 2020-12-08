@@ -126,6 +126,7 @@ public interface BaseService<T> {
      *
      * @param id 主键ID
      */
+    @Transactional
     T getById(Long id);
 
     /**
@@ -133,6 +134,7 @@ public interface BaseService<T> {
      *
      * @param id 主键ID
      */
+    @Transactional
     T findById(Long id) ;
 
     /**
@@ -140,6 +142,7 @@ public interface BaseService<T> {
      *
      * @param id 主键ID
      */
+    @Transactional
     T getOne(Long id) ;
 
     /**
@@ -147,6 +150,7 @@ public interface BaseService<T> {
      *
      * @param entity 查询实体对象
      */
+    @Transactional
     T findOne(T entity) ;
 
     /**

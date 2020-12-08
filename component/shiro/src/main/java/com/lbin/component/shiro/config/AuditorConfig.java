@@ -1,8 +1,9 @@
 package com.lbin.component.shiro.config;
 
-
-import com.lbin.component.shiro.domain.User;
+import cn.hutool.core.util.StrUtil;
+import com.lbin.server.system.domain.User;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.UnavailableSecurityManagerException;
 import org.apache.shiro.subject.Subject;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.AuditorAware;

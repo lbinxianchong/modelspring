@@ -6,7 +6,7 @@ import com.lbin.common.annotation.BaseClassModel;
 import com.lbin.common.annotation.BaseIgnoresModel;
 import com.lbin.common.annotation.BaseModel;
 
-import com.lbin.common.config.FieldsConfigProperties;
+import com.lbin.common.config.FieldsConfig;
 import com.lbin.common.util.CacheUtil;
 import com.lbin.common.util.ReflectUtil;
 import lombok.Getter;
@@ -62,11 +62,11 @@ public class BaseFieldModel {
 
         BaseIgnoresModel baseIgnoresModel = entity.getAnnotation(BaseIgnoresModel.class);
 
-        String[] ignoresFields = FieldsConfigProperties.ignoresFields;
-        String[] searchFields = FieldsConfigProperties.searchFields;
-        String[] indexFields = FieldsConfigProperties.indexFields;
-        String[] addFields = FieldsConfigProperties.addFields;
-        String[] detailFields = FieldsConfigProperties.detailFields;
+        String[] ignoresFields = FieldsConfig.ignoresFields;
+        String[] searchFields = FieldsConfig.searchFields;
+        String[] indexFields = FieldsConfig.indexFields;
+        String[] addFields = FieldsConfig.addFields;
+        String[] detailFields = FieldsConfig.detailFields;
 
         if (baseIgnoresModel != null) {
             ignoresFields = baseIgnoresModel.ignores();

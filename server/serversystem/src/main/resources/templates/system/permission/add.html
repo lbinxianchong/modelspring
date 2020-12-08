@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/common/template :: header(~{::title},~{::link},~{::style})">
+</head>
+<body>
+    <th:block th:replace="/common/add :: add('/system/permission',~{::tform})">
+    <th:block th:fragment="tform">
+        <th:block th:replace="/common/add :: inputdict ('上级id','pid','permissionlist',${model?.pid})"></th:block>
+        <th:block th:replace="/common/add :: inputtext ('名称','name',${model?.name})"></th:block>
+        <th:block th:replace="/common/add :: inputtext ('标题','title',${model?.title})"></th:block>
+        <th:block th:replace="/common/add :: inputtext ('url','url',${model?.url})"></th:block>
+        <th:block th:replace="/common/add :: inputtext ('级别','level',${model?.level})"></th:block>
+        <th:block th:replace="/common/add :: inputtextarea ('备注','remark',${model?.remark})"></th:block>
+    </th:block>
+</th:block>
+</body>
+</html>

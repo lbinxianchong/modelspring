@@ -16,7 +16,7 @@ import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.lbin.common.config.FieldsConfigProperties.defaultFields;
+import static com.lbin.common.config.FieldsConfig.defaultFields;
 
 /**
  * 实体对象操作工具

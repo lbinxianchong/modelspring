@@ -35,6 +35,11 @@
         </dependency>
         <dependency>
             <groupId>com.lbin</groupId>
+            <artifactId>shiro</artifactId>
+            <version>v1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.lbin</groupId>
             <artifactId>actionLog</artifactId>
             <version>v1</version>
         </dependency>

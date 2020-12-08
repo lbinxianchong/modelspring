@@ -16,14 +16,14 @@ import org.springframework.stereotype.Component;
 public class NetworkProjectProperties {
 
     /**
-     * cookie记住登录信息时间，默认7天
+     * cookie记住登录信息时间，默认14天
      */
-    private Integer rememberMeTimeout = 7;
+    private Integer rememberMeTimeout = 14;
 
     /**
-     * Session会话超时时间，默认30分钟
+     * Session会话超时时间，默认60分钟
      */
-    private Integer globalSessionTimeout = 1800;
+    private Integer globalSessionTimeout = 3600;
 
     /**
      * Session会话检测间隔时间，默认15分钟

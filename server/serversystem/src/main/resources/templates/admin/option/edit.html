@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="edit">
+    <div class="layui-form">
+        <form th:action="@{/crawler/crawlerLocal/save}">
+            <div class="layui-form-item">
+                <label class="layui-form-label">昵称</label>
+                <div class="layui-input-inline">
+                    <input class="layui-input" type="text" name="nickname" required lay-verify="required"
+                           autocomplete="off" th:value="${model?.nickname}">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">性别</label>
+                <div class="layui-input-inline">
+                    <input type="radio" name="sex" value="1" title="男" checked>
+                    <div class="layui-unselect layui-form-radio layui-form-radioed">男</div>
+                    <input type="radio" name="sex" value="2" title="女" th:checked="${user?.sex} eq 2">
+                    <div class="layui-unselect layui-form-radio">女</div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">邮箱</label>
+                <div class="layui-input-inline">
+                    <input class="layui-input" type="text" name="email" required lay-verify="email"
+                           autocomplete="off" th:value="${model?.email}">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">昵称</label>
+                <div class="layui-input-inline">
+                    <input class="layui-input" type="text" name="nickname" required lay-verify="required"
+                           autocomplete="off" value="">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <button class="layui-btn ajax-submit">确认修改</button>
+            </div>
+        </form>
+    </div>
+</th:block>
+</html>

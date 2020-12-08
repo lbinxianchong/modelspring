@@ -1,4 +1,4 @@
-package com.lbin.server.system.controller;
+package com.lbin.server.admin.controller;
 
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;

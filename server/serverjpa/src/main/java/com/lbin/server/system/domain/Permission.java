@@ -39,9 +39,6 @@ public class Permission {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @BaseModel(value = "上级主键ID",  index = true)
-    private Long pid;
-    
     @BaseModel(value = "名称", search = true, index = true)
     private String name;
     // 标题

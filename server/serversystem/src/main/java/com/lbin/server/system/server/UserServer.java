@@ -10,7 +10,6 @@ import com.lbin.server.system.domain.Role;
 import com.lbin.server.system.domain.User;
 import com.lbin.server.system.service.RoleService;
 import com.lbin.server.system.service.UserService;
-import com.lbin.server.system.validator.UserValid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -26,32 +25,16 @@ public class UserServer extends ComponentServer<User> {
     /**
      * 保存添加/修改的数据
      *
-     * @param valid 验证对象
      * @param user  实体对象
      */
-    public ResultVo save(UserValid valid, User user) {
+    public ResultVo save( User user) {
         // 不允许操作超级管理员数据
         if (user.getId().equals(AdminConst.ADMIN_ID)
 //                && !ShiroUtil.getSubject().getId().equals(AdminConst.ADMIN_ID)
         ) {
             throw new ResultException(ResultEnum.NO_ADMIN_AUTH);
         }
-        // 验证数据是否合格
-        if (user.getId() == null) {
 
-            // 判断密码是否为空
-            if (user.getPassword().isEmpty() || "".equals(user.getPassword().trim())) {
-                throw new ResultException(ResultEnum.USER_PWD_NULL);
-            }
-
-            // 判断两次密码是否一致
-            if (!user.getPassword().equals(valid.getConfirm())) {
-                throw new ResultException(ResultEnum.USER_INEQUALITY);
-            }
-
-            encrypt(user);
-
-        }
 
         // 判断用户名是否重复
         if (userService.repeatByUsername(user)) {
@@ -155,7 +138,7 @@ public class UserServer extends ComponentServer<User> {
      * @param user
      * @return
      */
-    private User encrypt(User user) {
+    public User encrypt(User user) {
         // 对密码进行加密
 //        String salt = ShiroUtil.getRandomSalt();
 //        String encrypt = ShiroUtil.encrypt(user.getPassword(), salt);

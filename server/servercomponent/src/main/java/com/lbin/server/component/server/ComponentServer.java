@@ -244,8 +244,9 @@ public class ComponentServer<T> {
     /**
      * 跳转到添加页面
      */
-    public Map<String, Object> toAdd() {
+    public Map<String, Object> toAdd(T t) {
         Map<String, Object> model = new HashMap<>();
+        model.put("model", t);
         return model;
     }
 

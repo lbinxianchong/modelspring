@@ -14,6 +14,10 @@
     <name>数据库-jpa持久层API</name>
     <dependencies>
 
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
 
         <!--mysql连接驱动-->
         <dependency>

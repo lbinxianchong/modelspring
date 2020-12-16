@@ -66,6 +66,18 @@
     </div>
 </th:block>
 
+<th:block th:fragment="inputlists (title,name,list,value)">
+    <div class="layui-form-item">
+        <label class="layui-form-label">[[${title}]]</label>
+        <div class="layui-input-inline">
+            <select class="timo-search-select selectlist" th:name="${name}" th:data-url="${list}" th:mo-selected="${value}"></select>
+            <script th:src="@{/lib/layui-v2.5.6/layui.js}" charset="utf-8"></script>
+            <script th:src="@{/js/plugins/jquery-3.3.1.min.js}" charset="utf-8"></script>
+            <script th:src="@{/js/select.js}" charset="utf-8"></script>
+        </div>
+    </div>
+</th:block>
+
 <th:block th:fragment="inputnumber (title,name,value)">
     <div class="layui-form-item">
         <label class="layui-form-label">[[${title}]]</label>

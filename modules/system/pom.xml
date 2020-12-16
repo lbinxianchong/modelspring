@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>modules</artifactId>
+        <groupId>com.lbin</groupId>
+        <version>v1</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>system</artifactId>
+
+    <name>业务-系统</name>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.lbin</groupId>
+            <artifactId>serversystem</artifactId>
+            <version>v1</version>
+        </dependency>
+    </dependencies>
+
+
+</project>

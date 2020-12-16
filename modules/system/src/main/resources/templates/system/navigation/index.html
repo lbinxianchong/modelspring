@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:mo="http://www.w3.org/1999/xhtml">
+<head th:replace="/common/template :: header(~{::title},~{::link},~{::style})">
+</head>
+<body>
+    <th:block th:replace="/common/index :: index('/system/navigation',~{::header},~{::search},~{::buttonleft},~{::buttonright},~{::table},~{::thead},~{::tbody},~{::tajax})">
+    <th:block th:fragment="header">
+        <span>导航管理</span>
+    </th:block>
+    <th:block th:fragment="search">
+        <th:block th:with="status=${param.status}">
+            <th:block th:replace="/common/index :: paramstatus ('状态','status','SEARCH_STATUS',${status})"></th:block>
+        </th:block>
+        <th:block th:with="name=${param.name}">
+            <th:block th:replace="/common/index :: paramtext ('名称','name',${name})"></th:block>
+        </th:block>
+    </th:block>
+    <th:block th:fragment="buttonleft">
+    </th:block>
+    <th:block th:fragment="buttonright">
+    </th:block>
+    <!--<th:block th:fragment="table"></th:block>-->
+    <th:block th:fragment="thead">
+        <th class="sortable" data-field="id">主键ID</th>
+        <th class="sortable" data-field="name">名称</th>
+        <th class="sortable" data-field="url">URL地址</th>
+        <th class="sortable" data-field="type">类型</th>
+        <th class="sortable" data-field="sort">排序</th>
+        <th class="sortable" data-field="createDate">创建时间</th>
+        <th class="sortable" data-field="updateDate">更新时间</th>
+        <th class="sortable" data-field="status">数据状态</th>
+        <th>菜单操作</th>
+
+    </th:block>
+    <th:block th:fragment="tbody">
+        <td>[[${item.id}]]</td>
+        <td>[[${item.name}]]</td>
+        <td>[[${item.url}]]</td>
+        <td>[[${item.type}]]</td>
+        <td>[[${item.sort}]]</td>
+        <td>[[${#dates.format(item.createDate, 'yyyy-MM-dd HH:mm:ss')}]]</td>
+        <td>[[${#dates.format(item.updateDate, 'yyyy-MM-dd HH:mm:ss')}]]</td>
+        <td>[[${#dicts.dataStatus(item.status)}]]</td>
+        <td>
+            <a th:href="'/system/menu/index?navigation.id='+${item.id}">列表</a>
+            <a class="open-popup" data-title="添加" data-size="auto"
+               href="#" th:attr="data-url=@{'/system/menu/add?navigation.id='+${item.id}}"
+            >添加</a>
+        </td>
+
+    </th:block>
+    <!--<th:block th:fragment="tajax"></th:block>-->
+</th:block>
+</body>
+</html>

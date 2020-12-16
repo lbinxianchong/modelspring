@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/common/template :: header(~{::title},~{::link},~{::style})">
+</head>
+<body>
+    <th:block th:replace="/common/add :: add('/system/menu',~{::tform})">
+    <th:block th:fragment="tform">
+        <th:block th:replace="/common/add :: inputtext ('名称','name',${model?.name})"></th:block>
+        <th:block th:replace="/common/add :: inputtext ('URL地址','url',${model?.url})"></th:block>
+        <th:block th:replace="/common/add :: inputlists ('导航','navigation','/system/navigation/list',${model?.navigation?.id})"></th:block>
+        <th:block th:replace="/common/add :: inputtext ('排序','sort',${model?.sort})"></th:block>
+        <th:block th:replace="/common/add :: inputtextarea ('备注','remark',${model?.remark})"></th:block>
+    </th:block>
+</th:block>
+</body>
+</html>

@@ -11,7 +11,7 @@
 
     <artifactId>swagger</artifactId>
     <packaging>jar</packaging>
-    <name>扩展-swagger接口模块</name>
+    <name>扩展-swagger接口</name>
 
     <dependencies>
         <!--swagger2接口文档-->

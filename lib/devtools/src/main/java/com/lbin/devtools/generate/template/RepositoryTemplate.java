@@ -8,7 +8,7 @@ import com.lbin.devtools.generate.utils.jAngel.JAngelContainer;
 import com.lbin.devtools.generate.utils.jAngel.nodes.Document;
 import com.lbin.devtools.generate.utils.jAngel.parser.Expression;
 import com.lbin.devtools.generate.utils.parser.JavaParseUtil;
-import com.lbin.sql.jpa.repository.BaseRepository;
+
 
 import java.nio.file.FileAlreadyExistsException;
 import java.util.Set;
@@ -25,7 +25,7 @@ public class RepositoryTemplate {
     public static Set<String> genImports(Generate generate) {
         JAngelContainer container = new JAngelContainer();
         container.importClass(JavaParseUtil.getPackage(generate, TierType.DOMAIN));
-        container.importClass(BaseRepository.class);
+
         return container.getImports();
     }
 

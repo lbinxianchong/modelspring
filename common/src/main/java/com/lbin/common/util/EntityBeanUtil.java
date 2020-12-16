@@ -7,9 +7,9 @@ import org.springframework.lang.Nullable;
 import org.springframework.util.Assert;
 import org.springframework.util.ClassUtils;
 
-import javax.persistence.Id;
+
 import java.beans.PropertyDescriptor;
-import java.lang.reflect.Field;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -31,7 +31,7 @@ public class EntityBeanUtil {
      *
      * @param entity 实体对象
      * @return [0]为ID字段名，[1]为ID字段值
-     */
+     *//*
     public static Object[] getId(Object entity) {
         Field[] fields = entity.getClass().getDeclaredFields();
         for (Field field : fields) {
@@ -47,7 +47,7 @@ public class EntityBeanUtil {
             }
         }
         return null;
-    }
+    }*/
 
     /**
      * 根据字段名获取实体对象值

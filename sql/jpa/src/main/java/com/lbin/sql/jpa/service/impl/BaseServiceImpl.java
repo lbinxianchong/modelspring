@@ -19,7 +19,7 @@ import java.util.List;
  * @author lbin
  * @date 2019/11/05
  */
-@Service
+//@Service
 @Transactional
 public class BaseServiceImpl<T> implements BaseService<T> {
 

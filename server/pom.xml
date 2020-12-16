@@ -11,6 +11,7 @@
 
     <artifactId>server</artifactId>
     <name>服务模块</name>
+    <description>基础服务-非业务功能</description>
 
     <packaging>pom</packaging>
     <modules>

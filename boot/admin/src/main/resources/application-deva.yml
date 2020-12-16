@@ -1,0 +1,127 @@
+### 服务器配置
+server:
+  port: 9001
+  servlet:
+    context-path: /
+    encoding:
+      charset: utf-8
+      force: true
+      enabled: true
+
+### 配置
+project:
+
+  config:
+    ##是否读取config数据库配置
+    open: true
+    ##是否开启登录验证码
+    captcha-open: false
+    ##后台名字
+    managename: mo测试
+
+
+  file:
+    ##上传文件静态访问Url
+    staticPath: /asset
+    ##文件路径
+    filePath: F:/project/format
+    ##上传路径
+    uploadPath: /upload
+    ##Excel路径
+    excelPath: /excel
+    ##第三方插件文件路径
+    sdkFilePath: F:/data
+    ##访问url文件实际路径
+    assetPath: file:F:/data/,file:F:/project/format/,classpath:/format/,http://127.0.0.1:6800
+
+
+  network:
+    #cookie记住登录信息时间，默认7天（天）
+    remember-me-timeout: 24
+    #Session会话超时时间，默认30分钟（秒）
+    global-session-timeout: 10800
+    #Session会话检测间隔时间
+    session-validation-interval: 900
+    #默认忽略规则
+    defaultExcludes: /login,/logout,/captcha,/noAuth,/css/**,/js/**,/images/**,/lib/**,/favicon.ico
+    #额外忽略规则，可通过“,”隔开多个
+    excludes: /api/**,/asset/**
+
+
+### spring配置
+spring:
+  servlet:
+    #上传文件配置
+    multipart:
+      #文件大小
+      max-file-size: 100MB
+      #请求大小
+      max-request-size: 100MB
+  ## cache缓存配置
+  cache:
+    #cache配置类型
+    type: ehcache
+    ehcache:
+      # 配置文件路径
+      config: classpath:/ehcache.xml
+  ## 数据库配置
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/modelspring?useSSL=false&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: frotech.com
+
+  ## jpa配置
+  jpa:
+    show-sql: false
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate.dialect: com.lbin.sql.jpa.config.MySQLDialectUTF8
+      hibernate.format_sql: false
+    open-in-view: true
+
+  ## thymeleaf模板设置
+  thymeleaf:
+    #模版文件位置
+    prefix: classpath:/templates
+    #模版文件后缀
+    suffix: .html
+    mode: HTML
+    #模版文件编码
+    encoding: utf-8
+    #Content-Type配置
+    servlet.content-type: text/html
+    #是否开启缓存，开发时可以设置为 false，默认为 true
+    cache: false
+    #检查模版是否存在，默认为 true
+    check-template: true
+    #检查模版位置是否存在，默认为 true
+    check-template-location: true
+
+
+  ##静态资源设置
+  resources:
+    static-locations: classpath:/templates/,classpath:/static/
+
+logging:
+  level:
+    # 级别
+    root: INFO
+  file:
+#    path: ./project/format/log
+    name: "./project/format/log/model.log"
+    # 日志文件大小
+    max-size: 1GB
+    # 保留的日志时间
+    max-history: 100
+#  config: classpath:logback-springs.xml
+
+
+
+
+
+
+
+
+

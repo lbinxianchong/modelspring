@@ -1,4 +1,5 @@
 ##dao层模板
+import com.lbin.sql.jpa.repository.BaseRepository;
 
 /**
  * @author

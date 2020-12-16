@@ -45,8 +45,6 @@ public class ShiroUtil {
      */
     public static User getSubject() {
         User user = (User) SecurityUtils.getSubject().getPrincipal();
-
-
         return user;
     }
 

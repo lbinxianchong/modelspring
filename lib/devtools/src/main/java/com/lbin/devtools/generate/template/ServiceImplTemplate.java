@@ -9,7 +9,6 @@ import com.lbin.devtools.generate.utils.jAngel.JAngelContainer;
 import com.lbin.devtools.generate.utils.jAngel.nodes.Document;
 import com.lbin.devtools.generate.utils.jAngel.parser.Expression;
 import com.lbin.devtools.generate.utils.parser.JavaParseUtil;
-import com.lbin.sql.jpa.service.impl.BaseServiceImpl;
 
 import java.nio.file.FileAlreadyExistsException;
 import java.util.Set;
@@ -28,7 +27,6 @@ public class ServiceImplTemplate {
         container.importClass(JavaParseUtil.getPackage(generate, TierType.DOMAIN));
         container.importClass(JavaParseUtil.getPackage(generate, TierType.SERVICE));
         container.importClass(JavaParseUtil.getPackage(generate, TierType.DAO));
-        container.importClass(BaseServiceImpl.class);
         return container.getImports();
     }
 

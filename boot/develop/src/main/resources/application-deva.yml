@@ -1,0 +1,62 @@
+### 服务器配置
+server:
+  port: 9001
+  servlet:
+    context-path: /
+    encoding:
+      charset: utf-8
+      force: true
+      enabled: true
+### spring配置
+spring:
+  ## cache缓存配置
+  cache:
+    #cache配置类型
+    type: ehcache
+    ehcache:
+      # 配置文件路径
+      config: classpath:/ehcache.xml
+  ## thymeleaf模板设置
+  thymeleaf:
+    #模版文件位置
+    prefix: classpath:/templates
+    #模版文件后缀
+    suffix: .html
+    mode: HTML
+    #模版文件编码
+    encoding: utf-8
+    #Content-Type配置
+    servlet.content-type: text/html
+    #是否开启缓存，开发时可以设置为 false，默认为 true
+    cache: false
+    #检查模版是否存在，默认为 true
+    check-template: true
+    #检查模版位置是否存在，默认为 true
+    check-template-location: true
+
+
+  ##静态资源设置
+  resources:
+    static-locations: classpath:/templates/,classpath:/static/
+
+logging:
+  level:
+    # 级别
+    root: INFO
+  file:
+#    path: ./project/format/log
+    name: "./project/format/log/model.log"
+    # 日志文件大小
+    max-size: 1GB
+    # 保留的日志时间
+    max-history: 100
+#  config: classpath:logback-springs.xml
+
+
+
+
+
+
+
+
+

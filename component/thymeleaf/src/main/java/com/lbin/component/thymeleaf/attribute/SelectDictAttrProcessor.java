@@ -2,7 +2,7 @@ package com.lbin.component.thymeleaf.attribute;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.lbin.common.util.CacheUtil;
-import com.lbin.component.thymeleaf.utility.DictUtil;
+import com.lbin.component.thymeleaf.util.DictUtil;
 import org.thymeleaf.IEngineConfiguration;
 import org.thymeleaf.context.ITemplateContext;
 import org.thymeleaf.engine.AttributeName;

@@ -190,8 +190,8 @@ public class ComponentRequest<T, S> {
      */
     @GetMapping("/add")
     @ResponseBody
-    public Object toAdd() {
-        Map<String, Object> map = getComponentServer().toAdd();
+    public Object toAdd(T t) {
+        Map<String, Object> map = getComponentServer().toAdd(t);
         return getView(getThymeleafPath("/add"), map);
     }
 

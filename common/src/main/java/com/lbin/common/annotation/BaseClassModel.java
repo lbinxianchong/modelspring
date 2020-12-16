@@ -11,7 +11,7 @@ public @interface BaseClassModel {
     // 字段标题名称或文件名称
     String value() default "";
 
-    boolean ignores() default true;
+    boolean ignores() default false;
 
     boolean search() default false;
 

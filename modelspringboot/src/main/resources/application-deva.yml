@@ -77,7 +77,7 @@ spring:
     hibernate:
       ddl-auto: update
     properties:
-      hibernate.dialect: com.lbin.modelspring.config.MySQLDialectUTF8
+      hibernate.dialect: com.lbin.sql.jpa.config.MySQLDialectUTF8
       hibernate.format_sql: false
     open-in-view: true
 

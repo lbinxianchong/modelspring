@@ -9,7 +9,7 @@ import com.lbin.devtools.generate.utils.jAngel.JAngelContainer;
 import com.lbin.devtools.generate.utils.jAngel.nodes.Document;
 import com.lbin.devtools.generate.utils.jAngel.parser.Expression;
 import com.lbin.devtools.generate.utils.parser.JavaParseUtil;
-import com.lbin.sql.jpa.service.BaseService;
+
 
 import java.nio.file.FileAlreadyExistsException;
 import java.util.Set;
@@ -26,7 +26,6 @@ public class ServiceTemplate {
     public static Set<String> genImports(Generate generate) {
         JAngelContainer container = new JAngelContainer();
         container.importClass(JavaParseUtil.getPackage(generate, TierType.DOMAIN));
-        container.importClass(BaseService.class);
         return container.getImports();
     }
 

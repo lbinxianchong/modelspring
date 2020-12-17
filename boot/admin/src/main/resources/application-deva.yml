@@ -36,6 +36,10 @@ project:
 
 
   network:
+    #拦截api
+    pattern-path: false
+    #拦截api
+    pattern-anno: false
     #cookie记住登录信息时间，默认7天（天）
     remember-me-timeout: 24
     #Session会话超时时间，默认30分钟（秒）

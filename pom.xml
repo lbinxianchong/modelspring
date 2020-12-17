@@ -34,15 +34,19 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <spring-boot.version>2.3.0.RELEASE</spring-boot.version>
 
+        <!--lombok版本-->
         <lombok.version>1.18.12</lombok.version>
 
+        <!--解决编译时javax.annotation.meta.When不存在问题-->
         <google.findbugs.version>3.0.1</google.findbugs.version>
         <!--excel工具框架版本：component.excel-->
         <poi.version>4.1.2</poi.version>
         <xerces.version>2.12.0</xerces.version>
         <!--shiro权限管理框架版本：component.shiro-->
         <shiro.version>1.5.3</shiro.version>
-        
+        <!--jwt处理框架版本：component.com.lbin.jwt-->
+        <jwt.version>3.10.3</jwt.version>
+        <!--jsoup页面解析-->
         <jsoup.version>1.11.3</jsoup.version>
     </properties>
 

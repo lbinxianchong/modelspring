@@ -43,7 +43,11 @@
         <td>[[${#dates.format(item.updateDate, 'yyyy-MM-dd HH:mm:ss')}]]</td>
         <td>[[${#dicts.dataStatus(item.status)}]]</td>
         <td>
-            <a th:href="'/system/menu/index?navigation.id='+${item.id}">列表</a>
+            <!--<a th:href="'/system/menu/index?navigation.id='+${item.id}">列表</a>-->
+
+            <a class="open-popup" data-title="列表" data-size="max"
+               href="#" th:attr="data-url=@{'/system/menu/index?navigation.id='+${item.id}}"
+            >列表</a>
             <a class="open-popup" data-title="添加" data-size="auto"
                href="#" th:attr="data-url=@{'/system/menu/add?navigation.id='+${item.id}}"
             >添加</a>

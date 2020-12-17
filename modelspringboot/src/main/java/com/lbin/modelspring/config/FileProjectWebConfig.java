@@ -1,7 +1,7 @@
 package com.lbin.modelspring.config;
 
 import cn.hutool.core.util.StrUtil;
-import com.lbin.common.config.FileProjectProperties;
+import com.lbin.common.properties.FileProjectProperties;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;

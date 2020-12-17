@@ -1,6 +1,6 @@
 package com.lbin.admin.controller;
 
-import com.lbin.common.config.ConfigProjectProperties;
+import com.lbin.common.properties.ConfigProjectProperties;
 import com.lbin.common.enums.ResultEnum;
 import com.lbin.common.exception.ResultException;
 import com.lbin.common.util.HttpServletUtil;

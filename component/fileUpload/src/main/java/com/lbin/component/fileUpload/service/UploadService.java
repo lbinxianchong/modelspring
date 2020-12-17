@@ -1,7 +1,6 @@
 package com.lbin.component.fileUpload.service;
 
-import cn.hutool.core.util.StrUtil;
-import com.lbin.common.config.FileProjectProperties;
+import com.lbin.common.properties.FileProjectProperties;
 import com.lbin.common.exception.ResultException;
 import com.lbin.component.fileUpload.UploadUtil;
 import com.lbin.component.fileUpload.data.Upload;

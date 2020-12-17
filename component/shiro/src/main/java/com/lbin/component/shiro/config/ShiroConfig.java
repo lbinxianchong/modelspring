@@ -1,6 +1,6 @@
 package com.lbin.component.shiro.config;
 
-import com.lbin.common.config.NetworkProjectProperties;
+import com.lbin.common.properties.NetworkProjectProperties;
 import com.lbin.component.shiro.AuthRealm;
 import com.lbin.component.shiro.UserAuthFilter;
 import net.sf.ehcache.CacheManager;

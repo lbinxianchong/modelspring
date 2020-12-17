@@ -22,6 +22,7 @@
         <module>fileUpload</module>
         <module>actionLog</module>
         <module>shiro</module>
+        <module>jwt</module>
     </modules>
 
 

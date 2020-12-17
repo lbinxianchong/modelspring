@@ -34,10 +34,6 @@
         <td>[[${item.uuid}]]</td>
     </th:block>
     <th:block th:fragment="tajax">
-        <!--<a class="open-popup" data-title="编辑系统设置"
-           th:attr="data-url=@{'/system/fileUpload/edit/'+${item.id}}" data-size="auto" href="#">编辑</a>
-        <a class="open-popup" data-title="详细信息"
-           th:attr="data-url=@{'/system/fileUpload/detail/'+${item.id}}" data-size="800,600" href="#">详细</a>-->
         <th:block th:replace="/common/index :: ajaxedit"></th:block>
         <th:block th:replace="/common/index :: ajaxdetail"></th:block>
         <th:block th:replace="/common/upload :: download (${item.id},'下载')"></th:block>

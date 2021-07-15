@@ -19,44 +19,44 @@ import java.util.Map;
 @Slf4j
 public class ApiAop {
 
-    //è¡¨ç¤ºåŒ¹é…æ‰€æœ‰æ–¹æ³•
+    //±íÊ¾Æ¥ÅäËùÓĞ·½·¨
     private final String POINT_CUT1 = "execution(* *(..))";
-    //è¡¨ç¤ºåŒ¹é…com.api.server.UserServiceä¸­æ‰€æœ‰çš„å…¬æœ‰æ–¹æ³•
+    //±íÊ¾Æ¥Åäcom.api.server.UserServiceÖĞËùÓĞµÄ¹«ÓĞ·½·¨
     private final String POINT_CUT2 = "execution(public * com.api.service.UserService.*(..))";
-    //è¡¨ç¤ºåŒ¹é…com.api.serveråŒ…åŠå…¶å­åŒ…ä¸‹çš„æ‰€æœ‰æ–¹æ³•
+    //±íÊ¾Æ¥Åäcom.api.server°ü¼°Æä×Ó°üÏÂµÄËùÓĞ·½·¨
     private final String POINT_CUT3 = "execution(* com.api.server..*.*(..))";
 
     @Pointcut(POINT_CUT1)
     private void pointcut(){}
 
     /**
-     * å‰ç½®é€šçŸ¥ï¼Œæ–¹æ³•è°ƒç”¨å‰è¢«è°ƒç”¨
+     * Ç°ÖÃÍ¨Öª£¬·½·¨µ÷ÓÃÇ°±»µ÷ÓÃ
      * @param joinPoint
      */
     @Before(value = POINT_CUT1)
     public void before(JoinPoint joinPoint){
-        log.info("å‰ç½®é€šçŸ¥");
-        //è·å–ç›®æ ‡æ–¹æ³•çš„å‚æ•°ä¿¡æ¯
+        log.info("Ç°ÖÃÍ¨Öª");
+        //»ñÈ¡Ä¿±ê·½·¨µÄ²ÎÊıĞÅÏ¢
         Object[] obj = joinPoint.getArgs();
-        //AOPä»£ç†ç±»çš„ä¿¡æ¯
+        //AOP´úÀíÀàµÄĞÅÏ¢
         joinPoint.getThis();
-        //ä»£ç†çš„ç›®æ ‡å¯¹è±¡
+        //´úÀíµÄÄ¿±ê¶ÔÏó
         joinPoint.getTarget();
-        //ç”¨çš„æœ€å¤š é€šçŸ¥çš„ç­¾å
+        //ÓÃµÄ×î¶à Í¨ÖªµÄÇ©Ãû
         Signature signature = joinPoint.getSignature();
-        //ä»£ç†çš„æ˜¯å“ªä¸€ä¸ªæ–¹æ³•
-        log.info("ä»£ç†çš„æ˜¯å“ªä¸€ä¸ªæ–¹æ³•"+signature.getName());
-        //AOPä»£ç†ç±»çš„åå­—
-        log.info("AOPä»£ç†ç±»çš„åå­—"+signature.getDeclaringTypeName());
-        //AOPä»£ç†ç±»çš„ç±»ï¼ˆclassï¼‰ä¿¡æ¯
+        //´úÀíµÄÊÇÄÄÒ»¸ö·½·¨
+        log.info("´úÀíµÄÊÇÄÄÒ»¸ö·½·¨"+signature.getName());
+        //AOP´úÀíÀàµÄÃû×Ö
+        log.info("AOP´úÀíÀàµÄÃû×Ö"+signature.getDeclaringTypeName());
+        //AOP´úÀíÀàµÄÀà£¨class£©ĞÅÏ¢
         signature.getDeclaringType();
-        //è·å–RequestAttributes
+        //»ñÈ¡RequestAttributes
         RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
-        //ä»è·å–RequestAttributesä¸­è·å–HttpServletRequestçš„ä¿¡æ¯
+        //´Ó»ñÈ¡RequestAttributesÖĞ»ñÈ¡HttpServletRequestµÄĞÅÏ¢
         HttpServletRequest request = (HttpServletRequest) requestAttributes.resolveReference(RequestAttributes.REFERENCE_REQUEST);
-        //å¦‚æœè¦è·å–Sessionä¿¡æ¯çš„è¯ï¼Œå¯ä»¥è¿™æ ·å†™ï¼š
+        //Èç¹ûÒª»ñÈ¡SessionĞÅÏ¢µÄ»°£¬¿ÉÒÔÕâÑùĞ´£º
         //HttpSession session = (HttpSession) requestAttributes.resolveReference(RequestAttributes.REFERENCE_SESSION);
-        //è·å–è¯·æ±‚å‚æ•°
+        //»ñÈ¡ÇëÇó²ÎÊı
         Enumeration<String> enumeration = request.getParameterNames();
         Map<String,String> parameterMap = Maps.newHashMap();
         while (enumeration.hasMoreElements()){
@@ -65,70 +65,70 @@ public class ApiAop {
         }
         String str = JSONUtil.toJsonStr(parameterMap);
         if(obj.length > 0) {
-            log.info("è¯·æ±‚çš„å‚æ•°ä¿¡æ¯ä¸ºï¼š"+str);
+            log.info("ÇëÇóµÄ²ÎÊıĞÅÏ¢Îª£º"+str);
         }
     }
 
     /**
-     * **æ³¨æ„ï¼šè¿™é‡Œç”¨åˆ°äº†JoinPointå’ŒRequestContextHolderã€‚
-     * 1ï¼‰ã€é€šè¿‡JoinPointå¯ä»¥è·å¾—é€šçŸ¥çš„ç­¾åä¿¡æ¯ï¼Œå¦‚ç›®æ ‡æ–¹æ³•åã€ç›®æ ‡æ–¹æ³•å‚æ•°ä¿¡æ¯ç­‰ã€‚
-     * 2ï¼‰ã€é€šè¿‡RequestContextHolderæ¥è·å–è¯·æ±‚ä¿¡æ¯ï¼ŒSessionä¿¡æ¯ã€‚**
+     * **×¢Òâ£ºÕâÀïÓÃµ½ÁËJoinPointºÍRequestContextHolder¡£
+     * 1£©¡¢Í¨¹ıJoinPoint¿ÉÒÔ»ñµÃÍ¨ÖªµÄÇ©ÃûĞÅÏ¢£¬ÈçÄ¿±ê·½·¨Ãû¡¢Ä¿±ê·½·¨²ÎÊıĞÅÏ¢µÈ¡£
+     * 2£©¡¢Í¨¹ıRequestContextHolderÀ´»ñÈ¡ÇëÇóĞÅÏ¢£¬SessionĞÅÏ¢¡£**
      */
 
     /**
-     * åç½®è¿”å›é€šçŸ¥
-     * è¿™é‡Œéœ€è¦æ³¨æ„çš„æ˜¯:
-     *      å¦‚æœå‚æ•°ä¸­çš„ç¬¬ä¸€ä¸ªå‚æ•°ä¸ºJoinPointï¼Œåˆ™ç¬¬äºŒä¸ªå‚æ•°ä¸ºè¿”å›å€¼çš„ä¿¡æ¯
-     *      å¦‚æœå‚æ•°ä¸­çš„ç¬¬ä¸€ä¸ªå‚æ•°ä¸ä¸ºJoinPointï¼Œåˆ™ç¬¬ä¸€ä¸ªå‚æ•°ä¸ºreturningä¸­å¯¹åº”çš„å‚æ•°
-     * returningï¼šé™å®šäº†åªæœ‰ç›®æ ‡æ–¹æ³•è¿”å›å€¼ä¸é€šçŸ¥æ–¹æ³•ç›¸åº”å‚æ•°ç±»å‹æ—¶æ‰èƒ½æ‰§è¡Œåç½®è¿”å›é€šçŸ¥ï¼Œå¦åˆ™ä¸æ‰§è¡Œï¼Œ
-     *            å¯¹äºreturningå¯¹åº”çš„é€šçŸ¥æ–¹æ³•å‚æ•°ä¸ºObjectç±»å‹å°†åŒ¹é…ä»»ä½•ç›®æ ‡è¿”å›å€¼
+     * ºóÖÃ·µ»ØÍ¨Öª
+     * ÕâÀïĞèÒª×¢ÒâµÄÊÇ:
+     *      Èç¹û²ÎÊıÖĞµÄµÚÒ»¸ö²ÎÊıÎªJoinPoint£¬ÔòµÚ¶ş¸ö²ÎÊıÎª·µ»ØÖµµÄĞÅÏ¢
+     *      Èç¹û²ÎÊıÖĞµÄµÚÒ»¸ö²ÎÊı²»ÎªJoinPoint£¬ÔòµÚÒ»¸ö²ÎÊıÎªreturningÖĞ¶ÔÓ¦µÄ²ÎÊı
+     * returning£ºÏŞ¶¨ÁËÖ»ÓĞÄ¿±ê·½·¨·µ»ØÖµÓëÍ¨Öª·½·¨ÏàÓ¦²ÎÊıÀàĞÍÊ±²ÅÄÜÖ´ĞĞºóÖÃ·µ»ØÍ¨Öª£¬·ñÔò²»Ö´ĞĞ£¬
+     *            ¶ÔÓÚreturning¶ÔÓ¦µÄÍ¨Öª·½·¨²ÎÊıÎªObjectÀàĞÍ½«Æ¥ÅäÈÎºÎÄ¿±ê·µ»ØÖµ
      * @param joinPoint
      * @param keys
      */
     @AfterReturning(value = POINT_CUT1,returning = "keys")
     public void doAfterReturningAdvice1(JoinPoint joinPoint,Object keys){
-        log.info("ç¬¬ä¸€ä¸ªåç½®è¿”å›é€šçŸ¥çš„è¿”å›å€¼ï¼š"+keys);
+        log.info("µÚÒ»¸öºóÖÃ·µ»ØÍ¨ÖªµÄ·µ»ØÖµ£º"+keys);
     }
 
     @AfterReturning(value = POINT_CUT1,returning = "keys",argNames = "keys")
     public void doAfterReturningAdvice2(String keys){
-        log.info("ç¬¬äºŒä¸ªåç½®è¿”å›é€šçŸ¥çš„è¿”å›å€¼ï¼š"+keys);
+        log.info("µÚ¶ş¸öºóÖÃ·µ»ØÍ¨ÖªµÄ·µ»ØÖµ£º"+keys);
     }
 
     /**
-     * åç½®å¼‚å¸¸é€šçŸ¥
-     *  å®šä¹‰ä¸€ä¸ªåå­—ï¼Œè¯¥åå­—ç”¨äºåŒ¹é…é€šçŸ¥å®ç°æ–¹æ³•çš„ä¸€ä¸ªå‚æ•°åï¼Œå½“ç›®æ ‡æ–¹æ³•æŠ›å‡ºå¼‚å¸¸è¿”å›åï¼Œå°†æŠŠç›®æ ‡æ–¹æ³•æŠ›å‡ºçš„å¼‚å¸¸ä¼ ç»™é€šçŸ¥æ–¹æ³•ï¼›
-     *  throwing:é™å®šäº†åªæœ‰ç›®æ ‡æ–¹æ³•æŠ›å‡ºçš„å¼‚å¸¸ä¸é€šçŸ¥æ–¹æ³•ç›¸åº”å‚æ•°å¼‚å¸¸ç±»å‹æ—¶æ‰èƒ½æ‰§è¡Œåç½®å¼‚å¸¸é€šçŸ¥ï¼Œå¦åˆ™ä¸æ‰§è¡Œï¼Œ
-     *            å¯¹äºthrowingå¯¹åº”çš„é€šçŸ¥æ–¹æ³•å‚æ•°ä¸ºThrowableç±»å‹å°†åŒ¹é…ä»»ä½•å¼‚å¸¸ã€‚
+     * ºóÖÃÒì³£Í¨Öª
+     *  ¶¨ÒåÒ»¸öÃû×Ö£¬¸ÃÃû×ÖÓÃÓÚÆ¥ÅäÍ¨ÖªÊµÏÖ·½·¨µÄÒ»¸ö²ÎÊıÃû£¬µ±Ä¿±ê·½·¨Å×³öÒì³£·µ»Øºó£¬½«°ÑÄ¿±ê·½·¨Å×³öµÄÒì³£´«¸øÍ¨Öª·½·¨£»
+     *  throwing:ÏŞ¶¨ÁËÖ»ÓĞÄ¿±ê·½·¨Å×³öµÄÒì³£ÓëÍ¨Öª·½·¨ÏàÓ¦²ÎÊıÒì³£ÀàĞÍÊ±²ÅÄÜÖ´ĞĞºóÖÃÒì³£Í¨Öª£¬·ñÔò²»Ö´ĞĞ£¬
+     *            ¶ÔÓÚthrowing¶ÔÓ¦µÄÍ¨Öª·½·¨²ÎÊıÎªThrowableÀàĞÍ½«Æ¥ÅäÈÎºÎÒì³£¡£
      * @param joinPoint
      * @param exception
      */
     @AfterThrowing(value = POINT_CUT1,throwing = "exception")
     public void doAfterThrowingAdvice(JoinPoint joinPoint,Throwable exception){
-        //ç›®æ ‡æ–¹æ³•åï¼š
+        //Ä¿±ê·½·¨Ãû£º
         log.info(joinPoint.getSignature().getName());
         if(exception instanceof NullPointerException){
-            log.info("å‘ç”Ÿäº†ç©ºæŒ‡é’ˆå¼‚å¸¸!!!!!");
+            log.info("·¢ÉúÁË¿ÕÖ¸ÕëÒì³£!!!!!");
         }
     }
 
     /**
-     * åç½®æœ€ç»ˆé€šçŸ¥ï¼ˆç›®æ ‡æ–¹æ³•åªè¦æ‰§è¡Œå®Œäº†å°±ä¼šæ‰§è¡Œåç½®é€šçŸ¥æ–¹æ³•ï¼‰
+     * ºóÖÃ×îÖÕÍ¨Öª£¨Ä¿±ê·½·¨Ö»ÒªÖ´ĞĞÍêÁË¾Í»áÖ´ĞĞºóÖÃÍ¨Öª·½·¨£©
      * @param joinPoint
      */
     @After(value = POINT_CUT1)
     public void doAfterAdvice(JoinPoint joinPoint){
-        log.info("åç½®æœ€ç»ˆé€šçŸ¥æ‰§è¡Œäº†!!!!");
+        log.info("ºóÖÃ×îÖÕÍ¨ÖªÖ´ĞĞÁË!!!!");
     }
 
     /**
-     * ç¯ç»•é€šçŸ¥ï¼š
-     *   ç¯ç»•é€šçŸ¥éå¸¸å¼ºå¤§ï¼Œå¯ä»¥å†³å®šç›®æ ‡æ–¹æ³•æ˜¯å¦æ‰§è¡Œï¼Œä»€ä¹ˆæ—¶å€™æ‰§è¡Œï¼Œæ‰§è¡Œæ—¶æ˜¯å¦éœ€è¦æ›¿æ¢æ–¹æ³•å‚æ•°ï¼Œæ‰§è¡Œå®Œæ¯•æ˜¯å¦éœ€è¦æ›¿æ¢è¿”å›å€¼ã€‚
-     *   ç¯ç»•é€šçŸ¥ç¬¬ä¸€ä¸ªå‚æ•°å¿…é¡»æ˜¯org.aspectj.lang.ProceedingJoinPointç±»å‹
+     * »·ÈÆÍ¨Öª£º
+     *   »·ÈÆÍ¨Öª·Ç³£Ç¿´ó£¬¿ÉÒÔ¾ö¶¨Ä¿±ê·½·¨ÊÇ·ñÖ´ĞĞ£¬Ê²Ã´Ê±ºòÖ´ĞĞ£¬Ö´ĞĞÊ±ÊÇ·ñĞèÒªÌæ»»·½·¨²ÎÊı£¬Ö´ĞĞÍê±ÏÊÇ·ñĞèÒªÌæ»»·µ»ØÖµ¡£
+     *   »·ÈÆÍ¨ÖªµÚÒ»¸ö²ÎÊı±ØĞëÊÇorg.aspectj.lang.ProceedingJoinPointÀàĞÍ
      */
     @Around(value = POINT_CUT1)
     public Object doAroundAdvice(ProceedingJoinPoint proceedingJoinPoint){
-        log.info("ç¯ç»•é€šçŸ¥çš„ç›®æ ‡æ–¹æ³•åï¼š"+proceedingJoinPoint.getSignature().getName());
+        log.info("»·ÈÆÍ¨ÖªµÄÄ¿±ê·½·¨Ãû£º"+proceedingJoinPoint.getSignature().getName());
         try {
             Object obj = proceedingJoinPoint.proceed();
             return obj;

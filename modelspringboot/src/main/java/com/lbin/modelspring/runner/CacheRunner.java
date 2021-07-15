@@ -8,7 +8,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 /**
- * æœåŠ¡å¯åŠ¨æ‰§è¡Œ
+ * ·şÎñÆô¶¯Ö´ĞĞ
  */
 
 @Component
@@ -21,8 +21,8 @@ public class CacheRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        log.info("æœåŠ¡å¯åŠ¨æ‰§è¡Œï¼Œåˆå§‹åŒ–æ•°æ®å¼€å§‹");
+        log.info("·şÎñÆô¶¯Ö´ĞĞ£¬³õÊ¼»¯Êı¾İ¿ªÊ¼");
         dictService.reset();
-        log.info("æœåŠ¡å¯åŠ¨æ‰§è¡Œï¼Œåˆå§‹åŒ–æ•°æ®ç»“æŸ");
+        log.info("·şÎñÆô¶¯Ö´ĞĞ£¬³õÊ¼»¯Êı¾İ½áÊø");
     }
 }

@@ -14,7 +14,7 @@ public class SystemFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        log.info("systemFilteråˆå§‹åŒ–");
+        log.info("systemFilter³õÊ¼»¯");
     }
 
     @Override
@@ -28,6 +28,6 @@ public class SystemFilter implements Filter {
 
     @Override
     public void destroy() {
-        log.info("systemFilteré”€æ¯");
+        log.info("systemFilterÏú»Ù");
     }
 }

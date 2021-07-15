@@ -14,7 +14,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import java.util.List;
 
 /**
- * æœ¬åœ°è®¿é—®
+ * ±¾µØ·ÃÎÊ
  */
 @Getter
 @Setter
@@ -24,7 +24,7 @@ public class FileProjectWebConfig implements WebMvcConfigurer {
     @Autowired
     private FileProjectProperties fileProjectProperties;
 
-    //è®¿é—®èµ„æºæ–¹æ³•
+    //·ÃÎÊ×ÊÔ´·½·¨
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         String staticPath = fileProjectProperties.getStaticPath();
@@ -41,25 +41,25 @@ public class FileProjectWebConfig implements WebMvcConfigurer {
     }
 
     @Override
-    //é‡å†™çˆ¶ç±»æä¾›çš„è·¨åŸŸè¯·æ±‚å¤„ç†çš„æ¥å£
+    //ÖØĞ´¸¸ÀàÌá¹©µÄ¿çÓòÇëÇó´¦ÀíµÄ½Ó¿Ú
     public void addCorsMappings(CorsRegistry registry) {
-        //æ·»åŠ æ˜ å°„è·¯å¾„
+        //Ìí¼ÓÓ³ÉäÂ·¾¶
         registry.addMapping("/api/**")
-                //æ”¾è¡Œå“ªäº›åŸå§‹åŸŸ
+                //·ÅĞĞÄÄĞ©Ô­Ê¼Óò
                 .allowedOrigins("*")
-                //æ˜¯å¦å‘é€Cookieä¿¡æ¯
+                //ÊÇ·ñ·¢ËÍCookieĞÅÏ¢
                 .allowCredentials(true)
-                //æ”¾è¡Œå“ªäº›åŸå§‹åŸŸ(è¯·æ±‚æ–¹å¼)
+                //·ÅĞĞÄÄĞ©Ô­Ê¼Óò(ÇëÇó·½Ê½)
                 .allowedMethods("GET", "POST", "PUT", "DELETE")
-                //æ”¾è¡Œå“ªäº›åŸå§‹åŸŸ(å¤´éƒ¨ä¿¡æ¯)
+                //·ÅĞĞÄÄĞ©Ô­Ê¼Óò(Í·²¿ĞÅÏ¢)
                 .allowedHeaders("*")
-                //æš´éœ²å“ªäº›å¤´éƒ¨ä¿¡æ¯ï¼ˆå› ä¸ºè·¨åŸŸè®¿é—®é»˜è®¤ä¸èƒ½è·å–å…¨éƒ¨å¤´éƒ¨ä¿¡æ¯ï¼‰
+                //±©Â¶ÄÄĞ©Í·²¿ĞÅÏ¢£¨ÒòÎª¿çÓò·ÃÎÊÄ¬ÈÏ²»ÄÜ»ñÈ¡È«²¿Í·²¿ĞÅÏ¢£©
                 //.exposedHeaders("Header1", "Header2")
         ;
     }
 
     /**
-     * æ–‡ä»¶å®é™…è·¯å¾„è½¬ä¸ºæœåŠ¡å™¨urlè·¯å¾„
+     * ÎÄ¼şÊµ¼ÊÂ·¾¶×ªÎª·şÎñÆ÷urlÂ·¾¶
      *
      * @param absolutePath
      * @return

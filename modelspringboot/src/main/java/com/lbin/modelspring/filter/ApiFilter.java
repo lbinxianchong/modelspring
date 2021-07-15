@@ -15,10 +15,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * ä½¿ç”¨æ³¨è§£æ ‡æ³¨è¿‡æ»¤å™¨
+ * Ê¹ÓÃ×¢½â±ê×¢¹ıÂËÆ÷
  *
- * @WebFilterå°†ä¸€ä¸ªå®ç°äº†javax.servlet.Filteræ¥å£çš„ç±»å®šä¹‰ä¸ºè¿‡æ»¤å™¨ å±æ€§filterNameå£°æ˜è¿‡æ»¤å™¨çš„åç§°, å¯é€‰
- * å±æ€§urlPatternsæŒ‡å®šè¦è¿‡æ»¤ çš„URLæ¨¡å¼,ä¹Ÿå¯ä½¿ç”¨å±æ€§valueæ¥å£°æ˜.(æŒ‡å®šè¦è¿‡æ»¤çš„URLæ¨¡å¼æ˜¯å¿…é€‰å±æ€§)
+ * @WebFilter½«Ò»¸öÊµÏÖÁËjavax.servlet.Filter½Ó¿ÚµÄÀà¶¨ÒåÎª¹ıÂËÆ÷ ÊôĞÔfilterNameÉùÃ÷¹ıÂËÆ÷µÄÃû³Æ, ¿ÉÑ¡
+ * ÊôĞÔurlPatternsÖ¸¶¨Òª¹ıÂË µÄURLÄ£Ê½,Ò²¿ÉÊ¹ÓÃÊôĞÔvalueÀ´ÉùÃ÷.(Ö¸¶¨Òª¹ıÂËµÄURLÄ£Ê½ÊÇ±ØÑ¡ÊôĞÔ)
  */
 @Slf4j
 //@WebFilter(filterName = "apiFilter", urlPatterns = "/api/*")
@@ -26,7 +26,7 @@ public class ApiFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        log.info("apiFilteråˆå§‹åŒ–");
+        log.info("apiFilter³õÊ¼»¯");
     }
 
     @Override
@@ -41,6 +41,6 @@ public class ApiFilter implements Filter {
 
     @Override
     public void destroy() {
-        log.info("apiFilteré”€æ¯");
+        log.info("apiFilterÏú»Ù");
     }
 }

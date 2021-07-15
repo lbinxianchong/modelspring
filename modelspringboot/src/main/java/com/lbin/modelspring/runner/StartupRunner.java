@@ -6,7 +6,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 /**
- * æœåŠ¡å¯åŠ¨æ‰§è¡Œ
+ * ·şÎñÆô¶¯Ö´ĞĞ
  */
 
 @Component
@@ -17,7 +17,7 @@ public class StartupRunner implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        log.info("åˆå§‹åŒ–åŠ è½½");
+        log.info("³õÊ¼»¯¼ÓÔØ");
 
     }
 }

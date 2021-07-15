@@ -12,11 +12,11 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
  * @author
  * @date 2018/8/14
  */
-//æ’é™¤api
+//ÅÅ³ıapi
 @SpringBootApplication
 @ServletComponentScan
-@EnableJpaAuditing // ä½¿ç”¨jpaè‡ªåŠ¨èµ‹å€¼
-@EnableCaching // å¼€å¯ç¼“å­˜
+@EnableJpaAuditing // Ê¹ÓÃjpa×Ô¶¯¸³Öµ
+@EnableCaching // ¿ªÆô»º´æ
 public class BootApplication extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
